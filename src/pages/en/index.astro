@@ -2,7 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import { getCollection } from "astro:content";
-import { useTranslations, SITE_TITLE } from "@/i18n/ui";
+import { useTranslations, profile } from "@/i18n/ui";
 
 const lang = "en" as const;
 const t = useTranslations(lang);
@@ -13,9 +13,12 @@ const projects = (await getCollection("projects", ({ id }) => id.startsWith("en/
 ---
 
 <Layout pageKey="home" description={t("home.description")}>
-  <h1 class="sr-only">{SITE_TITLE}</h1>
+  <h1 class="tagline">{t("home.tagline")}</h1>
 
-  <p class="profile">{t("home.profile")}</p>
+  <div class="profile">
+    {profile[lang].map((paragraph) => <p>{paragraph}</p>)}
+  </div>
+
   <p class="personal"><em>{t("home.personal")}</em></p>
 
   <h2 class="section">{t("home.recent")}</h2>
@@ -34,8 +37,17 @@ const projects = (await getCollection("projects", ({ id }) => id.startsWith("en/
 </Layout>
 
 <style>
+  .tagline {
+    max-width: 20ch;
+    margin-bottom: var(--space-6);
+  }
+
   .profile {
     max-width: 62ch;
+  }
+
+  .profile p + p {
+    margin-top: var(--space-4);
   }
 
   .personal {

@@ -1,6 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { useTranslations, experience, strengths, CV_PATH } from "@/i18n/ui";
+import { useTranslations, profile, experience, strengths, aiPractice, CV_PATH } from "@/i18n/ui";
 
 const lang = "en" as const;
 const t = useTranslations(lang);
@@ -9,7 +9,9 @@ const t = useTranslations(lang);
 <Layout pageKey="about" title={t("about.title")} description={t("about.description")}>
   <h1>{t("about.title")}</h1>
 
-  <p class="profile">{t("home.profile")}</p>
+  <div class="profile">
+    {profile[lang].map((paragraph) => <p>{paragraph}</p>)}
+  </div>
 
   <h2 class="section">{t("about.experience")}</h2>
   <ul class="cv">
@@ -26,6 +28,11 @@ const t = useTranslations(lang);
     {strengths[lang].map((item) => <li>{item}</li>)}
   </ul>
 
+  <h2 class="section">{t("about.ai")}</h2>
+  <ul class="strengths">
+    {aiPractice[lang].map((item) => <li>{item}</li>)}
+  </ul>
+
   <p class="cv-link"><a href={CV_PATH} download>{t("about.cv")}</a></p>
 </Layout>
 
@@ -33,6 +40,10 @@ const t = useTranslations(lang);
   .profile {
     margin-top: var(--space-5);
     max-width: 62ch;
+  }
+
+  .profile p + p {
+    margin-top: var(--space-4);
   }
 
   .section {

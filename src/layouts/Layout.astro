@@ -4,7 +4,6 @@ import {
   getLangFromUrl,
   useTranslations,
   routes,
-  SITE_TITLE,
   type PageKey,
   type Lang,
 } from "@/i18n/ui";
@@ -29,7 +28,7 @@ const alt: Record<Lang, string> =
   alternates ?? { es: routes.es[pageKey], en: routes.en[pageKey] };
 
 const otherLang: Lang = lang === "es" ? "en" : "es";
-const pageTitle = pageKey === "home" ? SITE_TITLE : `${title} — ${t("site.name")}`;
+const pageTitle = pageKey === "home" ? t("site.title") : `${title} — ${t("site.name")}`;
 const canonical = new URL(alt[lang], Astro.site).href;
 const ogLocale = lang === "es" ? "es_CO" : "en_US";
 ---

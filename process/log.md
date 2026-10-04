@@ -141,3 +141,35 @@ review looked at `public/` instead of assuming it was unchanged.
 
 **16:25 — Added `.DS_Store` to `.gitignore`.** It had turned up in the staging
 area twice and been unstaged by hand both times.
+
+**16:45 — Vercel was never actually deployed.** The project existed but its one
+deployment had built in 0ms and `maosolanocom.vercel.app` returned
+`DEPLOYMENT_NOT_FOUND`. No custom domain was configured either. Linked the
+directory and ran a real production deploy, which aliased `maosolano.com`.
+
+**16:48 — Git integration reported "already connected" but had not fired.**
+Rather than trust the message, pushed a commit and watched: a deployment
+appeared 27s later and built in 15s. Working now. Best guess is the webhook was
+not live yet when the first push happened minutes after project creation.
+
+**16:52 — Content realigned to the CV.** Mao's CV carries different positioning
+than the original brief, plus two new lines he supplied directly. Changes:
+
+- **Profile** now comes from the CV: "Diseñador generalista y redactor UX…"
+  replaces the brief's "diseñador de experiencia y estratega de contenidos".
+  The CV's third paragraph was dropped — it says almost exactly what the new
+  personal line says, and printing both would be repetition.
+- **The tagline became Home's visible `h1`.** This retires the screen-reader-only
+  heading flagged on 2026-10-04: there is now a real heading to show, so the
+  workaround is no longer needed.
+- **Site title is localised.** It had been one English string served to both
+  languages. Spanish pages now carry the Spanish tagline.
+- **Added "Experimentando con IA"** to Sobre mí, straight from the CV. It was
+  a whole CV section with no counterpart on the site.
+- Experience, dates and strengths already matched the CV exactly; left alone.
+
+**16:52 — Two CV details not copied verbatim.** The CV heads that section
+"Experimentando con AI" while its own Spanish body uses "IA" throughout, so the
+site says "IA" — looks like a slip in the CV rather than a choice. The CV also
+orders projects Matcha, VISTA, Bike; the site keeps the brief's explicit order
+(Bike, Matcha, VISTA) since that instruction was deliberate. Both flagged.

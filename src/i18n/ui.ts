@@ -7,8 +7,6 @@ export type Lang = keyof typeof languages;
 
 export const defaultLang: Lang = "es";
 
-export const SITE_TITLE = "Mao Solano — UX Content Designer & Creative Strategist";
-
 /** Short codes used by pages to declare which route they are. */
 export type PageKey = "home" | "projects" | "about" | "lab" | "contact" | "styleguide";
 
@@ -43,7 +41,7 @@ export const LINKEDIN = "https://linkedin.com/in/maosolano";
 export const ui = {
   es: {
     "site.name": "Mao Solano",
-    "site.title": SITE_TITLE,
+    "site.title": "Mao Solano — Diseñador, maker y experimentador permanente",
 
     "nav.projects": "Proyectos",
     "nav.about": "Sobre mí",
@@ -59,11 +57,10 @@ export const ui = {
 
     "home.title": "Inicio",
     "home.description":
-      "Diseñador de experiencia y estratega de contenidos. UX, sistemas de diseño e inteligencia artificial.",
-    "home.profile":
-      "Soy diseñador de experiencia y estratega de contenidos. He trabajado en banca, ecommerce y productos digitales, convirtiendo procesos complejos en experiencias claras para millones de personas. Hoy exploro cómo se cruzan el UX, los sistemas de diseño y la inteligencia artificial.",
+      "Diseñador, maker y experimentador permanente. Uso palabras, sistemas y tecnología para convertir ideas en productos, experiencias y proyectos creativos.",
+    "home.tagline": "Diseñador, maker y experimentador permanente",
     "home.personal":
-      "Diseño con palabras, sistemas e IA: siempre aprendiendo, siempre iterando.",
+      "Uso palabras, sistemas y tecnología para convertir ideas en productos, experiencias y proyectos creativos.",
     "home.recent": "Proyectos recientes",
 
     "projects.title": "Proyectos",
@@ -74,9 +71,10 @@ export const ui = {
 
     "about.title": "Sobre mí",
     "about.description":
-      "Diseñador de experiencia y estratega de contenidos con trayectoria en banca, ecommerce y productos digitales.",
+      "Diseñador generalista y redactor UX con experiencia en banca, ecommerce y productos digitales.",
     "about.experience": "Experiencia",
     "about.strengths": "Fortalezas",
+    "about.ai": "Experimentando con IA",
     "about.cv": "Descargar CV (PDF)",
 
     "lab.title": "Lab",
@@ -94,7 +92,7 @@ export const ui = {
   },
   en: {
     "site.name": "Mao Solano",
-    "site.title": SITE_TITLE,
+    "site.title": "Mao Solano — Designer, maker, and lifelong experimenter",
 
     "nav.projects": "Projects",
     "nav.about": "About",
@@ -110,11 +108,10 @@ export const ui = {
 
     "home.title": "Home",
     "home.description":
-      "Experience designer and content strategist. UX, design systems, and artificial intelligence.",
-    "home.profile":
-      "I'm an experience designer and content strategist. I've worked in banking, ecommerce, and digital products, turning complex processes into clear experiences for millions of people. Today I explore the intersection of UX, design systems, and artificial intelligence.",
+      "Designer, maker, and lifelong experimenter. I use words, systems, and technology to turn ideas into products, experiences, and creative projects.",
+    "home.tagline": "Designer, maker, and lifelong experimenter",
     "home.personal":
-      "Designing with words, systems, and AI—always learning, always iterating.",
+      "I use words, systems, and technology to turn ideas into products, experiences, and creative projects.",
     "home.recent": "Recent projects",
 
     "projects.title": "Projects",
@@ -125,9 +122,10 @@ export const ui = {
 
     "about.title": "About",
     "about.description":
-      "Experience designer and content strategist with a background in banking, ecommerce, and digital products.",
+      "Generalist designer and UX writer with experience in banking, ecommerce, and digital products.",
     "about.experience": "Experience",
     "about.strengths": "Strengths",
+    "about.ai": "Experimenting with AI",
     "about.cv": "Download CV (PDF)",
 
     "lab.title": "Lab",
@@ -146,6 +144,22 @@ export const ui = {
 } as const;
 
 export type UIKey = keyof (typeof ui)[typeof defaultLang];
+
+/**
+ * The profile, as paragraphs. Taken from the CV.
+ * Its closing idea ("convertir ideas en productos, experiencias y proyectos
+ * creativos") is carried by `home.personal`, so it is not repeated here.
+ */
+export const profile = {
+  es: [
+    "Diseñador generalista y redactor UX con experiencia en banca, ecommerce y productos digitales.",
+    "He trabajado transformando procesos complejos en experiencias claras para millones de usuarios, colaborando con equipos de diseño, producto, investigación y desarrollo.",
+  ],
+  en: [
+    "Generalist designer and UX writer with experience in banking, ecommerce, and digital products.",
+    "I've worked turning complex processes into clear experiences for millions of users, collaborating with design, product, research, and engineering teams.",
+  ],
+} as const;
 
 /** Role, org and dates. Company and product names stay unchanged. */
 export const experience = {
@@ -183,6 +197,23 @@ export const strengths = {
     "Stakeholder collaboration",
     "AI applied to design and content",
     "Design systems and documentation",
+  ],
+} as const;
+
+export const aiPractice = {
+  es: [
+    "Claude para exploración y validación de conceptos",
+    "Diseño asistido por IA",
+    "Documentación de sistemas de diseño para implementación con IA",
+    "Prototipado rápido",
+    "Investigación y síntesis asistida por LLMs",
+  ],
+  en: [
+    "Claude for concept exploration and validation",
+    "AI-assisted design",
+    "Design system documentation for AI implementation",
+    "Rapid prototyping",
+    "LLM-assisted research and synthesis",
   ],
 } as const;
 
