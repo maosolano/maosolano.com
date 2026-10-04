@@ -1,44 +1,41 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
+import { useTranslations } from "@/i18n/ui";
 
-const projects = await getCollection("projects", ({ id }) => id.startsWith("es/"));
-const sorted = projects.sort((a, b) => (b.data.year ?? 0) - (a.data.year ?? 0));
+const lang = "es" as const;
+const t = useTranslations(lang);
+
+const entries = (await getCollection("projects", ({ id }) => id.startsWith("es/"))).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const projects = await Promise.all(
+  entries.map(async (entry) => ({ entry, Content: (await render(entry)).Content }))
+);
 ---
 
-<Layout title="Proyectos">
-  <h1>Proyectos</h1>
-  <p class="subtitle">Trabajo seleccionado</p>
+<Layout pageKey="projects" title={t("projects.title")} description={t("projects.description")}>
+  <h1>{t("projects.title")}</h1>
 
-  <div class="grid">
-    {sorted.map((project) => (
+  <div class="list">
+    {projects.map(({ entry, Content }) => (
       <ProjectCard
-        title={project.data.title}
-        description={project.data.description}
-        tags={project.data.tags}
-        href={`/proyectos/${project.slug.replace("es/", "")}`}
-        image={project.data.image}
-        year={project.data.year}
-      />
+        title={entry.data.title}
+        url={entry.data.url}
+        image={entry.data.image}
+        imageAlt={t("projects.imageAlt")}
+        visitLabel={t("projects.visit")}
+      >
+        <Content />
+      </ProjectCard>
     ))}
   </div>
 </Layout>
 
 <style>
-  h1 {
-    font-size: var(--text-3xl);
-    margin-bottom: var(--space-2);
-  }
-
-  .subtitle {
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-12);
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: var(--space-6);
+  .list {
+    margin-top: var(--space-7);
   }
 </style>

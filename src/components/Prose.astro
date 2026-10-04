@@ -1,0 +1,50 @@
+---
+/**
+ * Wraps rendered Markdown so long-form text keeps a comfortable
+ * measure and consistent vertical rhythm.
+ */
+---
+
+<div class="prose">
+  <slot />
+</div>
+
+<style>
+  .prose {
+    max-width: 68ch;
+  }
+
+  .prose > :global(* + *) {
+    margin-top: var(--space-5);
+  }
+
+  .prose :global(h2) {
+    margin-top: var(--space-7);
+  }
+
+  .prose :global(h3) {
+    margin-top: var(--space-6);
+  }
+
+  .prose :global(img) {
+    width: 100%;
+    border: var(--border-width) solid var(--color-border);
+  }
+
+  .prose :global(figcaption),
+  .prose :global(em.caption) {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .prose :global(blockquote) {
+    padding-left: var(--space-4);
+    border-left: var(--underline-thickness) solid var(--color-accent);
+    font-style: italic;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: var(--space-5);
+  }
+</style>

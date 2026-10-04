@@ -1,210 +1,314 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import Prose from "@/components/Prose.astro";
+import { getEntry } from "astro:content";
+
+const sample = await getEntry("projects", "es/matcha");
+
+const colors = [
+  ["--color-bg", "--cream-50", "Fondo de página"],
+  ["--color-surface", "--gray-100", "Superficies sobre el fondo"],
+  ["--color-border", "--gray-300", "Bordes y separadores"],
+  ["--color-border-subtle", "--gray-200", "Separadores internos"],
+  ["--color-text", "--ink-900", "Texto principal"],
+  ["--color-text-muted", "--gray-700", "Texto secundario, fechas"],
+  ["--color-accent", "--yellow-500", "Subrayados, resaltado, estado activo"],
+  ["--color-accent-strong", "--yellow-700", "Subrayado en hover"],
+  ["--color-focus", "--ink-900", "Anillo de foco"],
+];
+
+const typeScale = [
+  ["--text-2xl", "2.25rem", "h1"],
+  ["--text-xl", "1.875rem", "h2"],
+  ["--text-lg", "1.5rem", "h3, títulos de tarjeta"],
+  ["--text-base", "1.25rem", "Cuerpo"],
+  ["--text-sm", "1rem", "Fechas, metadatos, pie"],
+];
+
+const spacing = [1, 2, 3, 4, 5, 6, 7, 8];
 ---
 
-<Layout title="Styleguide">
-  <h1>Design System</h1>
-  <p class="note">Referencia interna — no aparece en el menú.</p>
+<Layout
+  pageKey="styleguide"
+  title="Styleguide"
+  description="Referencia interna del sistema de diseño."
+  noindex
+>
+  <h1>Styleguide</h1>
+  <p class="intro">
+    Referencia del sistema de diseño. No está en el menú y no se indexa.
+    Las reglas completas están en <code>DESIGN.md</code>.
+  </p>
 
-  <!-- Colours -->
-  <section class="sg-section">
-    <h2>Colores</h2>
-    <div class="swatch-grid">
-      {[
-        ["bg", "--color-bg"],
-        ["surface", "--color-surface"],
-        ["border", "--color-border"],
-        ["text", "--color-text"],
-        ["text-muted", "--color-text-muted"],
-        ["accent", "--color-accent"],
-        ["accent-hover", "--color-accent-hover"],
-      ].map(([name, token]) => (
-        <div class="swatch">
-          <div class="swatch__color" style={`background-color: var(${token})`}></div>
-          <span class="swatch__label">{name}</span>
-          <code class="swatch__token">{token}</code>
-        </div>
+  <!-- Colour -->
+  <section>
+    <h2>Color</h2>
+    <p class="note">
+      Los componentes usan solo los nombres semánticos de la izquierda.
+      Los amarillos nunca son color de texto ni líneas finas con significado.
+    </p>
+    <ul class="swatches">
+      {colors.map(([semantic, base, use]) => (
+        <li class="swatch">
+          <span class="swatch__chip" style={`background-color: var(${semantic})`}></span>
+          <code class="swatch__name">{semantic}</code>
+          <code class="swatch__base">{base}</code>
+          <span class="swatch__use">{use}</span>
+        </li>
       ))}
-    </div>
+    </ul>
   </section>
 
-  <!-- Typography -->
-  <section class="sg-section">
+  <!-- Type -->
+  <section>
     <h2>Tipografía</h2>
-    <div class="type-scale">
-      <p style="font-size: var(--text-4xl); font-weight: var(--weight-bold)">text-4xl bold — H1</p>
-      <p style="font-size: var(--text-3xl); font-weight: var(--weight-semibold)">text-3xl semibold — H2</p>
-      <p style="font-size: var(--text-2xl); font-weight: var(--weight-semibold)">text-2xl semibold — H3</p>
-      <p style="font-size: var(--text-xl)">text-xl — Lead</p>
-      <p style="font-size: var(--text-base)">text-base — Body</p>
-      <p style="font-size: var(--text-sm); color: var(--color-text-muted)">text-sm muted — Meta</p>
-      <p style="font-size: var(--text-xs); color: var(--color-text-muted)">text-xs muted — Tags</p>
-    </div>
+    <p class="note">
+      Oswald para nombre, menú y títulos, siempre en mayúsculas.
+      Quattrocento para el cuerpo. Ninguna de las dos tiene cursiva real.
+    </p>
+    <ul class="type">
+      {typeScale.map(([token, size, use]) => (
+        <li class="type__row">
+          <span class="type__sample" style={`font-size: var(${token})`}>Mao Solano</span>
+          <span class="type__meta"><code>{token}</code> · {size} · {use}</span>
+        </li>
+      ))}
+      <li class="type__row">
+        <span class="type__sample type__sample--body">
+          Cuerpo en Quattrocento a 20px, interlínea 1.55.
+        </span>
+        <span class="type__meta"><code>--font-body</code></span>
+      </li>
+    </ul>
   </section>
 
   <!-- Spacing -->
-  <section class="sg-section">
+  <section>
     <h2>Espaciado</h2>
-    <div class="space-scale">
-      {[1, 2, 3, 4, 6, 8, 12, 16, 24].map((n) => (
-        <div class="space-row">
+    <ul class="space">
+      {spacing.map((n) => (
+        <li class="space__row">
           <code>--space-{n}</code>
-          <div class="space-bar" style={`width: var(--space-${n})`}></div>
-        </div>
+          <span class="space__bar" style={`width: var(--space-${n})`}></span>
+        </li>
       ))}
-    </div>
+    </ul>
   </section>
 
-  <!-- Components -->
-  <section class="sg-section">
-    <h2>Componentes</h2>
+  <!-- Links and buttons -->
+  <section>
+    <h2>Enlaces y botones</h2>
+    <p class="note">
+      El enlace es texto tinta con subrayado amarillo grueso. En hover el
+      amarillo pasa a ser el fondo. El botón solo existe en el menú móvil.
+    </p>
+    <p><a href="/styleguide">Enlace en párrafo</a> dentro de una línea de texto.</p>
+    <p class="demo">
+      <button type="button" class="demo__button">
+        Botón
+        <span class="demo__icon" aria-hidden="true"><span></span><span></span><span></span></span>
+      </button>
+    </p>
+  </section>
 
-    <h3>Botones</h3>
-    <div class="sg-row">
-      <a href="#" class="btn-primary">Primario</a>
-      <a href="#" class="btn-outline">Contorno</a>
-    </div>
+  <!-- Project card -->
+  <section>
+    <h2>ProjectCard</h2>
+    {sample && (
+      <ProjectCard
+        title={sample.data.title}
+        url={sample.data.url}
+        image={sample.data.image}
+        imageAlt="Captura de pantalla del proyecto"
+        visitLabel="Ver el sitio"
+      >
+        <p>{sample.data.summary}</p>
+      </ProjectCard>
+    )}
+  </section>
 
-    <h3>Tags</h3>
-    <div class="sg-row">
-      <span class="tag">UX</span>
-      <span class="tag">IA</span>
-      <span class="tag">Producto</span>
-    </div>
+  <!-- Prose -->
+  <section>
+    <h2>Prose</h2>
+    <p class="note">Contenedor de los posts del Lab.</p>
+    <Prose>
+      <h2>Un título dentro del post</h2>
+      <p>
+        Párrafo de ejemplo con el ancho de lectura del Lab. El contenedor limita
+        la medida a 68 caracteres para que la línea no se alargue de más.
+      </p>
+      <blockquote>Una cita, marcada con una barra amarilla a la izquierda.</blockquote>
+      <ul>
+        <li>Elemento de lista</li>
+        <li>Otro elemento</li>
+      </ul>
+    </Prose>
   </section>
 </Layout>
 
 <style>
-  h1 {
-    font-size: var(--text-3xl);
-    margin-bottom: var(--space-2);
+  .intro,
+  .note {
+    max-width: 62ch;
+    color: var(--color-text-muted);
+  }
+
+  .intro {
+    margin-top: var(--space-4);
+  }
+
+  section {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: var(--border-width) solid var(--color-border);
+  }
+
+  section h2 {
+    margin-bottom: var(--space-4);
   }
 
   .note {
-    color: var(--color-text-muted);
     font-size: var(--text-sm);
-    margin-bottom: var(--space-12);
+    margin-bottom: var(--space-5);
   }
 
-  .sg-section {
-    margin-bottom: var(--space-16);
+  code {
+    font-size: var(--text-sm);
   }
 
-  .sg-section h2 {
-    font-size: var(--text-xl);
-    margin-bottom: var(--space-6);
-    padding-bottom: var(--space-3);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .sg-section h3 {
-    font-size: var(--text-base);
-    margin: var(--space-6) 0 var(--space-3);
-    color: var(--color-text-muted);
-  }
-
-  .swatch-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-4);
+  /* Colour */
+  .swatches {
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 
   .swatch {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: var(--space-2) var(--space-4);
+    align-items: center;
+    padding: var(--space-3) 0;
+    border-bottom: var(--border-width) solid var(--color-border-subtle);
   }
 
-  .swatch__color {
-    width: 80px;
-    height: 80px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--color-border);
+  .swatch + .swatch {
+    margin-top: 0;
   }
 
-  .swatch__label {
+  .swatch__chip {
+    grid-row: span 3;
+    width: 48px;
+    height: 48px;
+    border: var(--border-width) solid var(--color-border);
+  }
+
+  .swatch__base,
+  .swatch__use {
     font-size: var(--text-sm);
-    font-weight: var(--weight-medium);
-  }
-
-  .swatch__token {
-    font-size: var(--text-xs);
     color: var(--color-text-muted);
   }
 
-  .type-scale {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
+  /* Type */
+  .type,
+  .space {
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 
-  .space-scale {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
+  .type__row {
+    padding: var(--space-3) 0;
+    border-bottom: var(--border-width) solid var(--color-border-subtle);
   }
 
-  .space-row {
+  .type__row + .type__row {
+    margin-top: 0;
+  }
+
+  .type__sample {
+    display: block;
+    font-family: var(--font-title);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-title);
+    line-height: var(--leading-title);
+  }
+
+  .type__sample--body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+    font-size: var(--text-base);
+    line-height: var(--leading-body);
+  }
+
+  .type__meta {
+    display: block;
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  /* Spacing */
+  .space__row {
     display: flex;
     align-items: center;
     gap: var(--space-4);
+    padding: var(--space-2) 0;
   }
 
-  .space-row code {
-    width: 100px;
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
+  .space__row + .space__row {
+    margin-top: 0;
+  }
+
+  .space__row code {
+    width: 90px;
     flex-shrink: 0;
-  }
-
-  .space-bar {
-    height: 8px;
-    background-color: var(--color-accent);
-    border-radius: 2px;
-  }
-
-  .sg-row {
-    display: flex;
-    gap: var(--space-4);
-    flex-wrap: wrap;
-    align-items: center;
-  }
-
-  .btn-primary {
-    background-color: var(--color-accent);
-    color: #fff;
-    padding: var(--space-2) var(--space-4);
-    border-radius: var(--radius-md);
-    font-size: var(--text-sm);
-    font-weight: var(--weight-medium);
-    transition: background-color var(--transition-fast);
-  }
-
-  .btn-primary:hover {
-    background-color: var(--color-accent-hover);
-    color: #fff;
-  }
-
-  .btn-outline {
-    border: 1px solid var(--color-border);
-    color: var(--color-text);
-    padding: var(--space-2) var(--space-4);
-    border-radius: var(--radius-md);
-    font-size: var(--text-sm);
-    font-weight: var(--weight-medium);
-    transition: border-color var(--transition-fast), color var(--transition-fast);
-  }
-
-  .btn-outline:hover {
-    border-color: var(--color-text-muted);
-    color: var(--color-text);
-  }
-
-  .tag {
-    font-size: var(--text-xs);
     color: var(--color-text-muted);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    padding: 2px var(--space-2);
+  }
+
+  .space__bar {
+    height: 12px;
+    background-color: var(--color-accent);
+  }
+
+  /* Button demo — mirrors the mobile menu toggle */
+  .demo {
+    margin-top: var(--space-4);
+  }
+
+  .demo__button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--tap-target);
+    padding: var(--space-2) var(--space-3);
+    background: none;
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius);
+    font-family: var(--font-title);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    cursor: pointer;
+  }
+
+  .demo__button:hover {
+    background-color: var(--color-accent);
+  }
+
+  .demo__icon {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 18px;
+  }
+
+  .demo__icon > span {
+    display: block;
+    height: var(--border-width);
+    background-color: var(--color-text);
   }
 </style>

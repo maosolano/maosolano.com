@@ -1,19 +1,9 @@
 ---
 title: The Bike Memory Project
-description: A visual archive of bicycles and the memories they hold. Photography, design, and narrative.
-year: 2023
-tags: [Photography, Archive, Narrative]
-order: 2
+url: https://www.bicis.maosolano.com
+image: ../../../assets/projects/bike.png
+summary: A collaborative archive of bicycles drawn from memory.
+order: 1
 ---
 
-## Context
-
-Bicycles accumulate history. This project documents that history through photographs and testimonies.
-
-## Process
-
-Interviews, documentary photography, and editorial design.
-
-## Outcome
-
-A digital and physical archive linking objects with personal memory.
+I created and built a collaborative archive that combines public participation, personal narrative, and digital curation. I designed the experience end to end: the public wall, the individual entries, the drawing tool, the submission and consent flows, and a private curation area. I turned a physical collection into a digital system that keeps growing, with 387 drawings processed and published.

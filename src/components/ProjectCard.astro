@@ -1,110 +1,96 @@
 ---
+import { Image } from "astro:assets";
+
 interface Props {
   title: string;
-  description: string;
-  tags?: string[];
-  href: string;
-  image?: string;
-  year?: number;
+  url: string;
+  image?: ImageMetadata;
+  imageAlt: string;
+  visitLabel: string;
 }
 
-const { title, description, tags = [], href, image, year } = Astro.props;
+const { title, url, image, imageAlt, visitLabel } = Astro.props;
 ---
 
-<article class="project-card">
-  {image && (
-    <a href={href} class="project-card__media" tabindex="-1" aria-hidden="true">
-      <img src={image} alt="" width="800" height="450" loading="lazy" />
-    </a>
-  )}
-  <div class="project-card__body">
-    <div class="project-card__meta">
-      {year && <span class="project-card__year">{year}</span>}
-      {tags.length > 0 && (
-        <ul class="project-card__tags" role="list">
-          {tags.map((tag) => <li class="tag">{tag}</li>)}
-        </ul>
+<article class="card">
+  <h3 class="card__title">
+    <a href={url}>{title}</a>
+  </h3>
+
+  <div class="card__row">
+    <div class="card__media">
+      {image ? (
+        <Image
+          src={image}
+          alt={`${imageAlt}: ${title}`}
+          widths={[420, 840]}
+          sizes="(min-width: 800px) 420px, 100vw"
+          loading="lazy"
+        />
+      ) : (
+        <p class="card__placeholder">{title}</p>
       )}
     </div>
-    <h2 class="project-card__title">
-      <a href={href}>{title}</a>
-    </h2>
-    <p class="project-card__desc">{description}</p>
+
+    <div class="card__text">
+      <slot />
+      <p class="card__visit"><a href={url}>{visitLabel}</a></p>
+    </div>
   </div>
 </article>
 
 <style>
-  .project-card {
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    background-color: var(--color-surface);
-    transition: border-color var(--transition-base);
+  .card + .card {
+    margin-top: var(--space-7);
+    padding-top: var(--space-7);
+    border-top: var(--border-width) solid var(--color-border-subtle);
   }
 
-  .project-card:hover {
-    border-color: var(--color-text-muted);
+  .card__title {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-4);
   }
 
-  .project-card__media img {
+  .card__title a {
+    text-decoration: none;
+    border-bottom: var(--underline-thickness) solid var(--color-accent);
+  }
+
+  .card__row {
+    display: grid;
+    gap: var(--space-5);
+    align-items: start;
+  }
+
+  .card__media img {
     width: 100%;
-    height: 240px;
-    object-fit: cover;
-    display: block;
+    border: var(--border-width) solid var(--color-border);
   }
 
-  .project-card__body {
-    padding: var(--space-6);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-
-  .project-card__meta {
+  .card__placeholder {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
-    flex-wrap: wrap;
+    justify-content: center;
+    min-height: 180px;
+    padding: var(--space-5);
+    text-align: center;
+    font-family: var(--font-title);
+    color: var(--color-text-muted);
+    border: var(--border-width) solid var(--color-border);
   }
 
-  .project-card__year {
+  .card__text > :global(p) {
+    margin-bottom: var(--space-4);
+  }
+
+  .card__visit {
     font-size: var(--text-sm);
-    color: var(--color-text-muted);
-    font-variant-numeric: tabular-nums;
+    margin-bottom: 0;
   }
 
-  .project-card__tags {
-    display: flex;
-    gap: var(--space-2);
-    flex-wrap: wrap;
-    list-style: none;
-  }
-
-  .tag {
-    font-size: var(--text-xs);
-    color: var(--color-text-muted);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    padding: 2px var(--space-2);
-  }
-
-  .project-card__title {
-    font-size: var(--text-xl);
-    font-weight: var(--weight-semibold);
-  }
-
-  .project-card__title a {
-    color: var(--color-text);
-  }
-
-  .project-card__title a:hover {
-    color: var(--color-accent);
-  }
-
-  .project-card__desc {
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
-    line-height: var(--leading-relaxed);
-    max-width: none;
+  @media (min-width: 800px) {
+    .card__row {
+      grid-template-columns: 60% 1fr;
+    }
   }
 </style>

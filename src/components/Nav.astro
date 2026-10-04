@@ -1,187 +1,235 @@
 ---
-import { getLangFromUrl, useTranslations, getLocalePath } from "@/i18n/ui";
+import LangSwitch from "./LangSwitch.astro";
+import { getLangFromUrl, useTranslations, navOrder, routes, type PageKey } from "@/i18n/ui";
 
+interface Props {
+  pageKey: PageKey;
+  altHref: string;
+}
+
+const { pageKey, altHref } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-
-const navLinks = [
-  { key: "nav.projects" as const, path: lang === "es" ? "/proyectos" : "/en/projects" },
-  { key: "nav.lab" as const, path: lang === "es" ? "/lab" : "/en/lab" },
-  { key: "nav.about" as const, path: lang === "es" ? "/sobre-mi" : "/en/about" },
-  { key: "nav.contact" as const, path: lang === "es" ? "/contacto" : "/en/contact" },
-];
-
-const homeHref = lang === "es" ? "/" : "/en";
 ---
 
-<header class="nav-header">
-  <nav class="nav" aria-label="Main navigation">
-    <a href={homeHref} class="nav-logo" aria-label="Mao Solano — inicio">
-      Mao Solano
-    </a>
+<header class="bar">
+  <a href={routes[lang].home} class="brand">{t("site.name")}</a>
 
-    <ul class="nav-links" role="list">
-      {navLinks.map(({ key, path }) => (
-        <li>
-          <a href={path} class:list={["nav-link", { active: Astro.url.pathname === path }]}>
-            {t(key)}
-          </a>
-        </li>
-      ))}
-    </ul>
+  <button
+    type="button"
+    class="toggle"
+    aria-expanded="false"
+    aria-controls="primary-menu"
+  >
+    <span class="toggle__text">{t("nav.toggle")}</span>
+    <span class="toggle__icon" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </span>
+  </button>
 
-    <div class="nav-end">
-      <slot name="lang-switch" />
-      <button
-        class="nav-hamburger"
-        aria-expanded="false"
-        aria-controls="mobile-menu"
-        aria-label={t("nav.open")}
-      >
-        <span class="hamburger-bar" aria-hidden="true"></span>
-        <span class="hamburger-bar" aria-hidden="true"></span>
-        <span class="hamburger-bar" aria-hidden="true"></span>
-      </button>
-    </div>
-
-    <div id="mobile-menu" class="nav-mobile" aria-hidden="true">
-      <ul role="list">
-        {navLinks.map(({ key, path }) => (
+  <nav id="primary-menu" class="menu" aria-label={t("nav.label")}>
+    <ul class="menu__list">
+      {navOrder.map((key) => {
+        const current = key === pageKey;
+        return (
           <li>
-            <a href={path} class="nav-mobile-link">
-              {t(key)}
+            <a
+              href={routes[lang][key]}
+              class:list={["menu__link", { "is-current": current }]}
+              aria-current={current ? "page" : undefined}
+            >
+              {t(`nav.${key}`)}
             </a>
           </li>
-        ))}
-      </ul>
+        );
+      })}
+    </ul>
+
+    <div class="menu__lang">
+      <LangSwitch altHref={altHref} />
     </div>
   </nav>
 </header>
 
 <style>
-  .nav-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
+  .bar {
+    display: flex;
     background-color: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
   }
 
-  .nav {
+  .brand {
+    font-family: var(--font-title);
+    font-weight: 700;
+    font-size: var(--text-lg);
+    line-height: var(--leading-title);
+    text-decoration: none;
+  }
+
+  .brand:hover {
+    background-color: var(--color-accent);
+  }
+
+  .menu {
     display: flex;
-    align-items: center;
-    gap: var(--space-6);
-    max-width: var(--max-width-content);
-    margin: 0 auto;
-    padding: 0 var(--space-6);
-    height: var(--nav-height);
-  }
-
-  .nav-logo {
-    font-weight: var(--weight-semibold);
-    color: var(--color-text);
-    margin-right: auto;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: var(--space-4);
-    list-style: none;
-  }
-
-  .nav-link {
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
-    transition: color var(--transition-fast);
-  }
-
-  .nav-link:hover,
-  .nav-link.active {
-    color: var(--color-text);
-  }
-
-  .nav-end {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-  }
-
-  .nav-hamburger {
-    display: none;
     flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 2rem;
-    height: 2rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: var(--space-1);
   }
 
-  .hamburger-bar {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: var(--color-text);
-    border-radius: 1px;
-    transition: transform var(--transition-base), opacity var(--transition-fast);
+  .menu__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
   }
 
-  .nav-mobile {
-    display: none;
+  .menu__list li + li {
+    margin-top: 0;
   }
 
-  @media (max-width: 640px) {
-    .nav-links {
+  .menu__link {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-title);
+    font-size: var(--text-base);
+    text-decoration: none;
+    padding: var(--space-2) var(--space-2);
+    margin-left: calc(var(--space-2) * -1);
+  }
+
+  .menu__link:hover,
+  .menu__link.is-current {
+    background-color: var(--color-accent);
+  }
+
+  /* ---------- Desktop: fixed sidebar ---------- */
+  @media (min-width: 800px) {
+    .bar {
+      position: fixed;
+      inset: 0 auto 0 0;
+      width: var(--sidebar-width);
+      flex-direction: column;
+      padding: var(--space-7) var(--space-5);
+      border-right: var(--border-width) solid var(--color-border);
+    }
+
+    .menu {
+      flex: 1;
+      margin-top: var(--space-6);
+    }
+
+    .menu__lang {
+      margin-top: auto;
+    }
+
+    .toggle {
+      display: none;
+    }
+  }
+
+  /* ---------- Mobile: top bar + panel ---------- */
+  @media (max-width: 799px) {
+    .bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-4);
+      border-bottom: var(--border-width) solid var(--color-border);
+    }
+
+    .toggle {
+      display: none; /* only shown when JS is available */
+      align-items: center;
+      gap: var(--space-2);
+      min-height: var(--tap-target);
+      min-width: var(--tap-target);
+      padding: var(--space-2) var(--space-3);
+      background: none;
+      border: var(--border-width) solid var(--color-border);
+      border-radius: var(--radius);
+      font-family: var(--font-title);
+      font-size: var(--text-sm);
+      color: var(--color-text);
+      cursor: pointer;
+    }
+
+    .toggle:hover {
+      background-color: var(--color-accent);
+    }
+
+    .toggle__icon {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+      width: 18px;
+    }
+
+    .toggle__icon > span {
+      display: block;
+      height: var(--border-width);
+      background-color: var(--color-text);
+    }
+
+    .menu {
+      width: 100%;
+      padding-bottom: var(--space-3);
+    }
+
+    .menu__link {
+      min-height: var(--tap-target);
+      font-size: var(--text-lg);
+      padding: var(--space-2) var(--space-3);
+      margin-left: calc(var(--space-3) * -1);
+    }
+
+    .menu__lang {
+      margin-top: var(--space-3);
+    }
+
+    /* With JS the panel collapses behind the button.
+       Without JS both stay visible, so the links remain reachable. */
+    :global(html.js) .toggle {
+      display: flex;
+    }
+
+    :global(html.js) .menu {
       display: none;
     }
 
-    .nav-hamburger {
+    :global(html.js) .menu.is-open {
       display: flex;
     }
-
-    .nav-mobile {
-      position: fixed;
-      inset: var(--nav-height) 0 0 0;
-      background-color: var(--color-bg);
-      padding: var(--space-8) var(--space-6);
-      list-style: none;
-      flex-direction: column;
-      gap: var(--space-4);
-    }
-
-    .nav-mobile[aria-hidden="false"] {
-      display: flex;
-    }
-
-    .nav-mobile-link {
-      font-size: var(--text-xl);
-      font-weight: var(--weight-medium);
-      color: var(--color-text);
-    }
-  }
-
-  .nav-hamburger[aria-expanded="true"] .hamburger-bar:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-  }
-
-  .nav-hamburger[aria-expanded="true"] .hamburger-bar:nth-child(2) {
-    opacity: 0;
-  }
-
-  .nav-hamburger[aria-expanded="true"] .hamburger-bar:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
   }
 </style>
 
 <script>
-  const btn = document.querySelector<HTMLButtonElement>(".nav-hamburger");
-  const menu = document.querySelector<HTMLElement>("#mobile-menu");
+  const toggle = document.querySelector<HTMLButtonElement>(".toggle");
+  const menu = document.querySelector<HTMLElement>("#primary-menu");
 
-  btn?.addEventListener("click", () => {
-    const expanded = btn.getAttribute("aria-expanded") === "true";
-    btn.setAttribute("aria-expanded", String(!expanded));
-    menu?.setAttribute("aria-hidden", String(expanded));
-  });
+  if (toggle && menu) {
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute("aria-expanded", String(open));
+      menu.classList.toggle("is-open", open);
+    };
+
+    toggle.addEventListener("click", () => {
+      setOpen(toggle.getAttribute("aria-expanded") !== "true");
+    });
+
+    menu.addEventListener("click", (event) => {
+      if ((event.target as HTMLElement).closest("a")) setOpen(false);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+  }
 </script>

@@ -1,69 +1,100 @@
+/* ============================================================
+   tokens.css — the only file that holds raw values.
+
+   Two layers:
+     1. Base      — the raw palette. Components must NEVER use these.
+     2. Semantic  — what components are allowed to reference.
+
+   Adding a colour means adding it to BOTH layers: a base value and
+   a semantic name that explains its job.
+   ============================================================ */
+
 :root {
-  /* Colour */
-  --color-bg: #f9f8f5;
-  --color-surface: #ffffff;
-  --color-border: #e2ddd6;
-  --color-text: #1a1916;
-  --color-text-muted: #6b6760;
-  --color-accent: #2d5be3;
-  --color-accent-hover: #1e44c0;
+  /* ----------------------------------------------------------
+     1. BASE — raw palette. Do not use directly in components.
+     ---------------------------------------------------------- */
+  --yellow-500: #fbff0a;
+  --yellow-700: #c9cc00;
+  --cream-50: #fdfeec;
+  --gray-100: #ebebeb;
+  --gray-200: #d6d6d6;
+  --gray-300: #c0c0c0;
+  --gray-700: #616569;
+  --ink-900: #020a12;
 
-  /* Typography */
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  /* ----------------------------------------------------------
+     2. SEMANTIC — components use only these.
+     ---------------------------------------------------------- */
+  --color-bg: var(--cream-50);
+  --color-surface: var(--gray-100);
+  --color-border: var(--gray-300);
+  --color-border-subtle: var(--gray-200);
+  --color-text: var(--ink-900);
+  --color-text-muted: var(--gray-700);
+  --color-accent: var(--yellow-500);
+  --color-accent-strong: var(--yellow-700);
+  --color-focus: var(--ink-900);
 
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.25rem;
-  --text-2xl: 1.5rem;
-  --text-3xl: 1.875rem;
-  --text-4xl: 2.25rem;
+  /* ----------------------------------------------------------
+     TYPE
+     Oswald       — name, menu, headings. Condensed sans, 400 and 700.
+     Quattrocento — body and everything else. 400 and 700.
+     Neither family ships an italic face, so any <em> is a browser-
+     synthesised oblique. Prefer weight or spacing for emphasis.
+     Body sits at 20px (19px on mobile), line-height 1.55.
+     ---------------------------------------------------------- */
+  --font-title: "Oswald", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Quattrocento", Georgia, serif;
 
-  --leading-tight: 1.25;
-  --leading-normal: 1.5;
-  --leading-relaxed: 1.75;
+  --text-sm: 1rem; /* 16px — meta, dates, captions */
+  --text-base: 1.25rem; /* 20px — body */
+  --text-lg: 1.5rem; /* 24px — h3, lead */
+  --text-xl: 1.875rem; /* 30px — h2 */
+  --text-2xl: 2.25rem; /* 36px — h1 */
 
-  --weight-normal: 400;
-  --weight-medium: 500;
-  --weight-semibold: 600;
-  --weight-bold: 700;
+  --leading-body: 1.55;
+  --leading-title: 1.2;
 
-  /* Spacing */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-12: 3rem;
-  --space-16: 4rem;
-  --space-24: 6rem;
+  /* Headings are set uppercase. Condensed caps need a little air. */
+  --tracking-title: 0.02em;
 
-  /* Layout */
-  --max-width-prose: 68ch;
-  --max-width-content: 1200px;
-  --nav-height: 3.5rem;
+  /* ----------------------------------------------------------
+     SPACING — 4px base
+     ---------------------------------------------------------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
 
-  /* Radius */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
+  /* ----------------------------------------------------------
+     LINES AND SHAPE
+     ---------------------------------------------------------- */
+  --border-width: 1px;
+  --radius: 0; /* square corners everywhere, by design */
+  --underline-thickness: 3px;
+  --focus-width: 2px;
+  --focus-offset: 2px;
 
-  /* Transition */
-  --transition-fast: 120ms ease;
-  --transition-base: 200ms ease;
+  /* ----------------------------------------------------------
+     LAYOUT
+     --breakpoint-md is documentation only: CSS custom properties
+     cannot be used inside @media. The value 800px is hard-coded
+     in media queries — keep the two in sync.
+     ---------------------------------------------------------- */
+  --content-max: 720px;
+  --sidebar-width: 240px;
+  --breakpoint-md: 800px;
+  --tap-target: 44px;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (max-width: 799px) {
   :root {
-    --color-bg: #141310;
-    --color-surface: #1e1c19;
-    --color-border: #2e2b26;
-    --color-text: #f0ede8;
-    --color-text-muted: #9e9a94;
-    --color-accent: #6b8fef;
-    --color-accent-hover: #8aa5f4;
+    --text-base: 1.1875rem; /* 19px */
+    --text-xl: 1.625rem;
+    --text-2xl: 2rem;
   }
 }

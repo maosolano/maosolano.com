@@ -1,26 +1,76 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import { useTranslations, experience, strengths, CV_PATH } from "@/i18n/ui";
+
+const lang = "en" as const;
+const t = useTranslations(lang);
 ---
 
-<Layout title="About">
-  <article class="prose">
-    <h1>About</h1>
-    <p>
-      Product designer focused on UX, AI, and digital systems.
-      I work at the intersection of design, technology, and narrative.
-    </p>
-  </article>
+<Layout pageKey="about" title={t("about.title")} description={t("about.description")}>
+  <h1>{t("about.title")}</h1>
+
+  <p class="profile">{t("home.profile")}</p>
+
+  <h2 class="section">{t("about.experience")}</h2>
+  <ul class="cv">
+    {experience[lang].map((job) => (
+      <li>
+        <span class="cv__role">{job.role}</span>{job.org && <span class="cv__org">, {job.org}</span>}
+        <span class="cv__dates">{job.dates}</span>
+      </li>
+    ))}
+  </ul>
+
+  <h2 class="section">{t("about.strengths")}</h2>
+  <ul class="strengths">
+    {strengths[lang].map((item) => <li>{item}</li>)}
+  </ul>
+
+  <p class="cv-link"><a href={CV_PATH} download>{t("about.cv")}</a></p>
 </Layout>
 
 <style>
-  .prose {
-    max-width: var(--max-width-prose);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
+  .profile {
+    margin-top: var(--space-5);
+    max-width: 62ch;
   }
 
-  .prose h1 {
-    font-size: var(--text-3xl);
+  .section {
+    margin-top: var(--space-7);
+    margin-bottom: var(--space-4);
+  }
+
+  .cv,
+  .strengths {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .cv li {
+    padding: var(--space-3) 0;
+    border-bottom: var(--border-width) solid var(--color-border-subtle);
+  }
+
+  .cv li + li {
+    margin-top: 0;
+  }
+
+  .cv__role {
+    font-family: var(--font-title);
+  }
+
+  .cv__dates {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .strengths li {
+    padding: var(--space-2) 0;
+  }
+
+  .cv-link {
+    margin-top: var(--space-7);
   }
 </style>

@@ -1,0 +1,75 @@
+---
+import { formatDate, type Lang } from "@/i18n/ui";
+
+interface Post {
+  href: string;
+  title: string;
+  date: Date;
+  summary: string;
+}
+
+interface Props {
+  posts: Post[];
+  lang: Lang;
+  emptyLabel: string;
+}
+
+const { posts, lang, emptyLabel } = Astro.props;
+---
+
+{posts.length === 0 ? (
+  <p class="empty">{emptyLabel}</p>
+) : (
+  <ul class="posts">
+    {posts.map((post) => (
+      <li class="posts__item">
+        <h2 class="posts__title">
+          <a href={post.href}>{post.title}</a>
+        </h2>
+        <time class="posts__date" datetime={post.date.toISOString().slice(0, 10)}>
+          {formatDate(post.date, lang)}
+        </time>
+        <p class="posts__summary">{post.summary}</p>
+      </li>
+    ))}
+  </ul>
+)}
+
+<style>
+  .empty {
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  .posts {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .posts__item + .posts__item {
+    margin-top: var(--space-6);
+    padding-top: var(--space-6);
+    border-top: var(--border-width) solid var(--color-border-subtle);
+  }
+
+  .posts__title {
+    font-size: var(--text-lg);
+  }
+
+  .posts__title a {
+    text-decoration: none;
+    border-bottom: var(--underline-thickness) solid var(--color-accent);
+  }
+
+  .posts__date {
+    display: block;
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .posts__summary {
+    margin-top: var(--space-2);
+  }
+</style>

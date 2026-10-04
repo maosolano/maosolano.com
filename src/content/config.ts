@@ -1,29 +1,32 @@
 import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
 
-const projectSchema = z.object({
-  title: z.string(),
-  description: z.string(),
-  year: z.number().optional(),
-  tags: z.array(z.string()).default([]),
-  image: z.string().optional(),
-  order: z.number().default(99),
+/**
+ * Entry ids keep their locale folder, e.g. "es/bike-memory".
+ * Pages filter on that prefix to get one language.
+ */
+const projects = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      url: z.string().url(),
+      image: image().optional(),
+      summary: z.string(),
+      order: z.number(),
+    }),
 });
 
-const labSchema = z.object({
-  title: z.string(),
-  description: z.string(),
-  date: z.string(),
-  tags: z.array(z.string()).default([]),
-  draft: z.boolean().default(false),
+const lab = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/lab" }),
+  schema: z.object({
+    title: z.string(),
+    date: z.date(),
+    summary: z.string(),
+    draft: z.boolean().default(false),
+    // Links a post to its counterpart in the other language, for hreflang.
+    translationKey: z.string().optional(),
+  }),
 });
 
-export const collections = {
-  projects: defineCollection({
-    type: "content",
-    schema: projectSchema,
-  }),
-  lab: defineCollection({
-    type: "content",
-    schema: labSchema,
-  }),
-};
+export const collections = { projects, lab };

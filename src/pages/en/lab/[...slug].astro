@@ -1,0 +1,80 @@
+---
+import type { GetStaticPaths } from "astro";
+import Layout from "@/layouts/Layout.astro";
+import Prose from "@/components/Prose.astro";
+import { getCollection, render } from "astro:content";
+import { useTranslations, formatDate, routes } from "@/i18n/ui";
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const all = await getCollection("lab");
+  const posts = all.filter((p) => p.id.startsWith("en/") && !p.data.draft);
+
+  return posts.map((post) => {
+    const slug = post.id.replace(/^en\//, "");
+    const twin = post.data.translationKey
+      ? all.find(
+          (p) =>
+            p.id.startsWith("es/") &&
+            !p.data.draft &&
+            p.data.translationKey === post.data.translationKey
+        )
+      : undefined;
+
+    return {
+      params: { slug },
+      props: {
+        post,
+        alternates: {
+          es: twin ? `/lab/${twin.id.replace(/^es\//, "")}` : routes.es.lab,
+          en: `/en/lab/${slug}`,
+        },
+      },
+    };
+  });
+};
+
+const lang = "en" as const;
+const t = useTranslations(lang);
+const { post, alternates } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout
+  pageKey="lab"
+  title={post.data.title}
+  description={post.data.summary}
+  alternates={alternates}
+>
+  <article>
+    <h1>{post.data.title}</h1>
+    <time class="date" datetime={post.data.date.toISOString().slice(0, 10)}>
+      {formatDate(post.data.date, lang)}
+    </time>
+
+    <Prose>
+      <Content />
+    </Prose>
+
+    <p class="back"><a href={routes[lang].lab}>{t("lab.back")}</a></p>
+  </article>
+</Layout>
+
+<style>
+  .date {
+    display: block;
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  article :global(.prose) {
+    margin-top: var(--space-6);
+  }
+
+  .back {
+    margin-top: var(--space-7);
+    padding-top: var(--space-5);
+    border-top: var(--border-width) solid var(--color-border);
+    font-size: var(--text-sm);
+  }
+</style>

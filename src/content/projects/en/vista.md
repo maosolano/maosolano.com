@@ -1,19 +1,9 @@
 ---
 title: VISTA
-description: AI-assisted visual analysis platform for product design teams.
-year: 2024
-tags: [AI, Product, B2B]
+url: https://bitagreen-vista-prototype.vercel.app
+image: ../../../assets/projects/vista.png
+summary: Proof of concept for a geospatial web app to manage urban green spaces.
 order: 3
 ---
 
-## Context
-
-VISTA explores how AI can amplify designer intuition without replacing it.
-
-## Process
-
-Exploratory research, use-case definition, and interface design.
-
-## Outcome
-
-A functional prototype that assists in visual decision-making.
+I designed and prototyped the VISTA proof of concept, adapted to different roles and scenarios. I created a design system built for AI, with tokens, components, and rules for generating consistent prototypes with Claude. Development ran end to end with Claude, from brief to functional prototype and its documentation.

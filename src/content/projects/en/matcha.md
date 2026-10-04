@@ -1,19 +1,9 @@
 ---
 title: Matcha
-description: A wellness ritual app exploring the relationship between habits and intentional design.
-year: 2024
-tags: [UX, Product, Mobile]
-order: 1
+url: https://matcha-prototipo.vercel.app/prototipo
+image: ../../../assets/projects/matcha.png
+summary: A redesign of the core flow for searching, comparing, and choosing a home.
+order: 2
 ---
 
-## Context
-
-Matcha grew from an exploration of everyday rituals and how design can reinforce the intention behind them.
-
-## Process
-
-User research, rapid prototyping, and iterative usability testing.
-
-## Outcome
-
-An app that accompanies wellness rituals with minimal friction and maximum presence.
+I redesigned Matcha's core flow so that searching, comparing, and choosing a home would be clear and structured. I built a functional prototype that integrates UX, UI, content, and a documented design system. I used Claude and Claude Code to speed up the design and iteration cycle, and I documented the key criteria for taking it to production.

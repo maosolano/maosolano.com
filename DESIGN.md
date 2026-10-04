@@ -1,131 +1,162 @@
-# Design System — maosolano.com
+# Design system — maosolano.com
 
-Reference for visual language, component rules, and front-end decisions.
-Live preview at `/styleguide` (not linked in the nav).
+Short and practical. Live reference at [`/styleguide`](src/pages/styleguide.astro)
+(not in the menu, `noindex`).
 
----
-
-## Principles
-
-1. **Legibility first** — comfortable reading at all sizes; never sacrifice contrast for aesthetics.
-2. **Neutral base, intentional accent** — the palette stays warm-neutral; colour carries meaning, not decoration.
-3. **Motion earns its place** — transitions only where they reduce cognitive load or signal state change.
-4. **Spanish-default** — ES is the primary locale; EN mirrors it exactly.
+The look is a pen sketch on paper: cream ground, ink text, 1px lines, square
+corners, generous white space. Yellow is the only accent. No shadows, no
+gradients, no animation beyond the menu opening.
 
 ---
 
-## Tokens (`src/styles/tokens.css`)
+## 1. Tokens
 
-All values live as CSS custom properties. Never hard-code a colour, size, or timing value — reference a token.
+Everything lives in [`src/styles/tokens.css`](src/styles/tokens.css), in two
+layers. **Components may only reference the semantic layer.** Touching a base
+value repaints the whole site; touching a component does not.
 
 ### Colour
-| Token | Light | Dark | Use |
-|---|---|---|---|
-| `--color-bg` | `#f9f8f5` | `#141310` | Page background |
-| `--color-surface` | `#ffffff` | `#1e1c19` | Cards, modals |
-| `--color-border` | `#e2ddd6` | `#2e2b26` | Dividers, outlines |
-| `--color-text` | `#1a1916` | `#f0ede8` | Primary text |
-| `--color-text-muted` | `#6b6760` | `#9e9a94` | Secondary text, meta |
-| `--color-accent` | `#2d5be3` | `#6b8fef` | Links, CTAs, focus |
-| `--color-accent-hover` | `#1e44c0` | `#8aa5f4` | Hover state |
 
-Dark mode is automatic via `@media (prefers-color-scheme: dark)`.
+| Semantic | Base | Job |
+|---|---|---|
+| `--color-bg` | `--cream-50` `#FDFEEC` | Page background |
+| `--color-surface` | `--gray-100` `#EBEBEB` | Surfaces on the background |
+| `--color-border` | `--gray-300` `#C0C0C0` | Borders, dividers |
+| `--color-border-subtle` | `--gray-200` `#D6D6D6` | Dividers inside a block |
+| `--color-text` | `--ink-900` `#020A12` | Body text |
+| `--color-text-muted` | `--gray-700` `#616569` | Secondary text, dates |
+| `--color-accent` | `--yellow-500` `#FBFF0A` | Underlines, highlight, active state |
+| `--color-accent-strong` | `--yellow-700` `#C9CC00` | Underline on hover |
+| `--color-focus` | `--ink-900` | Focus ring |
 
-### Typography
-- **Sans**: `Inter` → system-ui fallback
-- **Mono**: `JetBrains Mono` → ui-monospace fallback
-- Scale: `--text-xs` (0.75rem) → `--text-4xl` (2.25rem)
-- Weights: normal (400), medium (500), semibold (600), bold (700)
-- Line heights: tight (1.25) for headings, normal (1.5) body, relaxed (1.75) long-form
+### Colour rules
 
-### Spacing
-Base unit 0.25rem. Scale: 1 · 2 · 3 · 4 · 6 · 8 · 12 · 16 · 24.
-Use `--space-*` tokens everywhere; no arbitrary px values.
+- **Yellow is never text, and never a thin line that carries meaning.** It
+  fails contrast on cream. It is a highlight, not information.
+- **Links** are `--color-text` with a `--underline-thickness` (3px)
+  `--color-accent` underline. On hover the yellow becomes the *background*.
+- **The active menu item** uses that same yellow block.
+- **Focus** is `2px solid --color-focus` with 2px offset, on everything
+  interactive. Never remove it.
+- All text meets AA.
 
-### Radius
-- `--radius-sm` 4px — tags, small inputs
-- `--radius-md` 8px — cards, buttons
-- `--radius-lg` 16px — modals, large containers
-
----
-
-## Layout
-
-- **Max content width**: `--max-width-content` (1200px)
-- **Prose width**: `--max-width-prose` (68ch)
-- **Side gutter**: `--space-6` (1.5rem) on mobile
-- **Nav height**: `--nav-height` (3.5rem), sticky
-
-Grid: CSS `auto-fill` with `minmax(320px, 1fr)` for project and lab listings.
-
----
-
-## Components
-
-### Nav (`Nav.astro`)
-- Sticky, `z-index: 100`
-- Desktop: horizontal link list + `LangSwitch`
-- Mobile (≤640px): hamburger button toggles `#mobile-menu` overlay
-- Hamburger animates to ✕ via `aria-expanded`
-- Active link detected via `Astro.url.pathname` comparison
-
-### LangSwitch (`LangSwitch.astro`)
-- Small outlined pill: current lang → opposite lang
-- URL mapping in the component; update when adding new pages
-- `hreflang` attribute set on the anchor
-
-### ProjectCard (`ProjectCard.astro`)
-- Optional cover image (16:9)
-- Year + tags row, title, description
-- Entire card border lifts on hover
-- No JS required
-
----
-
-## i18n (`src/i18n/ui.ts`)
-
-- `defaultLang`: `"es"` — no URL prefix
-- English: `/en/*` prefix
-- All UI strings in `ui.ts`; never inline copy in `.astro` files
-- `useTranslations(lang)` returns a typed `t()` helper
-- `getLocalePath(lang, path)` generates the right URL for the current locale
-
----
-
-## Content Collections (`src/content/`)
+### Type
 
 ```
-projects/
-  es/  ← ES markdown, frontmatter: title, description, year, tags, image?, order
-  en/  ← EN mirror
-lab/
-  es/  ← ES markdown, frontmatter: title, description, date, tags, draft?
-  en/  ← EN mirror
+--font-title: "Oswald", "Arial Narrow", system-ui, sans-serif   /* 400, 700 */
+--font-body:  "Quattrocento", Georgia, serif                    /* 400, 700 */
 ```
 
-Schema defined in `src/content/config.ts`. Every project has a matching EN file.
+| Token | Size | Used for |
+|---|---|---|
+| `--text-2xl` | 2.25rem | `h1` |
+| `--text-xl` | 1.875rem | `h2` |
+| `--text-lg` | 1.5rem | `h3`, card titles |
+| `--text-base` | 1.25rem (1.1875rem mobile) | Body |
+| `--text-sm` | 1rem | Dates, metadata |
+
+### Type rules
+
+- **Oswald** for the name, the menu, and every heading. **Quattrocento** for
+  everything else.
+- **All headings are uppercase**, set once on `h1`–`h6` in `global.css` with
+  `--tracking-title` (0.02em). Oswald is condensed and caps need the air.
+  `text-transform` is visual only — assistive tech still reads the real casing.
+- The name and the menu stay **mixed case**. The contrast against caps headings
+  is deliberate.
+- **Neither family has an italic face.** Any `<em>` is a browser-synthesised
+  oblique. Prefer weight, a rule, or spacing to set something apart.
+- Body is 20px / 1.55. It is set on `body`; do not override per component.
+
+### Spacing, line, layout
+
+`--space-1` … `--space-8` on a 4px base (4, 8, 12, 16, 24, 32, 48, 64).
+Use these; never a bare pixel value.
+
+`--border-width: 1px` · `--radius: 0` (square, by design) ·
+`--content-max: 720px` · `--sidebar-width: 240px` · `--tap-target: 44px`
+
+`--breakpoint-md: 800px` is **documentation only** — custom properties do not
+work inside `@media`, so 800px is hard-coded in the media queries. Change both.
 
 ---
 
-## File conventions
+## 2. Components
 
-- Page files match their URL slug: `proyectos.astro` → `/proyectos`
-- EN pages live under `src/pages/en/` and mirror ES names in English
-- Styleguide at `/styleguide` — excluded from nav, sitemap, and search
-- No client JS unless strictly necessary; progressive enhancement
-- Scoped `<style>` in every component; never global utility classes
+All in `src/components/`. Each owns its styles in a scoped `<style>` block.
+There are no global utility classes.
+
+### `Nav.astro`
+The whole chrome: name, menu, language switch. Rendered once by the layout —
+never place it yourself.
+- **≥800px** — fixed 240px sidebar; name top, menu below, language switch pinned
+  to the bottom.
+- **<800px** — top bar with a real `<button>` (`aria-expanded`, `aria-controls`,
+  visible "Menú" label, 44px). Escape closes it and returns focus; choosing a
+  link closes it.
+- **Progressive enhancement:** the collapsed state only exists under `html.js`,
+  set by an inline script in `<head>` before first paint. With no JS the menu
+  renders expanded and the button never appears, so links stay reachable.
+
+### `LangSwitch.astro`
+The `ES / EN` pair. Takes `altHref` — the same page in the other language,
+computed by the layout from the route table. Never build the URL by rewriting
+strings.
+
+### `ProjectCard.astro`
+A project: title above, image left (60%), text right; stacked on mobile.
+The text block is a slot — Home passes the summary, Projects passes the
+rendered Markdown body. Falls back to a bordered box with the project name when
+the image is missing.
+
+### `PostList.astro`
+The Lab index: title, date, one-line summary, newest first. Handles its own
+empty state via `emptyLabel`.
+
+### `Prose.astro`
+Wraps rendered Markdown in a Lab post. Caps the measure at 68ch and sets the
+vertical rhythm. Use it for long-form only — not for a paragraph on a page.
 
 ---
 
-## Accessibility checklist
+## 3. Routing and copy
 
-- [ ] Colour contrast AA (4.5:1 text, 3:1 large text / UI)
-- [ ] All interactive elements keyboard-focusable
-- [ ] `aria-label` on icon-only controls
-- [ ] `aria-expanded` / `aria-hidden` toggled on hamburger menu
-- [ ] `hreflang` on `<LangSwitch>`
-- [ ] Images have meaningful `alt` or `alt=""` for decorative
+- **`src/i18n/ui.ts` is the single source of truth for URLs.** The `routes`
+  table drives the menu, the language switch, and the `hreflang` tags. Add a
+  page there first, then build it.
+- **Interface labels and page copy live in `ui.ts` too**, Spanish and English
+  side by side, so the two cannot drift. Pages stay markup.
+- Spanish is the default locale and sits at the root. English is under `/en`.
 
 ---
 
-_Update this file alongside any token, component, or layout change._
+## 4. Adding things
+
+### A new token
+1. If it is a colour, add the raw value to the **base** layer *and* a semantic
+   name that says what it is for. If there is no job, there is no token.
+2. Otherwise add it to the matching scale rather than inventing a new one.
+3. Add it to the table above and to `/styleguide`.
+
+### A new component
+1. Check `Nav`, `ProjectCard`, `PostList` and `Prose` first — most needs are a
+   slot or a prop on something that exists.
+2. New file in `src/components/`, scoped `<style>`, semantic tokens only.
+3. No client JS unless it genuinely needs it, and it must degrade without it.
+4. Any user-facing string goes in `ui.ts` in both languages.
+5. Add it to `/styleguide` and to the component list above.
+
+### A new page
+1. Add the key and both URLs to `routes` in `ui.ts`.
+2. Add it to `navOrder` if it belongs in the menu.
+3. Build both language versions. Pass `pageKey` to the layout so the active
+   menu state and `hreflang` work.
+
+### Checklist before shipping
+- [ ] Semantic tokens only; no raw hex, no bare px
+- [ ] Headings uppercase, body in Quattrocento
+- [ ] Focus visible on everything interactive
+- [ ] 44px minimum touch targets on mobile
+- [ ] Meaningful `alt` on every image
+- [ ] Both languages present; `hreflang` resolves
+- [ ] Works with JavaScript disabled

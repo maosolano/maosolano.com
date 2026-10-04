@@ -1,50 +1,111 @@
 ---
 import Nav from "@/components/Nav.astro";
-import LangSwitch from "@/components/LangSwitch.astro";
+import {
+  getLangFromUrl,
+  useTranslations,
+  routes,
+  SITE_TITLE,
+  type PageKey,
+  type Lang,
+} from "@/i18n/ui";
 import "@/styles/global.css";
 
 interface Props {
-  title: string;
-  description?: string;
+  pageKey: PageKey;
+  /** Short page title. Omitted on home, which uses the full site title. */
+  title?: string;
+  description: string;
+  /** Overrides the route table — used by Lab posts, whose slugs differ per language. */
+  alternates?: Record<Lang, string>;
+  noindex?: boolean;
 }
 
-const { title, description = "Mao Solano — UX, AI, and digital product design." } = Astro.props;
+const { pageKey, title, description, alternates, noindex = false } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const alt: Record<Lang, string> =
+  alternates ?? { es: routes.es[pageKey], en: routes.en[pageKey] };
+
+const otherLang: Lang = lang === "es" ? "en" : "es";
+const pageTitle = pageKey === "home" ? SITE_TITLE : `${title} — ${t("site.name")}`;
+const canonical = new URL(alt[lang], Astro.site).href;
+const ogLocale = lang === "es" ? "es_CO" : "en_US";
 ---
 
 <!doctype html>
-<html lang={Astro.currentLocale ?? "es"}>
+<html lang={lang} class="no-js">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    <title>{title} — Mao Solano</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    {noindex ? (
+      <meta name="robots" content="noindex, nofollow" />
+    ) : (
+      <>
+        <link rel="canonical" href={canonical} />
+        <link rel="alternate" hreflang="es" href={new URL(alt.es, Astro.site).href} />
+        <link rel="alternate" hreflang="en" href={new URL(alt.en, Astro.site).href} />
+        <link rel="alternate" hreflang="x-default" href={new URL(alt.es, Astro.site).href} />
+      </>
+    )}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={t("site.name")} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Quattrocento:wght@400;700&display=swap"
+    />
+
+    <!-- Runs before paint so the mobile menu never flashes open. -->
+    <script is:inline>
+      document.documentElement.classList.remove("no-js");
+      document.documentElement.classList.add("js");
+    </script>
   </head>
+
   <body>
-    <Nav>
-      <LangSwitch slot="lang-switch" />
-    </Nav>
-    <main>
-      <slot />
+    <a class="skip-link" href="#content">{t("nav.skip")}</a>
+    <Nav pageKey={pageKey} altHref={alt[otherLang]} />
+    <main id="content" class="main">
+      <div class="main__inner">
+        <slot />
+      </div>
     </main>
-    <footer class="site-footer">
-      <p>© {new Date().getFullYear()} Mao Solano</p>
-    </footer>
   </body>
 </html>
 
 <style>
-  main {
-    max-width: var(--max-width-content);
-    margin: 0 auto;
-    padding: var(--space-12) var(--space-6);
+  .main__inner {
+    max-width: var(--content-max);
+    padding: var(--space-7) var(--space-5) var(--space-8);
   }
 
-  .site-footer {
-    border-top: 1px solid var(--color-border);
-    padding: var(--space-8) var(--space-6);
-    text-align: center;
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
+  @media (min-width: 800px) {
+    .main {
+      margin-left: var(--sidebar-width);
+    }
+
+    .main__inner {
+      padding: var(--space-8) var(--space-7);
+    }
+  }
+
+  @media (max-width: 799px) {
+    .main__inner {
+      padding: var(--space-6) var(--space-4) var(--space-8);
+    }
   }
 </style>

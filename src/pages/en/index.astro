@@ -1,46 +1,53 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import { getCollection } from "astro:content";
+import { useTranslations, SITE_TITLE } from "@/i18n/ui";
+
+const lang = "en" as const;
+const t = useTranslations(lang);
+
+const projects = (await getCollection("projects", ({ id }) => id.startsWith("en/"))).sort(
+  (a, b) => a.data.order - b.data.order
+);
 ---
 
-<Layout title="Home">
-  <section class="hero">
-    <h1>Mao Solano</h1>
-    <p class="hero-tagline">Digital product designer, UX and AI.</p>
-    <a href="/en/projects" class="cta">View projects</a>
-  </section>
+<Layout pageKey="home" description={t("home.description")}>
+  <h1 class="sr-only">{SITE_TITLE}</h1>
+
+  <p class="profile">{t("home.profile")}</p>
+  <p class="personal"><em>{t("home.personal")}</em></p>
+
+  <h2 class="section">{t("home.recent")}</h2>
+
+  {projects.map((project) => (
+    <ProjectCard
+      title={project.data.title}
+      url={project.data.url}
+      image={project.data.image}
+      imageAlt={t("projects.imageAlt")}
+      visitLabel={t("projects.visit")}
+    >
+      <p>{project.data.summary}</p>
+    </ProjectCard>
+  ))}
 </Layout>
 
 <style>
-  .hero {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
-    padding-top: var(--space-16);
+  .profile {
+    max-width: 62ch;
   }
 
-  .hero h1 {
-    font-size: var(--text-4xl);
-    font-weight: var(--weight-bold);
-  }
-
-  .hero-tagline {
-    font-size: var(--text-xl);
+  .personal {
+    margin-top: var(--space-5);
+    padding-top: var(--space-5);
+    border-top: var(--border-width) solid var(--color-border);
+    max-width: 62ch;
     color: var(--color-text-muted);
   }
 
-  .cta {
-    display: inline-block;
-    background-color: var(--color-accent);
-    color: #fff;
-    padding: var(--space-3) var(--space-6);
-    border-radius: var(--radius-md);
-    font-weight: var(--weight-medium);
-    transition: background-color var(--transition-fast);
-    align-self: flex-start;
-  }
-
-  .cta:hover {
-    background-color: var(--color-accent-hover);
-    color: #fff;
+  .section {
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-6);
   }
 </style>
