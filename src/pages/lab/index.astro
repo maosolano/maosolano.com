@@ -1,0 +1,68 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const entries = await getCollection("lab", ({ id }) => id.startsWith("es/"));
+const sorted = entries.sort((a, b) =>
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<Layout title="Lab">
+  <h1>Lab</h1>
+  <p class="subtitle">Experimentos y exploraciones</p>
+
+  <ul class="lab-list" role="list">
+    {sorted.map((entry) => (
+      <li>
+        <a href={`/lab/${entry.slug.replace("es/", "")}`} class="lab-entry">
+          <span class="lab-entry__title">{entry.data.title}</span>
+          <time class="lab-entry__date" datetime={entry.data.date}>
+            {new Date(entry.data.date).toLocaleDateString("es", { year: "numeric", month: "long" })}
+          </time>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Layout>
+
+<style>
+  h1 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-2);
+  }
+
+  .subtitle {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-12);
+  }
+
+  .lab-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .lab-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-4);
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
+    transition: color var(--transition-fast);
+  }
+
+  .lab-entry:hover {
+    color: var(--color-accent);
+  }
+
+  .lab-entry__date {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+</style>

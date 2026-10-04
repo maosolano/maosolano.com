@@ -1,0 +1,53 @@
+---
+import { getLangFromUrl, useTranslations } from "@/i18n/ui";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Map current path to the equivalent in the other language
+const path = Astro.url.pathname;
+let altHref: string;
+
+if (lang === "es") {
+  // ES → EN
+  if (path === "/") altHref = "/en";
+  else if (path.startsWith("/proyectos")) altHref = path.replace("/proyectos", "/en/projects");
+  else if (path.startsWith("/sobre-mi")) altHref = "/en/about";
+  else if (path.startsWith("/contacto")) altHref = "/en/contact";
+  else if (path.startsWith("/lab")) altHref = path.replace("/lab", "/en/lab");
+  else altHref = "/en";
+} else {
+  // EN → ES
+  if (path === "/en" || path === "/en/") altHref = "/";
+  else if (path.startsWith("/en/projects")) altHref = path.replace("/en/projects", "/proyectos");
+  else if (path.startsWith("/en/about")) altHref = "/sobre-mi";
+  else if (path.startsWith("/en/contact")) altHref = "/contacto";
+  else if (path.startsWith("/en/lab")) altHref = path.replace("/en/lab", "/lab");
+  else altHref = "/";
+}
+---
+
+<a
+  href={altHref}
+  class="lang-switch"
+  aria-label={t("lang.switch.label")}
+  hreflang={lang === "es" ? "en" : "es"}
+>
+  {t("lang.switch")}
+</a>
+
+<style>
+  .lang-switch {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-1) var(--space-2);
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .lang-switch:hover {
+    color: var(--color-text);
+    border-color: var(--color-text-muted);
+  }
+</style>

@@ -1,0 +1,26 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Sobre mí">
+  <article class="prose">
+    <h1>Sobre mí</h1>
+    <p>
+      Diseñador de producto con foco en UX, IA y sistemas digitales.
+      Trabajo en la intersección entre diseño, tecnología y narrativa.
+    </p>
+  </article>
+</Layout>
+
+<style>
+  .prose {
+    max-width: var(--max-width-prose);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .prose h1 {
+    font-size: var(--text-3xl);
+  }
+</style>

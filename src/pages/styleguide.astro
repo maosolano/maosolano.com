@@ -1,0 +1,210 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Styleguide">
+  <h1>Design System</h1>
+  <p class="note">Referencia interna — no aparece en el menú.</p>
+
+  <!-- Colours -->
+  <section class="sg-section">
+    <h2>Colores</h2>
+    <div class="swatch-grid">
+      {[
+        ["bg", "--color-bg"],
+        ["surface", "--color-surface"],
+        ["border", "--color-border"],
+        ["text", "--color-text"],
+        ["text-muted", "--color-text-muted"],
+        ["accent", "--color-accent"],
+        ["accent-hover", "--color-accent-hover"],
+      ].map(([name, token]) => (
+        <div class="swatch">
+          <div class="swatch__color" style={`background-color: var(${token})`}></div>
+          <span class="swatch__label">{name}</span>
+          <code class="swatch__token">{token}</code>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Typography -->
+  <section class="sg-section">
+    <h2>Tipografía</h2>
+    <div class="type-scale">
+      <p style="font-size: var(--text-4xl); font-weight: var(--weight-bold)">text-4xl bold — H1</p>
+      <p style="font-size: var(--text-3xl); font-weight: var(--weight-semibold)">text-3xl semibold — H2</p>
+      <p style="font-size: var(--text-2xl); font-weight: var(--weight-semibold)">text-2xl semibold — H3</p>
+      <p style="font-size: var(--text-xl)">text-xl — Lead</p>
+      <p style="font-size: var(--text-base)">text-base — Body</p>
+      <p style="font-size: var(--text-sm); color: var(--color-text-muted)">text-sm muted — Meta</p>
+      <p style="font-size: var(--text-xs); color: var(--color-text-muted)">text-xs muted — Tags</p>
+    </div>
+  </section>
+
+  <!-- Spacing -->
+  <section class="sg-section">
+    <h2>Espaciado</h2>
+    <div class="space-scale">
+      {[1, 2, 3, 4, 6, 8, 12, 16, 24].map((n) => (
+        <div class="space-row">
+          <code>--space-{n}</code>
+          <div class="space-bar" style={`width: var(--space-${n})`}></div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Components -->
+  <section class="sg-section">
+    <h2>Componentes</h2>
+
+    <h3>Botones</h3>
+    <div class="sg-row">
+      <a href="#" class="btn-primary">Primario</a>
+      <a href="#" class="btn-outline">Contorno</a>
+    </div>
+
+    <h3>Tags</h3>
+    <div class="sg-row">
+      <span class="tag">UX</span>
+      <span class="tag">IA</span>
+      <span class="tag">Producto</span>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  h1 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-2);
+  }
+
+  .note {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-12);
+  }
+
+  .sg-section {
+    margin-bottom: var(--space-16);
+  }
+
+  .sg-section h2 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .sg-section h3 {
+    font-size: var(--text-base);
+    margin: var(--space-6) 0 var(--space-3);
+    color: var(--color-text-muted);
+  }
+
+  .swatch-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .swatch__color {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+  }
+
+  .swatch__label {
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+  }
+
+  .swatch__token {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+  }
+
+  .type-scale {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .space-scale {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .space-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .space-row code {
+    width: 100px;
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+  }
+
+  .space-bar {
+    height: 8px;
+    background-color: var(--color-accent);
+    border-radius: 2px;
+  }
+
+  .sg-row {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .btn-primary {
+    background-color: var(--color-accent);
+    color: #fff;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    transition: background-color var(--transition-fast);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-accent-hover);
+    color: #fff;
+  }
+
+  .btn-outline {
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-weight: var(--weight-medium);
+    transition: border-color var(--transition-fast), color var(--transition-fast);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--color-text-muted);
+    color: var(--color-text);
+  }
+
+  .tag {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 2px var(--space-2);
+  }
+</style>

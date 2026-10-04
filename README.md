@@ -18,9 +18,9 @@ This site serves as:
 
 ## Tech Stack
 
-- Next.js
+- Astro
 - TypeScript
-- Tailwind CSS
+- CSS custom properties (no framework)
 - Vercel
 
 ## Principles

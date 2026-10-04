@@ -1,0 +1,26 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="About">
+  <article class="prose">
+    <h1>About</h1>
+    <p>
+      Product designer focused on UX, AI, and digital systems.
+      I work at the intersection of design, technology, and narrative.
+    </p>
+  </article>
+</Layout>
+
+<style>
+  .prose {
+    max-width: var(--max-width-prose);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .prose h1 {
+    font-size: var(--text-3xl);
+  }
+</style>

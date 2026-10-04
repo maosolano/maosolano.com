@@ -1,0 +1,31 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout title="Contacto">
+  <section class="contact">
+    <h1>Contacto</h1>
+    <p>¿Tienes un proyecto en mente? Escríbeme.</p>
+    <a href="mailto:mauricio.solano@gmail.com" class="contact-link">
+      mauricio.solano@gmail.com
+    </a>
+  </section>
+</Layout>
+
+<style>
+  .contact {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    max-width: var(--max-width-prose);
+  }
+
+  .contact h1 {
+    font-size: var(--text-3xl);
+  }
+
+  .contact-link {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-medium);
+  }
+</style>
