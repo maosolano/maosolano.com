@@ -58,4 +58,4 @@ Casos de estudio, formulario de contacto, animaciones, modo oscuro, sombras, esq
 
 - **Mejor hecho que perfecto**: durante toda mi vida como diseñador he tenido pensamientos autolimitantes por temor a que el resultado no sea perfecto. Parece medio obvio y medio tonto cuando lo escribo, pero la emoción ha sido real.
 - ***Build fast, iterate faster***: este fue el mantra que me ayudó a superar el miedo a no tener un sitio "perfecto". Si quiero generar conversaciones con recruiters y conectar con oportunidades, me sirve más tener una versión funcional e ir iterando sobre la marcha.
-- **Las restricciones potencian nuestro alcance**. Las restricciones que escribí en el brief trabajaron más que el brief mismo. *No inventes datos sobre mí.* *Párate y muéstrame el Home antes de seguir.* Esas dos frases son la razón por la que pasé la tarde construyendo en vez de revisando.
+- **Las restricciones ayudan**. Las restricciones que escribí en el brief trabajaron más que el brief mismo. *No inventes datos sobre mí.* *Párate y muéstrame el Home antes de seguir.* Esas dos frases son la razón por la que pasé la tarde construyendo en vez de revisando.

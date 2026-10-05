@@ -58,4 +58,4 @@ Case studies, a contact form, animations, dark mode, shadows, rounded corners, a
 
 - **Better done than perfect**: my whole life as a designer I have carried self-limiting thoughts, afraid the result would not be perfect. It reads half obvious and half silly written down, but the feeling has been real.
 - ***Build fast, iterate faster***: this was the mantra that got me past the fear of not having a "perfect" site. If what I want is to start conversations with recruiters and connect with opportunities, a working version I keep iterating on serves me better.
-- **Constraints widen your reach**. The constraints I wrote into the brief did more work than the brief itself. *Do not invent any facts about me.* *Stop and show me the Home before you continue.* Those two sentences are the reason I spent the afternoon building instead of reviewing.
+- **Constraints help**. The constraints I wrote into the brief did more work than the brief itself. *Do not invent any facts about me.* *Stop and show me the Home before you continue.* Those two sentences are the reason I spent the afternoon building instead of reviewing.
