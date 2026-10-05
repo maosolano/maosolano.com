@@ -15,7 +15,7 @@
      ---------------------------------------------------------- */
   --yellow-500: #fbff0a;
   --yellow-700: #c9cc00;
-  --cream-50: #fdfeec;
+  --white: #ffffff;
   --gray-100: #ebebeb;
   --gray-200: #d6d6d6;
   --gray-300: #c0c0c0;
@@ -26,7 +26,7 @@
   /* ----------------------------------------------------------
      2. SEMANTIC — components use only these.
      ---------------------------------------------------------- */
-  --color-bg: var(--cream-50);
+  --color-bg: var(--white);
   --color-surface: var(--gray-100);
   --color-border: var(--gray-300);
   --color-border-subtle: var(--gray-200);

@@ -237,6 +237,21 @@ changes in the document:
 The header contact also moved from LinkedIn to maosolano.com, which affects
 nothing on the site. Experience, strengths and the AI list are unchanged.
 
+**2026-10-05, 05:48 — Background to white.** `--cream-50` existed only to feed
+`--color-bg`, so it was replaced by `--white` rather than left as a dead token
+pointing at a colour nothing uses. Contrast improved slightly across the board:
+body 19.9:1, headings 7.7:1, muted text 5.9:1.
+
+Two things carried the old colour and would have been missed by only editing
+the token:
+
+- The apple-touch-icon had cream baked into the image. Regenerated on white, or
+  iOS would have shown a cream tile against a white site.
+- The published Lab entry explained the yellow rule as "no se lee sobre un fondo
+  crema" in both languages. On a white page that reads as a contradiction, so it
+  now says "fondo claro" / "pale background". The rule itself is unchanged and
+  more true than before — yellow on white is about 1.1:1.
+
 **17:34 — Headings moved off `--color-text`.** Mao asked for a lighter grey and
 to see options first, so five candidates were rendered on the live page in real
 Oswald caps on the real cream, each with its measured contrast. He picked

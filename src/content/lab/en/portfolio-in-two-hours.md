@@ -26,7 +26,7 @@ Language, one personal line, my email, and what was already sitting on the domai
 
 ## Make a few decisions and stop
 
-A condensed sans for titles, a serif for the body, eight colours, a hamburger menu on mobile. One rule fell out of the palette: yellow is a highlight, never a text colour, because it cannot be read on a cream background.
+A condensed sans for titles, a serif for the body, eight colours, a hamburger menu on mobile. One rule fell out of the palette: yellow is a highlight, never a text colour, because it cannot be read on a pale background.
 
 Halfway through I changed my mind and swapped both typefaces. It cost about a minute. Every size, colour and space was already a token, so the change was two lines in one file and nothing else moved. That is the entire argument for building the tokens before the pages.
 

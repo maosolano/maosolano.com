@@ -26,7 +26,7 @@ El idioma, una línea personal, mi correo y qué había en el dominio. Esas cuat
 
 ## Tomar pocas decisiones y parar
 
-Una sans condensada para los títulos, una serifa para el cuerpo, ocho colores y un menú hamburguesa en móvil. De la paleta salió una regla: el amarillo es para resaltar, nunca para texto, porque no se lee sobre un fondo crema.
+Una sans condensada para los títulos, una serifa para el cuerpo, ocho colores y un menú hamburguesa en móvil. De la paleta salió una regla: el amarillo es para resaltar, nunca para texto, porque no se lee sobre un fondo claro.
 
 A mitad de camino cambié de opinión y reemplacé las dos tipografías. Costó cerca de un minuto. Cada tamaño, color y espacio ya era un token, así que el cambio fueron dos líneas en un archivo y nada más se movió. Ese es todo el argumento para construir los tokens antes que las páginas.
 

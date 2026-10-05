@@ -3,7 +3,7 @@
 Short and practical. Live reference at [`/styleguide`](src/pages/styleguide.astro)
 (not in the menu, `noindex`).
 
-The look is a pen sketch on paper: cream ground, ink text, 1px lines, square
+The look is a pen sketch on paper: white ground, ink text, 1px lines, square
 corners, generous white space. Yellow is the only accent. No shadows, no
 gradients, no animation beyond the menu opening.
 
@@ -19,7 +19,7 @@ value repaints the whole site; touching a component does not.
 
 | Semantic | Base | Job |
 |---|---|---|
-| `--color-bg` | `--cream-50` `#FDFEEC` | Page background |
+| `--color-bg` | `--white` `#FFFFFF` | Page background |
 | `--color-surface` | `--gray-100` `#EBEBEB` | Surfaces on the background |
 | `--color-border` | `--gray-300` `#C0C0C0` | Borders, dividers |
 | `--color-border-subtle` | `--gray-200` `#D6D6D6` | Dividers inside a block |
@@ -33,7 +33,8 @@ value repaints the whole site; touching a component does not.
 ### Colour rules
 
 - **Yellow is never text, and never a thin line that carries meaning.** It
-  fails contrast on cream. It is a highlight, not information.
+  fails contrast on the page background — on white it is worse still, at about
+  1.1:1. It is a highlight, not information.
 - **Links** are `--color-text` with a `--underline-thickness` (3px)
   `--color-accent` underline. On hover the yellow becomes the *background*.
 - **The active menu item** uses that same yellow block.
