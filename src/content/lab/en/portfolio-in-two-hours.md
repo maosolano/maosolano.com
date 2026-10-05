@@ -6,47 +6,49 @@ draft: false
 translationKey: portfolio-in-two-hours
 ---
 
-I had been planning this portfolio for weeks. The plan had five days, four audiences and a hero section. On a Sunday afternoon I replaced it with one rule: keep it simple, and publish in two hours.
+I had been planning this portfolio for weeks. The initial plan had five days, four audiences and a hero section. On a Sunday afternoon I replaced it with one rule: keep it simple, and publish in two hours.
 
-## Start with a sketch
+## 1. Start with a sketch
 
 Two columns on paper: my name and the menu on the left, the projects on the right. That drawing was the whole design brief. Nothing in the finished site contradicts it.
 
 ![Hand-drawn sketch of the portfolio layout](../../../assets/lab/sketch.png)
 
-## Let the CV be the content
+## 2. Let the CV be the content
 
-I gave Claude my CV and the sketch, and asked for a plan, a folder structure and a prompt for Claude Code. I wrote almost no new copy. The profile, the experience list and the three projects all came from text I already had.
+I gave Claude my CV and the sketch, and asked for a plan, a folder structure and a prompt for Claude Code.
 
-Writing is the part I am slowest at and the part I am least willing to rush. Taking it off the critical path is what made two hours plausible at all.
+I wrote almost no new copy. The profile, the experience and the three projects came from text I already had.
 
-## Answer four questions
+## 3. Answer four questions
 
-Language, one personal line, my email, and what was already sitting on the domain. Those four answers were the only thing standing between the plan and the build.
+Language, one personal line, my email, and what was already sitting on the domain. Those answers were all that stood between the plan and execution.
 
-## Make a few decisions and stop
+## 4. Make a few decisions and stop
 
-A condensed sans for titles, a serif for the body, eight colours, a hamburger menu on mobile. One rule fell out of the palette: yellow is a highlight, never a text colour, because it cannot be read on a pale background.
+For the basic design elements I took the short path: I picked a font pairing from Google Fonts and an 8-colour palette I had put together on [Coolors.com](https://coolors.co/).
+
+When I asked Claude to build a style guide out of those elements, a rule came with it: yellow is for highlighting, never for text, because it cannot be read on a cream background.
 
 Halfway through I changed my mind and swapped both typefaces. It cost about a minute. Every size, colour and space was already a token, so the change was two lines in one file and nothing else moved. That is the entire argument for building the tokens before the pages.
 
-## Prepare the files
+## 5. Prepare the files
 
-This was the slow part. Taking three good screenshots took longer than all of the planning did.
+I took screenshots of each of the three recent projects I have worked on, with the goal of hitting the deadline and publishing in record time.
 
-## Build it
+In a next iteration I will work on the content of each project, to show the process I went through with each one.
 
-The build ran in a fixed order: tokens and layout, then the Spanish pages, then a full stop so I could read the Home before anything else was written. English, the styleguide and this post came afterwards.
+## 6. Build
 
-The corrections were small and boring, which is the good outcome. A stray space before a comma in the experience list. A download link pointing at a CV filename I had quietly changed an hour earlier.
+The build ran in a fixed order: tokens and layout, then the Spanish pages, then a full stop so I could read the Home before anything else was written. English, the style guide and this post came afterwards.
 
-## Then find out it was never published
+The corrections were small and made on quick calls, aimed at getting to the result. A stray space before a comma in the experience list. A download link pointing at a CV filename I had changed an hour earlier.
 
-The real delay was not the build. Vercel reported a finished, green, successful deployment that had built nothing at all — it took zero seconds and served a 404. The GitHub connection reported itself as already connected and had never once fired.
+## 7. Publish
 
-Both of those looked completely fine from the dashboard. The only check that caught either one was opening the live URL and reading what came back.
+The real delay was not the build. When I went to publish, Vercel reported a finished, green, successful deployment that had built nothing at all: it took zero seconds and served a 404. The GitHub connection reported itself as already connected and had never once fired.
 
-The site went live at 16:38, eight minutes past the deadline.
+Both looked completely fine from the dashboard. The only check that caught either one was opening the live URL and reading what came back. The site went live at 16:38, eight minutes past the deadline.
 
 ## What I left out
 
@@ -54,10 +56,6 @@ Case studies, a contact form, animations, dark mode, shadows, rounded corners, a
 
 ## What I learned
 
-Preparing assets takes longer than deciding anything. Half an hour of screenshots against a couple of minutes per design decision.
-
-Settling the palette and the type scale before the build meant there was nothing left to argue about during it.
-
-The constraints I wrote into the brief did more work than the brief itself. *Do not invent any facts about me.* *Stop and show me the Home before you continue.* Those two sentences are the reason I spent the afternoon building instead of reviewing.
-
-And the one I will keep: "Ready" is not the same as working. A green status is a claim, not evidence.
+- **Better done than perfect**: my whole life as a designer I have carried self-limiting thoughts, afraid the result would not be perfect. It reads half obvious and half silly written down, but the feeling has been real.
+- ***Build fast, iterate faster***: this was the mantra that got me past the fear of not having a "perfect" site. If what I want is to start conversations with recruiters and connect with opportunities, a working version I keep iterating on serves me better.
+- **Constraints widen your reach**. The constraints I wrote into the brief did more work than the brief itself. *Do not invent any facts about me.* *Stop and show me the Home before you continue.* Those two sentences are the reason I spent the afternoon building instead of reviewing.

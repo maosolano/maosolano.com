@@ -252,6 +252,25 @@ the token:
   now says "fondo claro" / "pale background". The rule itself is unchanged and
   more true than before — yellow on white is about 1.1:1.
 
+**2026-10-05, 08:50 — Mao rewrote the Lab entry in Spanish.** He pasted the new
+version into Notion below the old one, leaving two Spanish blocks on the page;
+the old one was removed and his kept. English was rewritten to follow his
+version rather than the reverse, and both site files were replaced.
+
+What changed in substance: steps are numbered headings now, step 4 explains the
+real origin of the palette (a Google Fonts pairing and an 8-colour set made in
+Coolors), step 5 drops the "screenshots took longer than planning" line for a
+note that per-project content comes in a later iteration, step 7 becomes plainly
+"Publicar", and "Lo que aprendí" turns into three named lessons — better done
+than perfect, build fast iterate faster, constraints widen your reach. The
+"Ready is not the same as working" closer is gone.
+
+His text says the yellow rule came from "un fondo crema". Left as written: it
+now reads as narration of the moment the palette was chosen, when the background
+genuinely was cream, rather than a claim about the current site. Flagged for him
+anyway, since the site is white. A stray `- **` artifact from the paste was
+dropped.
+
 **17:34 — Headings moved off `--color-text`.** Mao asked for a lighter grey and
 to see options first, so five candidates were rendered on the live page in real
 Oswald caps on the real cream, each with its measured contrast. He picked
