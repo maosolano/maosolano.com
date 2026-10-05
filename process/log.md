@@ -173,3 +173,81 @@ than the original brief, plus two new lines he supplied directly. Changes:
 site says "IA" — looks like a slip in the CV rather than a choice. The CV also
 orders projects Matcha, VISTA, Bike; the site keeps the brief's explicit order
 (Bike, Matcha, VISTA) since that instruction was deliberate. Both flagged.
+
+**17:05 — Lab entry written and published.** The two skeletons became real posts
+in both languages, `draft: false`, so the site goes from 11 to 13 pages and the
+Lab index stops showing its empty state. The Notion page's "Lab entry (draft)"
+section was filled in to match, and four facts on that page that had gone stale
+during the build — fonts, site title, the Home personal line and the status
+callout — were corrected with the superseded value kept visible.
+
+**17:12 — Favicon from the 🌞 emoji.** There was no icon at all: the rebuild had
+dropped the `<link rel="icon">` and nothing was ever served, so browsers fell
+back to a 404ing `/favicon.ico`.
+
+Rasterised rather than shipped as an SVG text glyph. An `<svg><text>🌞</text></svg>`
+favicon renders in whatever emoji font the viewer's OS has, so the sun would
+differ on macOS, Windows and Android. Rendering it once locally fixes the
+artwork for everyone. `qlmanage -t` was the rasteriser — QuickLook draws SVG
+through WebKit with Apple Color Emoji, so no dependency was added and no image
+data had to round-trip through the model.
+
+Three files: `favicon.svg` (transparent, scales), `favicon-32.png` (transparent,
+so it sits on light or dark browser chrome), and `apple-touch-icon.png` at 180px
+on the cream page background — iOS composites a transparent touch icon onto
+black, which would have put a black square on the home screen.
+
+**17:30 — Misread which line Mao meant.** He asked to change "la primera línea
+que describe mi perfil" and the first paragraph of the profile was edited. A
+screenshot with the line highlighted showed he meant the Home `h1`. Reverted the
+paragraph to its CV wording and moved the new text to the tagline:
+"Diseñador generalista, creativo tecnológico y maker", no full stop, since it is
+a heading. Worth remembering that "perfil" here means the headline, not the
+profile paragraph.
+
+**17:38 — Selection restyled to the accent yellow.** `::selection` was still the
+browser's default blue, which was the one place on the site a non-palette colour
+appeared. Selected text now takes the yellow background with ink on top — the
+colour is forced back to ink because headings are grey and grey on yellow is
+weak.
+
+**17:42 — Title and meta synced to the new headline.** The `<title>` and the Home
+meta description both still opened with the retired tagline, so the tab said one
+thing and the page another. Both now carry "Diseñador generalista, creativo
+tecnológico y maker" and its English counterpart. A grep confirms the old wording
+survives nowhere in `src/` or `dist/`.
+
+Still stale: the Notion build page records the previous site title under
+Decisions. Left alone deliberately — the positioning is still being worked on,
+and it is worth updating once rather than after each pass.
+
+**17:50 — New CV, profile updated.** Mao replaced the PDF again; a checksum
+against the committed copy confirmed it differed before reading it. Three
+changes in the document:
+
+- Its subtitle is now "Diseñador generalista, creativo tecnológico y maker",
+  the same line we had just made the Home `h1`. The CV and the site agree.
+- First paragraph rewritten to "Soy un diseñador generalista con experiencia en
+  redacción para UX en…". Carried over to the Home profile and to Sobre mí's
+  meta description, which had been holding the older wording.
+- Third paragraph now opens "Actualmente estoy explorando…". Still not on the
+  site: it says what the personal line already says, and printing both reads as
+  repetition. Same call as before, flagged again rather than quietly repeated.
+
+The header contact also moved from LinkedIn to maosolano.com, which affects
+nothing on the site. Experience, strengths and the AI list are unchanged.
+
+**17:34 — Headings moved off `--color-text`.** Mao asked for a lighter grey and
+to see options first, so five candidates were rendered on the live page in real
+Oswald caps on the real cream, each with its measured contrast. He picked
+`#4E5459` at 7.5:1, applied to all of `h1`–`h6` rather than `h1` alone: a page
+title lighter than the `h2` beneath it inverts the visual hierarchy.
+
+Added as `--gray-800` plus a `--color-heading` semantic token, not as a loose
+value, so the rule in `global.css` stays one line and the styleguide and
+`DESIGN.md` document it.
+
+The catch this surfaced: card and post titles are links, and the global `a`
+rule would have held them at ink while every other heading went grey. Linked
+headings now inherit `--color-heading`. The sidebar wordmark stays ink — it is
+a brand mark, not a heading, and the extra weight suits it.

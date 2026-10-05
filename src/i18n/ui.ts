@@ -41,7 +41,7 @@ export const LINKEDIN = "https://linkedin.com/in/maosolano";
 export const ui = {
   es: {
     "site.name": "Mao Solano",
-    "site.title": "Mao Solano — Diseñador, maker y experimentador permanente",
+    "site.title": "Mao Solano — Diseñador generalista, creativo tecnológico y maker",
 
     "nav.projects": "Proyectos",
     "nav.about": "Sobre mí",
@@ -57,8 +57,8 @@ export const ui = {
 
     "home.title": "Inicio",
     "home.description":
-      "Diseñador, maker y experimentador permanente. Uso palabras, sistemas y tecnología para convertir ideas en productos, experiencias y proyectos creativos.",
-    "home.tagline": "Diseñador, maker y experimentador permanente",
+      "Diseñador generalista, creativo tecnológico y maker. Uso palabras, sistemas y tecnología para convertir ideas en productos, experiencias y proyectos creativos.",
+    "home.tagline": "Diseñador generalista, creativo tecnológico y maker",
     "home.personal":
       "Uso palabras, sistemas y tecnología para convertir ideas en productos, experiencias y proyectos creativos.",
     "home.recent": "Proyectos recientes",
@@ -71,7 +71,7 @@ export const ui = {
 
     "about.title": "Sobre mí",
     "about.description":
-      "Diseñador generalista y redactor UX con experiencia en banca, ecommerce y productos digitales.",
+      "Diseñador generalista con experiencia en redacción para UX en banca, ecommerce y productos digitales.",
     "about.experience": "Experiencia",
     "about.strengths": "Fortalezas",
     "about.ai": "Experimentando con IA",
@@ -92,7 +92,7 @@ export const ui = {
   },
   en: {
     "site.name": "Mao Solano",
-    "site.title": "Mao Solano — Designer, maker, and lifelong experimenter",
+    "site.title": "Mao Solano — Generalist designer, creative technologist, and maker",
 
     "nav.projects": "Projects",
     "nav.about": "About",
@@ -108,8 +108,8 @@ export const ui = {
 
     "home.title": "Home",
     "home.description":
-      "Designer, maker, and lifelong experimenter. I use words, systems, and technology to turn ideas into products, experiences, and creative projects.",
-    "home.tagline": "Designer, maker, and lifelong experimenter",
+      "Generalist designer, creative technologist, and maker. I use words, systems, and technology to turn ideas into products, experiences, and creative projects.",
+    "home.tagline": "Generalist designer, creative technologist, and maker",
     "home.personal":
       "I use words, systems, and technology to turn ideas into products, experiences, and creative projects.",
     "home.recent": "Recent projects",
@@ -122,7 +122,7 @@ export const ui = {
 
     "about.title": "About",
     "about.description":
-      "Generalist designer and UX writer with experience in banking, ecommerce, and digital products.",
+      "Generalist designer with experience in UX writing across banking, ecommerce, and digital products.",
     "about.experience": "Experience",
     "about.strengths": "Strengths",
     "about.ai": "Experimenting with AI",
@@ -152,11 +152,11 @@ export type UIKey = keyof (typeof ui)[typeof defaultLang];
  */
 export const profile = {
   es: [
-    "Diseñador generalista y redactor UX con experiencia en banca, ecommerce y productos digitales.",
+    "Soy un diseñador generalista con experiencia en redacción para UX en banca, ecommerce y productos digitales.",
     "He trabajado transformando procesos complejos en experiencias claras para millones de usuarios, colaborando con equipos de diseño, producto, investigación y desarrollo.",
   ],
   en: [
-    "Generalist designer and UX writer with experience in banking, ecommerce, and digital products.",
+    "I'm a generalist designer with experience in UX writing across banking, ecommerce, and digital products.",
     "I've worked turning complex processes into clear experiences for millions of users, collaborating with design, product, research, and engineering teams.",
   ],
 } as const;

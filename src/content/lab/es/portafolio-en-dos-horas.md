@@ -1,59 +1,63 @@
 ---
 title: Un portafolio en dos horas
 date: 2026-10-04
-summary: Cómo construí este sitio en una tarde, del boceto en papel al deploy.
-draft: true
+summary: Cómo pasé de un boceto a lápiz a un sitio publicado en una tarde, trabajando con Claude.
+draft: false
 translationKey: portfolio-in-two-hours
 ---
 
-<!--
-ESQUELETO. Las notas en viñetas vienen de process/log.md.
-Escribe la prosa y borra las viñetas que no uses.
--->
+Llevaba semanas planeando este portafolio. El plan tenía cinco días, cuatro audiencias y una sección hero. Un domingo por la tarde lo cambié por una sola regla: mantenerlo simple y publicarlo en dos horas.
 
-## El boceto
+## Empezar con un boceto
 
-![Boceto a mano del portafolio](../../../assets/lab/sketch.png)
+Dos columnas en papel: mi nombre y el menú a la izquierda, los proyectos a la derecha. Ese dibujo fue todo el brief de diseño. Nada en el sitio terminado lo contradice.
 
-- Dos columnas: nombre y menú fijos a la izquierda, contenido a la derecha.
-- La idea de "dibujo a lápiz sobre papel" salió antes que cualquier token.
-- Qué sobrevivió del papel a la pantalla y qué no.
+![Boceto a mano del layout del portafolio](../../../assets/lab/sketch.png)
 
-## El brief
+## Usar la hoja de vida como contenido
 
-- Escribí el brief completo antes de pedir una sola línea de código.
-- Stack cerrado de entrada: Astro, sin framework de UI, sin Tailwind.
-- Español por defecto en la raíz, inglés bajo `/en`.
-- Reglas de trabajo explícitas: no inventar datos sobre mí, no agregar páginas
-  que no pedí, construir en un orden concreto y parar a mostrarme el Home.
-- Le di la paleta y la escala tipográfica ya decididas, no se las pedí.
+Le di a Claude mi hoja de vida y el boceto, y le pedí un plan, una estructura de carpetas y un prompt para Claude Code. Casi no escribí textos nuevos. El perfil, la experiencia y los tres proyectos salieron de lo que ya tenía escrito.
 
-## Las decisiones
+Escribir es la parte en la que soy más lento y la que menos estoy dispuesto a apurar. Sacarla de la ruta crítica es lo que hizo que dos horas fueran siquiera posibles.
 
-- **Tokens en dos capas.** Paleta cruda abajo, nombres semánticos arriba.
-  Los componentes solo tocan la capa semántica.
-- **Una sola tabla de rutas.** El cambio de idioma y las etiquetas `hreflang`
-  leen del mismo sitio, así que no se desincronizan al agregar una página.
-- **El copy vive en `ui.ts`,** no dentro de las páginas. Español e inglés
-  quedan uno al lado del otro y nada se desfasa sin que se note.
-- **El menú móvil es mejora progresiva.** Sin JS el menú se ve desplegado y el
-  botón no aparece. El JS lo colapsa antes del primer pintado.
-- **El amarillo nunca es color de texto.** No pasa contraste sobre el crema.
-  Va como subrayado grueso y como fondo en hover.
-- Cambié la tipografía a mitad de camino: Oswald para títulos, Quattrocento
-  para el cuerpo. Ninguna de las dos tiene cursiva real.
+## Responder cuatro preguntas
 
-## Lo que quedó fuera
+El idioma, una línea personal, mi correo y qué había en el dominio. Esas cuatro respuestas eran lo único que faltaba para pasar del plan a la construcción.
 
-- Modo oscuro.
-- Animaciones más allá del menú.
-- Formulario de contacto.
-- Sombras, degradados, esquinas redondeadas.
-- Un `og:image` propio.
+## Tomar pocas decisiones y parar
 
-## Lo que sigue
+Una sans condensada para los títulos, una serifa para el cuerpo, ocho colores y un menú hamburguesa en móvil. De la paleta salió una regla: el amarillo es para resaltar, nunca para texto, porque no se lee sobre un fondo crema.
 
-- Mejorar los textos alternativos de las imágenes de proyecto.
-- Primera entrada real del Lab.
-- Revisar la columna de texto de `/proyectos`: la descripción completa queda
-  muy angosta en el 40%.
+A mitad de camino cambié de opinión y reemplacé las dos tipografías. Costó cerca de un minuto. Cada tamaño, color y espacio ya era un token, así que el cambio fueron dos líneas en un archivo y nada más se movió. Ese es todo el argumento para construir los tokens antes que las páginas.
+
+## Preparar los archivos
+
+Esta fue la parte lenta. Tomar tres buenas capturas de pantalla llevó más tiempo que toda la planeación.
+
+## Construir
+
+La construcción siguió un orden fijo: tokens y layout, después las páginas en español, y luego una parada completa para que yo leyera el Home antes de que se escribiera nada más. El inglés, el styleguide y esta entrada vinieron después.
+
+Las correcciones fueron pequeñas y aburridas, que es el buen resultado. Un espacio de más antes de una coma en la lista de experiencia. Un enlace de descarga apuntando al nombre de un archivo de hoja de vida que yo mismo había cambiado una hora antes.
+
+## Y descubrir que nunca se publicó
+
+La demora real no fue la construcción. Vercel reportó un despliegue terminado, en verde y exitoso, que no había construido absolutamente nada: tardó cero segundos y servía un 404. La conexión con GitHub se reportaba como ya conectada y no se había activado ni una vez.
+
+Las dos cosas se veían perfectas desde el panel. La única verificación que detectó alguna de las dos fue abrir la URL en vivo y leer lo que respondía.
+
+El sitio quedó publicado a las 16:38, ocho minutos después del plazo.
+
+## Lo que dejé por fuera
+
+Casos de estudio, formulario de contacto, animaciones, modo oscuro, sombras, esquinas redondeadas, una imagen social decente y casi todo mi plan original.
+
+## Lo que aprendí
+
+Preparar los archivos toma más tiempo que decidir cualquier cosa. Media hora de capturas contra un par de minutos por decisión de diseño.
+
+Dejar cerrados la paleta y la escala tipográfica antes de construir significó que no quedó nada que discutir durante la construcción.
+
+Las restricciones que escribí en el brief trabajaron más que el brief mismo. *No inventes datos sobre mí.* *Párate y muéstrame el Home antes de seguir.* Esas dos frases son la razón por la que pasé la tarde construyendo en vez de revisando.
+
+Y la que me llevo: "Ready" no es lo mismo que funcionando. Un estado en verde es una afirmación, no una prueba.

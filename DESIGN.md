@@ -24,6 +24,7 @@ value repaints the whole site; touching a component does not.
 | `--color-border` | `--gray-300` `#C0C0C0` | Borders, dividers |
 | `--color-border-subtle` | `--gray-200` `#D6D6D6` | Dividers inside a block |
 | `--color-text` | `--ink-900` `#020A12` | Body text |
+| `--color-heading` | `--gray-800` `#4E5459` | All headings, `h1`–`h6` |
 | `--color-text-muted` | `--gray-700` `#616569` | Secondary text, dates |
 | `--color-accent` | `--yellow-500` `#FBFF0A` | Underlines, highlight, active state |
 | `--color-accent-strong` | `--yellow-700` `#C9CC00` | Underline on hover |
@@ -62,6 +63,10 @@ value repaints the whole site; touching a component does not.
 - **All headings are uppercase**, set once on `h1`–`h6` in `global.css` with
   `--tracking-title` (0.02em). Oswald is condensed and caps need the air.
   `text-transform` is visual only — assistive tech still reads the real casing.
+- **Headings are `--color-heading`, not `--color-text`** — a softer grey than the
+  body, so a wall of condensed caps does not shout. A linked heading inherits
+  that colour instead of the link colour, so card and post titles match the
+  headings around them.
 - The name and the menu stay **mixed case**. The contrast against caps headings
   is deliberate.
 - **Neither family has an italic face.** Any `<em>` is a browser-synthesised

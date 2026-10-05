@@ -52,6 +52,7 @@ h6 {
   line-height: var(--leading-title);
   text-transform: uppercase;
   letter-spacing: var(--tracking-title);
+  color: var(--color-heading);
 }
 
 h1 {
@@ -89,6 +90,26 @@ a {
 a:hover {
   background-color: var(--color-accent);
   text-decoration-color: var(--color-accent-strong);
+}
+
+/* A linked heading follows the heading colour, not the link colour. */
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+  color: inherit;
+}
+
+/* ============================================================
+   Selection — the accent yellow, with ink on top.
+   Headings are grey, so the colour is forced back to ink here
+   to keep the text readable against the yellow.
+   ============================================================ */
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-text);
 }
 
 /* ============================================================
