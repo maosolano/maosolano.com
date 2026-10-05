@@ -27,6 +27,7 @@ const projects = await Promise.all(
         image={entry.data.image}
         imageAlt={t("projects.imageAlt")}
         visitLabel={t("projects.visit")}
+        layout="stacked"
       >
         <Content />
       </ProjectCard>

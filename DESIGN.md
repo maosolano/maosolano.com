@@ -110,10 +110,17 @@ computed by the layout from the route table. Never build the URL by rewriting
 strings.
 
 ### `ProjectCard.astro`
-A project: title above, image left (60%), text right; stacked on mobile.
-The text block is a slot — Home passes the summary, Projects passes the
-rendered Markdown body. Falls back to a bordered box with the project name when
-the image is missing.
+A project: title above, then the image and the text. The text block is a slot —
+Home passes the summary, Projects passes the rendered Markdown body. Falls back
+to a bordered box with the project name when the image is missing.
+
+Two layouts, set with `layout`:
+- `"split"` (default) — image left at 60%, text right. For a one-line summary.
+- `"stacked"` — both at full column width, capped at 68ch. For the full body:
+  at 40% of the content width the measure drops to about 33 characters, which
+  is too narrow to read comfortably.
+
+Both collapse to one column below 800px, so the prop only matters on desktop.
 
 ### `PostList.astro`
 The Lab index: title, date, one-line summary, newest first. Handles its own

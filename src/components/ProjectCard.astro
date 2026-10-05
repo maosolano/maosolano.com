@@ -7,9 +7,16 @@ interface Props {
   image?: ImageMetadata;
   imageAlt: string;
   visitLabel: string;
+  /**
+   * "split" puts the image left and the text right — right for a one-line
+   * summary. "stacked" gives both the full column width, which long bodies
+   * need: at 40% of the content width the measure drops to ~33 characters.
+   */
+  layout?: "split" | "stacked";
 }
 
-const { title, url, image, imageAlt, visitLabel } = Astro.props;
+const { title, url, image, imageAlt, visitLabel, layout = "split" } = Astro.props;
+const stacked = layout === "stacked";
 ---
 
 <article class="card">
@@ -17,14 +24,14 @@ const { title, url, image, imageAlt, visitLabel } = Astro.props;
     <a href={url}>{title}</a>
   </h3>
 
-  <div class="card__row">
+  <div class:list={["card__row", { "card__row--stacked": stacked }]}>
     <div class="card__media">
       {image ? (
         <Image
           src={image}
           alt={`${imageAlt}: ${title}`}
-          widths={[420, 840]}
-          sizes="(min-width: 800px) 420px, 100vw"
+          widths={stacked ? [720, 1440] : [420, 840]}
+          sizes={stacked ? "(min-width: 800px) 720px, 100vw" : "(min-width: 800px) 420px, 100vw"}
           loading="lazy"
         />
       ) : (
@@ -92,5 +99,14 @@ const { title, url, image, imageAlt, visitLabel } = Astro.props;
     .card__row {
       grid-template-columns: 60% 1fr;
     }
+
+    /* One column, so the body keeps a readable measure. */
+    .card__row--stacked {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .card__row--stacked .card__text {
+    max-width: 68ch;
   }
 </style>

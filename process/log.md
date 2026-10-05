@@ -271,6 +271,21 @@ genuinely was cream, rather than a claim about the current site. Flagged for him
 anyway, since the site is white. A stray `- **` artifact from the paste was
 dropped.
 
+**09:00 — Fixed the text column on /proyectos.** The card's 60/40 split suits
+the one-line summary on Home, but the Projects page puts the full body in that
+40%: about 270px, roughly 33 characters per line. Too narrow to read.
+
+Both halves wanted to be the wide one — the screenshots need width to stay
+legible, and so does the prose — so no ratio could satisfy both. Stacking gives
+each the full column: image at 624px, text at 60 characters, capped at 68ch so
+it does not overrun on wide screens.
+
+Added as a `layout` prop on ProjectCard, `"split"` by default and `"stacked"`
+on both Projects pages, rather than overriding the component's scoped styles
+from the page. The image `widths` follow the layout, so the stacked version
+requests a 720px source instead of 420px. Below 800px both collapse to one
+column as before, so mobile is unchanged.
+
 **17:34 — Headings moved off `--color-text`.** Mao asked for a lighter grey and
 to see options first, so five candidates were rendered on the live page in real
 Oswald caps on the real cream, each with its measured contrast. He picked
