@@ -34,7 +34,10 @@ export const routes: Record<Lang, Record<PageKey, string>> = {
 export type NavKey = "projects" | "about" | "lab" | "contact";
 export const navOrder: NavKey[] = ["projects", "about", "lab", "contact"];
 
-export const CV_PATH = "/cv-mauricio-solano.pdf";
+export const CV_PATH: Record<Lang, string> = {
+  es: "/cv-mauricio-solano-ES.pdf",
+  en: "/cv-mauricio-solano-EN.pdf",
+};
 export const EMAIL = "mauricio.solano@gmail.com";
 export const LINKEDIN = "https://linkedin.com/in/maosolano";
 

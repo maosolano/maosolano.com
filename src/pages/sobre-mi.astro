@@ -33,7 +33,7 @@ const t = useTranslations(lang);
     {aiPractice[lang].map((item) => <li>{item}</li>)}
   </ul>
 
-  <p class="cv-link"><a href={CV_PATH} download>{t("about.cv")}</a></p>
+  <p class="cv-link"><a href={CV_PATH[lang]} download>{t("about.cv")}</a></p>
 </Layout>
 
 <style>
