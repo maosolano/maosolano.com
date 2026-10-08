@@ -1,0 +1,103 @@
+---
+import type { Lang } from "@/i18n/ui";
+
+interface Props {
+  /** The quote in the page's language, one string per paragraph. */
+  quote: string[];
+  name: string;
+  role: string;
+  org?: string | null;
+  relation: string;
+  /**
+   * When `quote` is a translation, the words as written and their language.
+   * They sit behind a native <details>, so they open without JS.
+   */
+  original?: { lang: Lang; quote: string[] };
+  originalLabel?: string;
+}
+
+const { quote, name, role, org, relation, original, originalLabel } = Astro.props;
+---
+
+<figure class="rec">
+  <blockquote class="rec__quote">
+    {quote.map((paragraph) => <p>{paragraph}</p>)}
+  </blockquote>
+
+  <figcaption class="rec__by">
+    <span class="rec__name">{name}</span>
+    <span class="rec__meta">{org ? `${role}, ${org}` : role}</span>
+    <span class="rec__meta">{relation}</span>
+  </figcaption>
+
+  {original && (
+    <details class="rec__original">
+      <summary>{originalLabel}</summary>
+      <blockquote lang={original.lang}>
+        {original.quote.map((paragraph) => <p>{paragraph}</p>)}
+      </blockquote>
+    </details>
+  )}
+</figure>
+
+<style>
+  /* A card: built to sit in a Carousel, which sets its width. */
+  .rec {
+    padding: var(--space-5);
+    border: var(--border-width) solid var(--color-border);
+  }
+
+  @media (max-width: 799px) {
+    .rec {
+      padding: var(--space-4);
+    }
+  }
+
+  .rec__quote p + p,
+  .rec__original blockquote p + p {
+    margin-top: var(--space-3);
+  }
+
+  .rec__by {
+    margin-top: var(--space-4);
+  }
+
+  .rec__name {
+    display: block;
+    font-family: var(--font-title);
+  }
+
+  .rec__meta {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .rec__original {
+    margin-top: var(--space-3);
+  }
+
+  .rec__original summary {
+    display: flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    width: fit-content;
+    font-size: var(--text-sm);
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+    text-decoration-thickness: var(--underline-thickness);
+    text-underline-offset: 2px;
+  }
+
+  .rec__original summary:hover {
+    background-color: var(--color-accent);
+  }
+
+  .rec__original blockquote {
+    margin-top: var(--space-2);
+    padding-left: var(--space-4);
+    border-left: var(--border-width) solid var(--color-border);
+    color: var(--color-text-muted);
+  }
+</style>

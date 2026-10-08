@@ -2,6 +2,9 @@
 import Layout from "@/layouts/Layout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import Prose from "@/components/Prose.astro";
+import Carousel from "@/components/Carousel.astro";
+import Recommendation from "@/components/Recommendation.astro";
+import { recommendations } from "@/i18n/ui";
 import { getEntry } from "astro:content";
 
 const sample = await getEntry("projects", "es/matcha");
@@ -127,6 +130,29 @@ const spacing = [1, 2, 3, 4, 5, 6, 7, 8];
         <p>{sample.data.summary}</p>
       </ProjectCard>
     )}
+  </section>
+
+  <!-- Carousel + Recommendation -->
+  <section>
+    <h2>Carousel y Recommendation</h2>
+    <p class="note">
+      Carrusel horizontal con scroll nativo y snap; los botones solo aparecen con
+      JavaScript. Cada tarjeta es una recomendación de LinkedIn: si el texto es una
+      traducción, el original queda dentro de un <code>details</code>.
+    </p>
+    <Carousel label="Recomendaciones" prevLabel="Anterior" nextLabel="Siguiente">
+      {recommendations.map((rec) => (
+        <Recommendation
+          quote={rec.quote.es}
+          name={rec.name}
+          role={rec.role}
+          org={rec.org}
+          relation={rec.relation.es}
+          original={rec.lang === "es" ? undefined : { lang: rec.lang, quote: rec.quote[rec.lang] }}
+          originalLabel="Traducido del inglés. Ver el original"
+        />
+      ))}
+    </Carousel>
   </section>
 
   <!-- Prose -->

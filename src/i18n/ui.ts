@@ -79,6 +79,11 @@ export const ui = {
     "about.strengths": "Fortalezas",
     "about.ai": "Experimentando con IA",
     "about.cv": "Descargar CV (PDF)",
+    "about.recommendations": "Recomendaciones",
+    "about.recommendations.translated": "Traducido del inglés. Ver el original",
+    "about.recommendations.linkedin": "Ver las recomendaciones en LinkedIn",
+    "about.recommendations.prev": "Anterior",
+    "about.recommendations.next": "Siguiente",
 
     "lab.title": "Lab",
     "lab.description": "Notas y experimentos sobre diseño, contenido e inteligencia artificial.",
@@ -130,6 +135,11 @@ export const ui = {
     "about.strengths": "Strengths",
     "about.ai": "Experimenting with AI",
     "about.cv": "Download CV (PDF)",
+    "about.recommendations": "Recommendations",
+    "about.recommendations.translated": "Translated from Spanish. See the original",
+    "about.recommendations.linkedin": "See the recommendations on LinkedIn",
+    "about.recommendations.prev": "Previous",
+    "about.recommendations.next": "Next",
 
     "lab.title": "Lab",
     "lab.description": "Notes and experiments on design, content, and artificial intelligence.",
@@ -219,6 +229,97 @@ export const aiPractice = {
     "LLM-assisted research and synthesis",
   ],
 } as const;
+
+/**
+ * LinkedIn recommendations. `lang` is the language they were written in;
+ * that version is verbatim, the other is our translation and the page says so.
+ * Each quote is a list of paragraphs; long ones are excerpts, cuts marked
+ * with […] in both languages (the full text is on LinkedIn). Role and org are
+ * the person's current ones on LinkedIn; `relation` is how we worked together.
+ */
+export const RECOMMENDATIONS_URL = `${LINKEDIN}/details/recommendations/`;
+
+export const recommendations: {
+  name: string;
+  role: string;
+  org: string | null;
+  lang: Lang;
+  relation: Record<Lang, string>;
+  quote: Record<Lang, string[]>;
+}[] = [
+  {
+    name: "Lucas Barrientos",
+    role: "Design Manager",
+    org: "Zalando",
+    lang: "en",
+    relation: {
+      es: "Supervisó mi trabajo directamente",
+      en: "Managed me directly",
+    },
+    quote: {
+      en: [
+        "Mao is a highly analytical person who puts a lot of thought and dedication to everything he does. […] During our time working together, Mao laid the foundations and developed the UX writing guidelines for the team. He also provided constant support to product designers of all levels of seniority.",
+      ],
+      es: [
+        "Mao es una persona muy analítica que pone mucha reflexión y dedicación en todo lo que hace. […] Durante el tiempo que trabajamos juntos, Mao sentó las bases y desarrolló las guías de redacción para UX del equipo. También dio apoyo constante a diseñadores de producto de todos los niveles de experiencia.",
+      ],
+    },
+  },
+  {
+    name: "Anabelle Handdoek",
+    role: "Software Architect",
+    org: "Publicis Groupe",
+    lang: "en",
+    relation: {
+      es: "Trabajamos en el mismo equipo",
+      en: "Worked on the same team",
+    },
+    quote: {
+      en: [
+        "When I worked for him at his start-up, he always aimed for and required high-quality products, while also fostering a friendly and inspiring work environment. […] He is a genuine polymath who is knowledgeable and a pleasure to work with. 🤟",
+      ],
+      es: [
+        "Cuando trabajé para él en su startup, siempre buscó y exigió productos de alta calidad, y al mismo tiempo fomentó un ambiente de trabajo cordial e inspirador. […] Es un verdadero polímata, con muchísimo conocimiento, y es un placer trabajar con él. 🤟",
+      ],
+    },
+  },
+  {
+    name: "Alex Martinez",
+    role: "Design Engineer",
+    org: null,
+    lang: "en",
+    relation: {
+      es: "Tenía un cargo superior al mío, sin supervisarme directamente",
+      en: "Was senior to me, without managing me directly",
+    },
+    quote: {
+      en: [
+        "Mao is very proactive and curious to learn new things. His attitude and energy make him a great addition to any team. I had the opportunity to work with him on a big project where he supported us in Content Creation and Visual Design. He also has a keen eye for design details and vast experience in the industry. I would definitely recommend Mao to work with.",
+      ],
+      es: [
+        "Mao es muy proactivo y tiene curiosidad por aprender cosas nuevas. Su actitud y su energía lo convierten en un gran aporte para cualquier equipo. Tuve la oportunidad de trabajar con él en un proyecto grande en el que nos apoyó en creación de contenido y diseño visual. Además, tiene buen ojo para los detalles de diseño y una amplia experiencia en la industria. Sin duda recomendaría trabajar con Mao.",
+      ],
+    },
+  },
+  {
+    name: "Silvina Sarrabayruse",
+    role: "Sr. Manager, Brand Protection & Product Strategy",
+    org: "Mercado Libre",
+    lang: "es",
+    relation: {
+      es: "Tenía un cargo superior al mío, sin supervisarme directamente",
+      en: "Was senior to me, without managing me directly",
+    },
+    quote: {
+      es: [
+        "Trabajar con Mao en el proyecto de branded content para la producción de videos educativos para nuestro Brand Protection Program ha sido de gran valor destacando en él sus habilidades en dirección creativa, desarrollo de contenido e implementación.",
+      ],
+      en: [
+        "Working with Mao on the branded content project producing educational videos for our Brand Protection Program was very valuable, and it showcased his skills in creative direction, content development, and implementation.",
+      ],
+    },
+  },
+];
 
 export function getLangFromUrl(url: URL): Lang {
   const [, first] = url.pathname.split("/");

@@ -1,0 +1,112 @@
+---
+interface Props {
+  /** Names the scroll region for assistive tech, e.g. the section heading. */
+  label: string;
+  prevLabel: string;
+  nextLabel: string;
+}
+
+const { label, prevLabel, nextLabel } = Astro.props;
+---
+
+<div class="carousel" data-carousel>
+  <div class="carousel__track" role="region" aria-label={label} tabindex="0">
+    <slot />
+  </div>
+
+  <!-- Without JS the track still scrolls (swipe, trackpad, keyboard). -->
+  <div class="carousel__controls">
+    <button type="button" class="carousel__button" data-dir="-1">
+      <span aria-hidden="true">←</span> {prevLabel}
+    </button>
+    <button type="button" class="carousel__button" data-dir="1">
+      {nextLabel} <span aria-hidden="true">→</span>
+    </button>
+  </div>
+</div>
+
+<style>
+  .carousel__track {
+    display: flex;
+    /* Each item keeps its own height, so opening something inside one card
+       does not stretch the others. */
+    align-items: flex-start;
+    gap: var(--space-4);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    padding-bottom: var(--space-4);
+    scrollbar-color: var(--color-border) transparent;
+  }
+
+  /* Each item is narrower than the track, so the next one peeks in:
+     that is the cue that there is more to scroll. */
+  .carousel__track > :global(*) {
+    flex: 0 0 min(88%, 26rem);
+    scroll-snap-align: start;
+  }
+
+  .carousel__controls {
+    display: none; /* only shown when JS is available */
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+  }
+
+  :global(html.js) .carousel__controls {
+    display: flex;
+  }
+
+  .carousel__button {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--tap-target);
+    padding: var(--space-2) var(--space-4);
+    background: none;
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius);
+    font-family: var(--font-title);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    cursor: pointer;
+  }
+
+  .carousel__button:hover:not(:disabled) {
+    background-color: var(--color-accent);
+  }
+
+  .carousel__button:disabled {
+    color: var(--color-text-muted);
+    border-color: var(--color-border-subtle);
+    cursor: default;
+  }
+</style>
+
+<script>
+  // Buttons step one item at a time. The jump is instant: the design allows
+  // no animation beyond the menu, and snapping keeps the position readable.
+  for (const root of document.querySelectorAll<HTMLElement>("[data-carousel]")) {
+    const track = root.querySelector<HTMLElement>(".carousel__track")!;
+    const buttons = root.querySelectorAll<HTMLButtonElement>("[data-dir]");
+
+    const update = () => {
+      const max = track.scrollWidth - track.clientWidth - 1;
+      buttons.forEach((button) => {
+        button.disabled = button.dataset.dir === "-1" ? track.scrollLeft <= 1 : track.scrollLeft >= max;
+      });
+    };
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const item = track.firstElementChild as HTMLElement | null;
+        const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+        const step = (item?.offsetWidth ?? track.clientWidth) + gap;
+        track.scrollBy({ left: Number(button.dataset.dir) * step, behavior: "instant" });
+      });
+    });
+
+    track.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  }
+</script>

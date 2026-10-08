@@ -122,6 +122,21 @@ Two layouts, set with `layout`:
 
 Both collapse to one column below 800px, so the prop only matters on desktop.
 
+### `Carousel.astro`
+A horizontal row of items: native overflow scroll with snap, each item at
+`min(88%, 26rem)` so the next one peeks in. Items keep their own height. The track is a labelled, focusable
+region, so arrow keys scroll it. Previous/next buttons step one item, appear
+only under `html.js`, and jump without animation. Takes `label`, `prevLabel`,
+`nextLabel`.
+
+### `Recommendation.astro`
+A LinkedIn recommendation card on About, built to sit in a `Carousel`: the
+quote, then name, role and how we worked together. Long ones are excerpts, cuts
+marked with […]. The data lives in `recommendations` in `ui.ts`, verbatim in the
+language it was written in plus a translation. When the page shows the
+translation, the component says so and keeps the original behind a native
+`<details>` (with `lang` set), so it opens without JS.
+
 ### `PostList.astro`
 The Lab index: title, date, one-line summary, newest first. Handles its own
 empty state via `emptyLabel`.
@@ -152,7 +167,7 @@ vertical rhythm. Use it for long-form only — not for a paragraph on a page.
 3. Add it to the table above and to `/styleguide`.
 
 ### A new component
-1. Check `Nav`, `ProjectCard`, `PostList` and `Prose` first — most needs are a
+1. Check `Nav`, `ProjectCard`, `Carousel`, `Recommendation`, `PostList` and `Prose` first — most needs are a
    slot or a prop on something that exists.
 2. New file in `src/components/`, scoped `<style>`, semantic tokens only.
 3. No client JS unless it genuinely needs it, and it must degrade without it.

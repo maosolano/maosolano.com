@@ -1,6 +1,17 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { useTranslations, profile, experience, strengths, aiPractice, CV_PATH } from "@/i18n/ui";
+import Carousel from "@/components/Carousel.astro";
+import Recommendation from "@/components/Recommendation.astro";
+import {
+  useTranslations,
+  profile,
+  experience,
+  strengths,
+  aiPractice,
+  recommendations,
+  RECOMMENDATIONS_URL,
+  CV_PATH,
+} from "@/i18n/ui";
 
 const lang = "en" as const;
 const t = useTranslations(lang);
@@ -32,6 +43,26 @@ const t = useTranslations(lang);
   <ul class="strengths">
     {aiPractice[lang].map((item) => <li>{item}</li>)}
   </ul>
+
+  <h2 class="section">{t("about.recommendations")}</h2>
+  <Carousel
+    label={t("about.recommendations")}
+    prevLabel={t("about.recommendations.prev")}
+    nextLabel={t("about.recommendations.next")}
+  >
+    {recommendations.map((rec) => (
+      <Recommendation
+        quote={rec.quote[lang]}
+        name={rec.name}
+        role={rec.role}
+        org={rec.org}
+        relation={rec.relation[lang]}
+        original={rec.lang === lang ? undefined : { lang: rec.lang, quote: rec.quote[rec.lang] }}
+        originalLabel={t("about.recommendations.translated")}
+      />
+    ))}
+  </Carousel>
+  <p class="recs-link"><a href={RECOMMENDATIONS_URL}>{t("about.recommendations.linkedin")}</a></p>
 
   <p class="cv-link"><a href={CV_PATH[lang]} download>{t("about.cv")}</a></p>
 </Layout>
@@ -79,6 +110,10 @@ const t = useTranslations(lang);
 
   .strengths li {
     padding: var(--space-2) 0;
+  }
+
+  .recs-link {
+    margin-top: var(--space-5);
   }
 
   .cv-link {
