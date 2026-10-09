@@ -167,8 +167,11 @@ height) on the project page, which finds it by id — no flag needed.
 - **Content** — `src/content/casos/<lang>/<slug>.mdx`, same id as the project.
   Structured blocks (decisions, tour, tools, stats, artifacts) live in the
   frontmatter; the MDX body holds the prose and places the blocks.
-- **Look** — `src/styles/caso.css`, shared by every case, plus the project's
-  `palette` in the frontmatter (every colour required). Always light.
+- **Look** — `src/styles/caso.css`, shared by every case: VISTA's neutrals
+  and status colours, and this site's yellow for everything clickable (links,
+  link cards, buttons), never as text. The project's `palette` in the
+  frontmatter sets only its principal colour (`accent-*`, `on-accent`,
+  `spot*`; every key required). Always light.
 - **Blocks** — `src/components/caso/`: `Section`, `Pull`, `Callout`,
   `Decisions`, `Tour`, `Tools`, `Stats`, `Compare`, `Artifacts`. One-off
   pieces, like a hand-drawn diagram, go in `src/components/caso/<slug>/`.

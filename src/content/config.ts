@@ -52,30 +52,17 @@ const casos = defineCollection({
       z.object({ kind: z.string(), name: z.string(), label: z.string(), href: z.string().url() })
     ),
     footer: z.tuple([z.string(), z.string()]),
-    // The project's own colours. Every key is required, so a new case
-    // cannot silently fall back to another project's palette.
+    // The project's principal colour. Neutrals, status colours and the
+    // yellow for interaction are shared by every case (caso.css). Every key
+    // is required, so a new case cannot fall back to another project's colour.
     palette: z.object({
-      bg: z.string(),
-      surface: z.string(),
-      ink: z.string(),
-      muted: z.string(),
-      faint: z.string(),
-      line: z.string(),
-      "line-strong": z.string(),
       accent: z.string(),
       "accent-deep": z.string(),
       "accent-soft": z.string(),
       "accent-line": z.string(),
-      healthy: z.string(),
-      moderate: z.string(),
-      "moderate-soft": z.string(),
-      poor: z.string(),
-      shadow: z.string(),
       "on-accent": z.string(),
-      scrim: z.string(),
       spot: z.string(),
       "spot-ink": z.string(),
-      "spot-halo": z.string(),
     }),
     decisions: z
       .array(z.object({ topic: z.string(), options: z.string(), pick: z.string() }))

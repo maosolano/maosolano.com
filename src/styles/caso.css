@@ -2,9 +2,11 @@
    caso.css — shared look of the project case studies.
 
    Each case is a standalone page (embedded on its project page),
-   so this stylesheet owns the whole document. Colours come from
-   the case's palette (frontmatter `palette`), set on :root by
-   CaseLayout; nothing here holds a project colour.
+   so this stylesheet owns the whole document. Every case shares
+   VISTA's neutrals and status colours (below), plus the site's
+   yellow, which marks what can be clicked. Only the principal
+   colour (accent-*, on-accent, spot*) comes from the case's
+   palette (frontmatter `palette`), set on :root by CaseLayout.
 
    The cases are always light: the palette has no dark variant.
    ============================================================ */
@@ -20,6 +22,28 @@ img{max-width:100%}
   --f-display:'Newsreader', Georgia, 'Times New Roman', serif;
   --f-body:'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --f-mono:'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  /* Shared colours, from VISTA's tokens.json. */
+  --bg:#F8FAFC;
+  --surface:#FFFFFF;
+  --ink:#0F172A;
+  --muted:#55657A;
+  --faint:#7A8899;
+  --line:#E2E8F0;
+  --line-strong:#CBD5E1;
+  --healthy:#16A34A;
+  --moderate:#B45309;
+  --moderate-soft:#FEF3C7;
+  --poor:#DC2626;
+  --shadow:0 1px 2px rgba(15,23,42,.05), 0 10px 28px rgba(15,23,42,.07);
+  --scrim:rgba(6,14,10,.62); /* the tour's veil over light screenshots */
+  --spot-halo:rgba(255,255,255,.9);
+
+  /* Interaction: the site's yellow. Only on things that can be clicked;
+     never as a text colour. */
+  --interact:#FBFF0A;
+  --interact-strong:#C9CC00;
+  --focus:#0F172A;
 }
 
   *{box-sizing:border-box}
@@ -34,7 +58,10 @@ h2{font-family:var(--f-display);font-weight:500;font-size:28px;line-height:1.2;l
 h3{font-family:var(--f-body);font-weight:600;font-size:16px;margin:0 0 6px}
 p{margin:0}
 strong{font-weight:600}
-a{color:var(--accent-deep);text-underline-offset:3px}
+a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--interact);text-decoration-thickness:3px;text-underline-offset:2px}
+a:hover{background-color:var(--interact);text-decoration-color:var(--interact-strong)}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+::selection{background-color:var(--interact);color:var(--ink)}
 code{font-family:var(--f-mono);font-size:.86em;background:var(--accent-soft);color:var(--accent-deep);padding:1px 5px;border-radius:3px}
 
 header.top{padding-bottom:36px;border-bottom:1px solid var(--line)}
@@ -42,9 +69,9 @@ header.top{padding-bottom:36px;border-bottom:1px solid var(--line)}
 .meta b{color:var(--muted);font-weight:500}
 
 .live{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:28px}
-.live a{display:flex;flex-direction:column;gap:2px;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:8px;text-decoration:none;color:var(--ink);transition:border-color .15s}
-.live a:hover,.live a:focus-visible{border-color:var(--accent)}
-.live a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.live a{display:flex;flex-direction:column;gap:2px;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-bottom:3px solid var(--interact);border-radius:8px;text-decoration:none;color:var(--ink);transition:background-color .15s,border-color .15s}
+.live a:hover{background:var(--interact);border-color:var(--interact-strong)}
+.live a:hover .k,.live a:hover .u{color:var(--ink)}
 .live .k{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-deep)}
 .live .v{font-weight:600;font-size:15px}
 .live .u{font-family:var(--f-mono);font-size:11.5px;color:var(--faint);overflow-wrap:anywhere}
@@ -102,8 +129,7 @@ figcaption p b{color:var(--ink);font-weight:600}
 .artifacts{margin-top:22px;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
 .art{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;padding:14px 18px;border-bottom:1px solid var(--line);align-items:baseline}
 .art:last-child{border-bottom:0}
-.art a{font-weight:600;text-decoration:none}
-.art a:hover{text-decoration:underline}
+.art a{font-weight:600}
 .art .name{font-weight:600;color:var(--ink)}
 .art .d{grid-column:1/-1;font-size:14px;color:var(--muted)}
 .art .t{font-family:var(--f-mono);font-size:11px;color:var(--faint);white-space:nowrap}
@@ -132,9 +158,8 @@ figcaption p b{color:var(--ink);font-weight:600}
 /* Tour sobre las capturas: velo, recortes resaltados, marcadores y globos */
 .guide-bar{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;flex-wrap:wrap;margin-top:44px;padding:14px 18px;border:1px dashed var(--line-strong);border-radius:8px}
 .guide-bar p{font-size:14.5px;color:var(--muted);min-width:0;flex:1 1 320px}
-.guide-bar button{font:500 13.5px var(--f-body);color:var(--accent-deep);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:6px;padding:7px 14px;cursor:pointer}
-.guide-bar button:hover{border-color:var(--accent)}
-.guide-bar button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.guide-bar button{font:500 13.5px var(--f-body);color:var(--ink);background:var(--interact);border:1px solid var(--interact-strong);border-radius:6px;padding:7px 14px;cursor:pointer}
+.guide-bar button:hover{background:var(--interact-strong)}
 .flow figure{scroll-margin-top:24px}
 .stage{position:relative;container-type:inline-size;border-radius:6px;overflow:hidden}
 .stage img{display:block;width:100%;height:auto;border-radius:0}
@@ -152,8 +177,7 @@ figcaption p b{color:var(--ink);font-weight:600}
 .t-title{font-size:14px;font-weight:600;line-height:1.3}
 .tip p{font-size:12.5px;line-height:1.45;color:var(--muted)}
 .t-nav{display:flex;justify-content:space-between;gap:10px;margin-top:6px;padding-top:7px;border-top:1px solid var(--line);font-size:12px}
-.t-nav a{text-decoration:none;font-weight:500}
-.t-nav a:hover{text-decoration:underline}
+.t-nav a{font-weight:500}
 .t-branch{font-size:12px;margin-top:2px}
 @container (max-width: 819px){ .tip{display:none} }
 .no-guide .dim,.no-guide .pin,.no-guide .tip{display:none}
