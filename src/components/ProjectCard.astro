@@ -9,6 +9,8 @@ interface Props {
   image?: ImageMetadata;
   imageAlt: string;
   visitLabel: string;
+  /** Where the visit link goes. Defaults to the live site (`url`). */
+  visitHref?: string;
   /**
    * "split" puts the image left and the text right — right for a one-line
    * summary. "stacked" gives both the full column width, which long bodies
@@ -17,7 +19,7 @@ interface Props {
   layout?: "split" | "stacked";
 }
 
-const { title, url, href = url, image, imageAlt, visitLabel, layout = "split" } = Astro.props;
+const { title, url, href = url, image, imageAlt, visitLabel, visitHref = url, layout = "split" } = Astro.props;
 const stacked = layout === "stacked";
 ---
 
@@ -43,7 +45,7 @@ const stacked = layout === "stacked";
 
     <div class="card__text">
       <slot />
-      <p class="card__visit"><a href={url}>{visitLabel}</a></p>
+      <p class="card__visit"><a href={visitHref}>{visitLabel}</a></p>
     </div>
   </div>
 </article>

@@ -28,6 +28,7 @@ const projects = await Promise.all(
         image={entry.data.image}
         imageAlt={t("projects.imageAlt")}
         visitLabel={t("projects.visit")}
+        visitHref={projectPath(lang, projectSlug(entry.id))}
         layout="stacked"
       >
         <Content />
