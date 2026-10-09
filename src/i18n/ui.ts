@@ -349,6 +349,9 @@ export function projectPath(lang: Lang, slug: string): string {
   return `${routes[lang].projects}/${slug}`;
 }
 
+/** Case studies that ship: drafts only show up in `astro dev`. */
+export const showCase = (entry: { data: { draft: boolean } }) => import.meta.env.DEV || !entry.data.draft;
+
 /** Standalone case-study page of a project, embedded on its detail page. */
 export function casePath(lang: Lang, slug: string): string {
   return `${lang === "es" ? "" : `/${lang}`}/casos/${slug}/`;

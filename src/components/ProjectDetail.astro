@@ -4,7 +4,7 @@ import { getCollection, render } from "astro:content";
 import { Image } from "astro:assets";
 import Layout from "@/layouts/Layout.astro";
 import Prose from "@/components/Prose.astro";
-import { useTranslations, routes, projectPath, projectSlug, casePath, type Lang } from "@/i18n/ui";
+import { useTranslations, routes, projectPath, projectSlug, casePath, showCase, type Lang } from "@/i18n/ui";
 
 interface Props {
   entry: CollectionEntry<"projects">;
@@ -17,7 +17,7 @@ const { Content } = await render(entry);
 const { title, url, image, summary } = entry.data;
 const slug = projectSlug(entry.id);
 // getEntry would warn for every project without a case study.
-const hasCase = (await getCollection("casos", ({ id }) => id === entry.id)).length > 0;
+const hasCase = (await getCollection("casos", (e) => e.id === entry.id && showCase(e))).length > 0;
 const caseStudy = hasCase ? casePath(lang, slug) : undefined;
 ---
 

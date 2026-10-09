@@ -1,0 +1,120 @@
+---
+draft: true
+title: Caso de estudio Matcha
+description: "Pendiente: una frase sobre cómo rediseñé el flujo para buscar, comparar y elegir vivienda."
+eyebrow: Matcha · Rediseño del flujo principal
+deck: "Pendiente: una frase sobre cómo rediseñé el flujo para buscar, comparar y elegir vivienda."
+meta:
+  - { label: Rol, value: "Pendiente" }
+  - { label: Periodo, value: "Pendiente" }
+  - { label: Cliente, value: "Pendiente" }
+links:
+  - kind: Prototipo en vivo
+    name: Matcha · Prototipo
+    label: matcha-prototipo.vercel.app
+    href: https://matcha-prototipo.vercel.app/prototipo
+footer:
+  - Matcha · buscar, comparar y elegir vivienda
+  - Mao Solano · 2026
+
+# Taken from the Matcha prototype's CSS (matcha, crema, tierra). Text colours pass 4.5:1 on bg and surface.
+palette:
+  bg: "#F7F3EE"            # crema
+  surface: "#FFFAF5"       # superficie
+  ink: "#263229"           # matcha-900
+  muted: "#5B665E"         # texto-suave
+  faint: "#666F69"
+  line: "#E6E0D7"
+  line-strong: "#D3CBBF"
+  accent: "#4A6B51"        # matcha-700
+  accent-deep: "#3E5C45"
+  accent-soft: "#E8EFE6"   # matcha-100
+  accent-line: "#CFDCCF"   # matcha-200
+  healthy: "#4A6B51"
+  moderate: "#9A5A3F"      # tierra, darkened for text
+  moderate-soft: "#F6E4DC"
+  poor: "#B3261E"
+  shadow: "0 1px 2px rgba(38,50,41,.05), 0 10px 28px rgba(38,50,41,.07)"
+  on-accent: "#FFFFFF"
+  scrim: "rgba(38,50,41,.62)"
+  spot: "#C5F976"          # the prototype's lime highlight
+  spot-ink: "#263229"
+  spot-halo: "rgba(255,255,255,.9)"
+
+# Blocks, filled when the content is ready. See vista.mdx for each shape.
+# Screenshots go in public/casos/matcha/img/ (tour coordinates are 1440×900).
+decisions: []
+tools: []
+stats: []
+artifacts: []
+---
+
+import Section from "@/components/caso/Section.astro";
+import Pull from "@/components/caso/Pull.astro";
+import Callout from "@/components/caso/Callout.astro";
+import Decisions from "@/components/caso/Decisions.astro";
+import Tour from "@/components/caso/Tour.astro";
+import Tools from "@/components/caso/Tools.astro";
+import Stats from "@/components/caso/Stats.astro";
+import Compare from "@/components/caso/Compare.astro";
+import Artifacts from "@/components/caso/Artifacts.astro";
+
+{/*
+  BORRADOR. Mismas cinco secciones que VISTA (src/content/casos/es/vista.mdx),
+  que sirve de ejemplo de cada bloque. Al llenar un bloque del frontmatter,
+  descomenta su componente. Cuando esté listo, quita `draft: true`.
+*/}
+
+<Section title="1. El problema" question="¿Qué resolviste y por qué te importaba resolverlo?">
+
+Pendiente: el problema, para quién y por qué importaba.
+
+{/* <Pull>La meta en una frase.</Pull> */}
+
+</Section>
+
+<Section title="2. Mi proceso" question="¿Qué alternativas consideraste y por qué elegiste ese camino?">
+
+Pendiente: cómo trabajaste y las decisiones grandes.
+
+{/* <Decisions rows={frontmatter.decisions} labels={["Decisión", "Alternativas", "Lo que elegí y por qué"]} /> */}
+
+</Section>
+
+<Section title="3. Qué construí" question="Muéstranoslo funcionando y nombra las herramientas o modelos exactos.">
+
+Pendiente: qué construiste y el recorrido principal.
+
+{/* <Tour tour={frontmatter.tour} base="/casos/matcha/img/" labels={{ hide: "Ocultar guía", show: "Mostrar guía" }} /> */}
+
+{/* ### Herramientas y modelos exactos */}
+
+{/* <Tools items={frontmatter.tools} /> */}
+
+</Section>
+
+<Section title="4. El resultado" question="¿Qué cambió a partir de esto? ¿Qué impacto tuvo?">
+
+Pendiente: el resultado y su impacto.
+
+{/* <Stats items={frontmatter.stats} /> */}
+
+{/* <Compare kind="before-after" columns={[{ label: "Antes", items: [] }, { label: "Después", items: [] }]} /> */}
+
+</Section>
+
+<Section title="5. Lo que sigue" question="¿Qué harías diferente o qué te gustaría probar con más tiempo o acceso?">
+
+Pendiente: qué harías diferente y qué probarías después.
+
+{/* <Compare kind="plain" columns={[{ label: "Haría diferente", items: [] }, { label: "Probaría con más tiempo o acceso", items: [] }]} /> */}
+
+</Section>
+
+{/*
+<Section title="Artefactos creados en el camino" question="Documentos que acompañaron cada etapa.">
+
+<Artifacts items={frontmatter.artifacts} />
+
+</Section>
+*/}

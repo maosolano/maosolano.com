@@ -2,10 +2,10 @@
 import type { GetStaticPaths } from "astro";
 import { getCollection, render } from "astro:content";
 import CaseLayout from "@/layouts/CaseLayout.astro";
-import { projectSlug } from "@/i18n/ui";
+import { projectSlug, showCase } from "@/i18n/ui";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const entries = await getCollection("casos", ({ id }) => id.startsWith("es/"));
+  const entries = await getCollection("casos", (e) => e.id.startsWith("es/") && showCase(e));
   return entries.map((entry) => ({ params: { slug: projectSlug(entry.id) }, props: { entry } }));
 };
 

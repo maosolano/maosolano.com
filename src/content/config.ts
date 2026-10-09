@@ -41,6 +41,8 @@ const link = z.tuple([z.string(), z.string()]); // [href, label]
 const casos = defineCollection({
   loader: glob({ pattern: "**/*.mdx", base: "./src/content/casos" }),
   schema: z.object({
+    // Drafts build in `astro dev` only: previewable locally, never shipped.
+    draft: z.boolean().default(false),
     title: z.string(),
     description: z.string(),
     eyebrow: z.string(),

@@ -1,0 +1,120 @@
+---
+draft: true
+title: Caso de estudio The Bike Memory Project
+description: "Pendiente: una frase sobre cómo convertí una colección física de dibujos en un archivo digital que sigue creciendo."
+eyebrow: The Bike Memory Project · Archivo colaborativo
+deck: "Pendiente: una frase sobre cómo convertí una colección física de dibujos en un archivo digital que sigue creciendo."
+meta:
+  - { label: Rol, value: "Pendiente" }
+  - { label: Periodo, value: "Pendiente" }
+  - { label: Cliente, value: "Pendiente" }
+links:
+  - kind: Sitio en vivo
+    name: The Bike Memory Project
+    label: bicis.maosolano.com
+    href: https://www.bicis.maosolano.com
+footer:
+  - The Bike Memory Project · bicicletas dibujadas de memoria
+  - Mao Solano · 2026
+
+# Taken from the Bike Memory Project site's CSS (paper, ink, orange). Text colours pass 4.5:1 on bg and surface.
+palette:
+  bg: "#F4F0E8"            # paper
+  surface: "#FBF9F4"
+  ink: "#181818"           # ink
+  muted: "#55524C"
+  faint: "#6E6A63"
+  line: "#E4DED2"
+  line-strong: "#CFC7B8"
+  accent: "#FF4A17"        # the site's orange
+  accent-deep: "#B2360A"   # orange dark enough for text
+  accent-soft: "#FCE4D9"
+  accent-line: "#FFB59C"
+  healthy: "#B2360A"
+  moderate: "#8A5A22"
+  moderate-soft: "#F3E6D3"
+  poor: "#C62828"
+  shadow: "0 1px 2px rgba(24,24,24,.05), 0 10px 28px rgba(24,24,24,.07)"
+  on-accent: "#181818"     # ink on orange; white fails contrast
+  scrim: "rgba(24,24,24,.62)"
+  spot: "#FF4A17"
+  spot-ink: "#181818"
+  spot-halo: "rgba(255,255,255,.9)"
+
+# Blocks, filled when the content is ready. See vista.mdx for each shape.
+# Screenshots go in public/casos/bike-memory/img/ (tour coordinates are 1440×900).
+decisions: []
+tools: []
+stats: []
+artifacts: []
+---
+
+import Section from "@/components/caso/Section.astro";
+import Pull from "@/components/caso/Pull.astro";
+import Callout from "@/components/caso/Callout.astro";
+import Decisions from "@/components/caso/Decisions.astro";
+import Tour from "@/components/caso/Tour.astro";
+import Tools from "@/components/caso/Tools.astro";
+import Stats from "@/components/caso/Stats.astro";
+import Compare from "@/components/caso/Compare.astro";
+import Artifacts from "@/components/caso/Artifacts.astro";
+
+{/*
+  BORRADOR. Mismas cinco secciones que VISTA (src/content/casos/es/vista.mdx),
+  que sirve de ejemplo de cada bloque. Al llenar un bloque del frontmatter,
+  descomenta su componente. Cuando esté listo, quita `draft: true`.
+*/}
+
+<Section title="1. El problema" question="¿Qué resolviste y por qué te importaba resolverlo?">
+
+Pendiente: el problema, para quién y por qué importaba.
+
+{/* <Pull>La meta en una frase.</Pull> */}
+
+</Section>
+
+<Section title="2. Mi proceso" question="¿Qué alternativas consideraste y por qué elegiste ese camino?">
+
+Pendiente: cómo trabajaste y las decisiones grandes.
+
+{/* <Decisions rows={frontmatter.decisions} labels={["Decisión", "Alternativas", "Lo que elegí y por qué"]} /> */}
+
+</Section>
+
+<Section title="3. Qué construí" question="Muéstranoslo funcionando y nombra las herramientas o modelos exactos.">
+
+Pendiente: qué construiste y el recorrido principal.
+
+{/* <Tour tour={frontmatter.tour} base="/casos/bike-memory/img/" labels={{ hide: "Ocultar guía", show: "Mostrar guía" }} /> */}
+
+{/* ### Herramientas y modelos exactos */}
+
+{/* <Tools items={frontmatter.tools} /> */}
+
+</Section>
+
+<Section title="4. El resultado" question="¿Qué cambió a partir de esto? ¿Qué impacto tuvo?">
+
+Pendiente: el resultado y su impacto.
+
+{/* <Stats items={frontmatter.stats} /> */}
+
+{/* <Compare kind="before-after" columns={[{ label: "Antes", items: [] }, { label: "Después", items: [] }]} /> */}
+
+</Section>
+
+<Section title="5. Lo que sigue" question="¿Qué harías diferente o qué te gustaría probar con más tiempo o acceso?">
+
+Pendiente: qué harías diferente y qué probarías después.
+
+{/* <Compare kind="plain" columns={[{ label: "Haría diferente", items: [] }, { label: "Probaría con más tiempo o acceso", items: [] }]} /> */}
+
+</Section>
+
+{/*
+<Section title="Artefactos creados en el camino" question="Documentos que acompañaron cada etapa.">
+
+<Artifacts items={frontmatter.artifacts} />
+
+</Section>
+*/}

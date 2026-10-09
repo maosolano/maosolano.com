@@ -174,6 +174,8 @@ height) on the project page, which finds it by id — no flag needed.
   pieces, like a hand-drawn diagram, go in `src/components/caso/<slug>/`.
 - **Screenshots** — `public/casos/<slug>/img/`. Tour coordinates are in the
   screenshot's 1440×900 space.
+- **Drafts** — `draft: true` builds the case in `astro dev` only, embedded on
+  its project page there; production skips it. Remove the flag to publish.
 - Quote YAML values that contain a comma inside `{ … }`, or they get cut.
 
 ## 5. Adding things
