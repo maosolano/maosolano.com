@@ -1,0 +1,133 @@
+---
+/**
+ * Matcha: the guided tour over phone screenshots. Same idea as the shared
+ * Tour (veil, highlighted areas, pins, prev/next), but each note sits
+ * beside the phone instead of on top of a desktop screenshot.
+ * Coordinates are in the screenshot's 390×844 space.
+ */
+const base = "/casos/matcha/img/";
+const steps = [
+  {
+    id: "paso-1",
+    src: "inicio.jpg",
+    alt: "Paso 1: ¿Qué arriendos tienes? Campo para pegar el link del anuncio y lista de opciones; Cedritos muestra costo sin dato",
+    holes: [[18, 212, 354, 198, 10], [18, 712, 354, 54, 8]],
+    pins: [{ left: "5.1%", top: "25.1%", label: "1" }, { left: "5.1%", top: "84.4%", label: "!" }],
+    y: "34%",
+    step: "Paso 1 de 4 · Agregar opciones",
+    title: "Pegas el link, Matcha lee el anuncio",
+    text: "Funciona con Fincaraíz y Metrocuadrado, o a mano si no hay link. Matcha lee costo, área y barrio. Lo que no encuentra te lo pregunta, no lo rellena por ti.",
+    alt2: ["Abajo:", "Cedritos ya avisa “costo sin dato”. Es la primera señal de la honestidad del producto."],
+  },
+  {
+    id: "paso-2",
+    src: "prioridades.jpg",
+    alt: "Paso 2: ¿Qué te importa y cuánto? Cada criterio con la escala Baja, Media, Alta, Innegociable y su porcentaje de influencia",
+    holes: [[14, 296, 350, 54, 8], [250, 270, 124, 30, 6], [14, 352, 362, 68, 10]],
+    pins: [{ left: "3.6%", top: "35.1%", label: "2" }],
+    y: "40%",
+    step: "Paso 2 de 4 · Decir qué importa",
+    title: "Una palabra por criterio",
+    text: "Baja, Media, Alta o Innegociable. Arriba a la derecha se ve en vivo cuánto influye ese criterio en el match: aquí costo pesa 40%.",
+    alt2: ["Debajo:", "cada criterio pide su ideal, como hasta cuánto pagar al mes contando la administración."],
+  },
+  {
+    id: "paso-3",
+    src: "comparacion.jpg",
+    alt: "Paso 3: Tu comparación. Chapinero Alto con 90% de match, Mejor match, 5 de 5 datos, visita pendiente y un resumen de dónde suma y dónde cede",
+    holes: [[260, 333, 100, 94, 8], [121, 527, 116, 32, 8], [31, 625, 328, 66, 8]],
+    pins: [{ left: "66.7%", top: "39.5%", label: "3" }],
+    y: "55%",
+    step: "Paso 3 de 4 · Comparar",
+    title: "Un orden que se explica",
+    text: "El 90% no es una nota del apartamento: es qué tan bien encaja con tus prioridades. Abrirlo muestra de dónde sale cada punto.",
+    alt2: ["Más abajo:", "cuántos datos tiene la opción y una frase con dónde más suma y dónde cede."],
+  },
+  {
+    id: "paso-4",
+    src: "detalle.jpg",
+    alt: "Detalle de Apartamento en Cedritos: 43% de match, puesto 4 de 4, falta 1 de 5 datos, costo por mes sin dato porque falta la administración",
+    holes: [[282, 341, 92, 62, 8], [88, 429, 145, 32, 8], [14, 500, 362, 88, 10], [198, 780, 84, 34, 6]],
+    pins: [{ left: "72.3%", top: "40.4%", label: "4" }],
+    y: "58%",
+    step: "Paso 4 de 4 · Detalle",
+    title: "43% no significa “malo”",
+    text: "Cedritos queda de último porque falta la administración, así que no se sabe el costo real y ese criterio suma cero. La pantalla lo dice: “Falta 1 de 5 datos”.",
+    alt2: ["Abajo:", "el dato se completa ahí mismo. Es lo que más quiero observar en sesión: ¿la persona lo completa o descarta el apartamento?"],
+  },
+];
+---
+
+<div class="guide-bar">
+  <p>Recorrido guiado sobre el prototipo en vivo: la pantalla se oscurece, se resalta dónde ocurre cada paso y al lado se explica qué ver.</p>
+  <button type="button" id="guide-toggle" aria-pressed="true" data-show="Mostrar guía" data-hide="Ocultar guía">Ocultar guía</button>
+</div>
+
+<div class="ptour" id="tour">
+  {steps.map((s, i) => {
+    const prev = steps[i - 1];
+    const next = steps[i + 1];
+    return (
+      <figure class="pstep" id={s.id}>
+        <div class="phone"><div class="pstage">
+          <img src={`${base}${s.src}`} alt={s.alt} loading="lazy" />
+          <svg class="dim" viewBox="0 0 390 844" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <mask id={`m-${s.id}`}>
+                <rect width="390" height="844" fill="#fff"></rect>
+                {s.holes.map(([x, y, w, h, r]) => <rect x={x} y={y} width={w} height={h} rx={r} fill="#000"></rect>)}
+              </mask>
+            </defs>
+            <rect class="scrim" width="390" height="844" mask={`url(#m-${s.id})`}></rect>
+            {s.holes.map(([x, y, w, h, r]) => <rect class="ring" x={x} y={y} width={w} height={h} rx={r}></rect>)}
+          </svg>
+          {s.pins.map((pin) => <span class="pin" style={`left:${pin.left};top:${pin.top}`} aria-hidden="true">{pin.label}</span>)}
+        </div></div>
+        <div class="rail"><div class="note" style={`--y:${s.y}`}>
+          <span class="t-step">{s.step}</span>
+          <span class="t-title">{s.title}</span>
+          <p>{s.text}</p>
+          <p class="t-alt"><b>{s.alt2[0]}</b> {s.alt2[1]}</p>
+          <div class="t-nav">
+            {prev ? <a href={`#${prev.id}`}>← Anterior</a> : <span></span>}
+            {next ? <a href={`#${next.id}`}>Siguiente →</a> : <a href={`#${steps[0].id}`}>Volver al inicio ↑</a>}
+          </div>
+        </div></div>
+      </figure>
+    );
+  })}
+</div>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById("guide-toggle");
+    var tour = document.getElementById("tour");
+    if (!btn || !tour) return;
+    btn.addEventListener("click", function () {
+      var on = btn.getAttribute("aria-pressed") === "true";
+      btn.setAttribute("aria-pressed", String(!on));
+      tour.classList.toggle("no-guide", on);
+      btn.textContent = on ? btn.dataset.show : btn.dataset.hide;
+    });
+  })();
+</script>
+
+<style>
+  .ptour{display:flex;flex-direction:column;gap:48px;margin-top:30px}
+  .pstep{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:28px;margin:0;scroll-margin-top:24px}
+  .phone{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:7px;box-shadow:var(--shadow)}
+  .pstage{position:relative;border-radius:16px;overflow:hidden}
+  .pstage img{display:block;width:100%;height:auto;aspect-ratio:390/844;object-fit:cover;object-position:top}
+  .rail{position:relative;min-width:0}
+  .note{position:absolute;left:0;right:0;max-width:420px;top:var(--y,40%);transform:translateY(-50%);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px}
+  .note::before{content:"";position:absolute;left:-7px;top:calc(50% - 6px);width:12px;height:12px;background:var(--surface);border-left:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(45deg)}
+  .note .t-title{font-size:17px}
+  .note p{font-size:14.5px;line-height:1.55;color:var(--muted)}
+  .note p b{color:var(--ink);font-weight:600}
+  .ptour.no-guide .t-alt,.ptour.no-guide .t-nav{display:none}
+  @media (max-width:760px){
+    .pstep{grid-template-columns:1fr;gap:16px;max-width:340px;margin-inline:auto}
+    .note{position:static;transform:none;max-width:none}
+    .note::before{left:calc(50% - 6px);top:-7px;border-bottom:0;border-top:1px solid var(--line)}
+  }
+</style>

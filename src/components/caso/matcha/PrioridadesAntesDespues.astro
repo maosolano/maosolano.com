@@ -1,0 +1,31 @@
+---
+/** Matcha: the priorities screen before (100 points) and after (a word per criterion), as two phones. */
+const base = "/casos/matcha/img/";
+const phones = [
+  { tag: "Antes", kind: "old", src: "puntos.jpg", alt: "Versión anterior: Reparte 100 puntos, con contador 100 de 100, barras por criterio y botones de más y menos", lead: "Reparte 100 puntos.", text: "Contador, barras y botones de + y −. Obliga a hacer cuentas y la pantalla medía 2.092 px." },
+  { tag: "Después", kind: "new", src: "prioridades.jpg", alt: "Versión nueva: escala de palabras por criterio con su porcentaje de influencia en vivo", lead: "Una palabra por criterio.", text: "Misma información, 35% más corta. La versión de puntos sigue viva para comparar las dos con la misma persona." },
+];
+---
+
+<div class="phones">
+  {phones.map((phone) => (
+    <figure>
+      <span class:list={["tag", phone.kind]}>{phone.tag}</span>
+      <div class="phone"><img src={`${base}${phone.src}`} alt={phone.alt} loading="lazy" /></div>
+      <figcaption><b>{phone.lead}</b> {phone.text}</figcaption>
+    </figure>
+  ))}
+</div>
+
+<style>
+  .phones{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;max-width:620px;margin-top:26px}
+  figure{margin:0;min-width:0}
+  .phone{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:7px;box-shadow:var(--shadow)}
+  .phone img{display:block;width:100%;height:auto;border-radius:16px;aspect-ratio:390/844;object-fit:cover;object-position:top}
+  figcaption{display:block;margin-top:12px;font-size:14px;color:var(--muted);line-height:1.5}
+  figcaption b{color:var(--ink);font-weight:600}
+  .tag{display:inline-block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-bottom:8px}
+  .tag.old{background:var(--moderate-soft);color:var(--moderate)}
+  .tag.new{background:var(--spot);color:var(--spot-ink)}
+  @media (max-width:440px){ .phones{grid-template-columns:1fr;max-width:300px} }
+</style>

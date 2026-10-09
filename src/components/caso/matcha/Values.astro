@@ -1,0 +1,21 @@
+---
+/** Matcha: the four design values of the brief, in a 2×2 grid. */
+const values = [
+  { name: "Honestidad antes que pulido", text: "Un dato que falta siempre se muestra, nunca se esconde." },
+  { name: "Tus criterios, no los del algoritmo", text: "Matcha nunca dice qué es “lo mejor”. Tú le dices qué importa." },
+  { name: "Provisional hasta visitarlo", text: "El match refleja lo que se sabe, y cambia cuando la realidad lo contradice." },
+  { name: "Calma y decisión", text: "Lo contrario de un portal saturado. Menos decisiones por pantalla, y mejores." },
+];
+---
+
+<div class="values">
+  {values.map((value) => <div><b>{value.name}</b><span>{value.text}</span></div>)}
+</div>
+
+<style>
+  .values{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;max-width:var(--measure)}
+  .values div{background:var(--surface);padding:14px 16px;min-width:0}
+  .values b{display:block;font-weight:600;font-size:15px}
+  .values span{font-size:14px;color:var(--muted);line-height:1.5}
+  @media (max-width:760px){ .values{grid-template-columns:1fr} }
+</style>

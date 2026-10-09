@@ -1,0 +1,28 @@
+---
+/** Matcha: the prototype's week, day by day. Key days get a filled dot. */
+const days = [
+  { when: "12 sep", lead: "Handoff de diseño (rev. 3)", text: "con el flujo, el modelo de match, los textos de cada pantalla y los criterios de aceptación." },
+  { when: "13–14 sep", lead: "Primeras pantallas", text: "con la marca y los componentes del sistema de diseño. Exploración de cuatro maneras de repartir prioridades." },
+  { when: "15 sep", lead: "Cambio de modelo:", text: "el match deja de ser un rango y pasa a ser una suma sobre 100. Documento del sistema de diseño del prototipo.", key: true },
+  { when: "16 sep", lead: "Se retira el modo de palabras.", text: "Acciones en la tarjeta, criterios propios. Publicado en Vercel." },
+  { when: "18 sep", lead: "Escala de palabras para las prioridades,", text: "edición en el dato, estados de visita, contacto desde los dos portales y un subrayado visible para los 26 links que en celular parecían texto.", key: true },
+];
+---
+
+<ol class="timeline">
+  {days.map((day) => (
+    <li class:list={{ key: day.key }}><span class="d">{day.when}</span><p><b>{day.lead}</b> {day.text}</p></li>
+  ))}
+</ol>
+
+<style>
+  .timeline{list-style:none;padding:0;margin:22px 0 0 6px;display:flex;flex-direction:column;border-left:2px solid var(--line);max-width:var(--measure)}
+  .timeline li{position:relative;padding:0 0 18px 22px;display:grid;grid-template-columns:78px minmax(0,1fr);gap:4px 14px}
+  .timeline li:last-child{padding-bottom:0}
+  .timeline li::before{content:"";position:absolute;left:-7px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--line-strong)}
+  .timeline li.key::before{background:var(--spot);border-color:var(--accent)}
+  .d{font-family:var(--f-mono);font-size:12px;color:var(--faint);padding-top:2px;font-variant-numeric:tabular-nums}
+  p{font-size:15px;color:var(--muted)}
+  p b{color:var(--ink);font-weight:600}
+  @media (max-width:760px){ .timeline li{grid-template-columns:1fr} }
+</style>
