@@ -1,0 +1,17 @@
+---
+/** Exact tools and models. A featured item spans the full row. */
+interface Props {
+  items: { kind: string; html: string; featured: boolean }[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="tools">
+  {items.map((item) => (
+    <div class:list={["tool", { ai: item.featured }]}>
+      <div class="k">{item.kind}</div>
+      <p set:html={item.html} />
+    </div>
+  ))}
+</div>

@@ -349,6 +349,11 @@ export function projectPath(lang: Lang, slug: string): string {
   return `${routes[lang].projects}/${slug}`;
 }
 
+/** Standalone case-study page of a project, embedded on its detail page. */
+export function casePath(lang: Lang, slug: string): string {
+  return `${lang === "es" ? "" : `/${lang}`}/casos/${slug}/`;
+}
+
 /** Date formatted in the page's language. */
 export function formatDate(date: Date, lang: Lang): string {
   return date.toLocaleDateString(lang === "es" ? "es-CO" : "en-GB", {

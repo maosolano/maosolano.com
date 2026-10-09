@@ -1,0 +1,18 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content";
+import CaseLayout from "@/layouts/CaseLayout.astro";
+import { projectSlug } from "@/i18n/ui";
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const entries = await getCollection("casos", ({ id }) => id.startsWith("es/"));
+  return entries.map((entry) => ({ params: { slug: projectSlug(entry.id) }, props: { entry } }));
+};
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<CaseLayout entry={entry} lang="es">
+  <Content />
+</CaseLayout>

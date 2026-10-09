@@ -1,0 +1,92 @@
+---
+/**
+ * The annotated walkthrough: a note with a toggle, then one figure per
+ * screenshot. Each figure dims the screenshot outside its highlighted
+ * areas, numbers them with pins and explains them in tips that link to
+ * the previous and next step. Coordinates are in the screenshot's
+ * 1440×900 space; tips hide when the figure is narrower than 820px.
+ */
+import type { CollectionEntry } from "astro:content";
+
+type Tour = NonNullable<CollectionEntry<"casos">["data"]["tour"]>;
+
+interface Props {
+  tour: Tour;
+  /** Folder of the screenshots, e.g. "/casos/vista/img/". */
+  base: string;
+  labels: { hide: string; show: string };
+}
+
+const { tour, base, labels } = Astro.props;
+const offsetVar = (arrow: string) => (arrow === "l" || arrow === "r" ? "--ay" : "--ax");
+---
+
+<div class="guide-bar">
+  <p>{tour.note}</p>
+  <button type="button" id="guide-toggle" aria-pressed="true" data-show={labels.show} data-hide={labels.hide}>{labels.hide}</button>
+</div>
+
+<div class="flow" id="tour">
+  {tour.shots.map((raw) => {
+    // MDX passes the raw frontmatter, so schema defaults are not applied.
+    const shot = { holes: [], pins: [], tips: [], ...raw };
+    const img = <img src={`${base}${shot.src}`} alt={shot.alt} loading="lazy" />;
+    const maskId = `m-${shot.id}`;
+    return (
+      <figure id={shot.id}>
+        {shot.holes.length === 0 ? (
+          <div class="shot">{img}</div>
+        ) : (
+          <div class="shot"><div class="stage">
+            {img}
+            <svg class="dim" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <mask id={maskId}>
+                  <rect width="1440" height="900" fill="#fff"></rect>
+                  {shot.holes.map(([x, y, w, h, r]) => <rect x={x} y={y} width={w} height={h} rx={r} fill="#000"></rect>)}
+                </mask>
+              </defs>
+              <rect class="scrim" width="1440" height="900" mask={`url(#${maskId})`}></rect>
+              {shot.holes.map(([x, y, w, h, r]) => <rect class="ring" x={x} y={y} width={w} height={h} rx={r}></rect>)}
+            </svg>
+            {shot.pins.map((pin) => (
+              <span class="pin" style={`left:${pin.left};top:${pin.top}`} aria-hidden="true">{pin.label}</span>
+            ))}
+            {shot.tips.map((tip) => (
+              <div
+                class={`tip arr-${tip.arrow}`}
+                style={`left:${tip.left};top:${tip.top}${tip.offset ? `;${offsetVar(tip.arrow)}:${tip.offset}` : ""}`}
+              >
+                <span class="t-step">{tip.step}</span>
+                <span class="t-title">{tip.title}</span>
+                <p>{tip.text}</p>
+                {tip.branch && <a class="t-branch" href={tip.branch[0]}>{tip.branch[1]}</a>}
+                {(tip.prev || tip.next) && (
+                  <div class="t-nav">
+                    {tip.prev ? <a href={tip.prev[0]}>{tip.prev[1]}</a> : <span></span>}
+                    {tip.next && <a href={tip.next[0]}>{tip.next[1]}</a>}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div></div>
+        )}
+        <figcaption><span class="step">{shot.step}</span><p><b>{shot.lead}</b> {shot.text}</p></figcaption>
+      </figure>
+    );
+  })}
+</div>
+
+<script is:inline>
+  (function () {
+    var btn = document.getElementById("guide-toggle");
+    var tour = document.getElementById("tour");
+    if (!btn || !tour) return;
+    btn.addEventListener("click", function () {
+      var on = btn.getAttribute("aria-pressed") === "true";
+      btn.setAttribute("aria-pressed", String(!on));
+      tour.classList.toggle("no-guide", on);
+      btn.textContent = on ? btn.dataset.show : btn.dataset.hide;
+    });
+  })();
+</script>

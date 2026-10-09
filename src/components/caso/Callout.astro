@@ -1,0 +1,26 @@
+---
+/**
+ * A boxed message with a small label. "deal" is the left-ruled quote used
+ * for an outcome; "feature" is the tinted box with a heading.
+ */
+interface Props {
+  kind: "deal" | "feature";
+  label: string;
+  title?: string;
+}
+
+const { kind, label, title } = Astro.props;
+---
+
+{kind === "deal" ? (
+  <div class="deal">
+    <div class="k">{label}</div>
+    <p><slot /></p>
+  </div>
+) : (
+  <div class="feature">
+    <span class="k">{label}</span>
+    {title && <h3>{title}</h3>}
+    <p><slot /></p>
+  </div>
+)}

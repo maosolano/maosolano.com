@@ -1,0 +1,65 @@
+---
+/**
+ * A standalone case-study page. It does not use the site layout: the case
+ * keeps its own look (caso.css + the project's palette) and is embedded
+ * on the project page.
+ */
+import type { CollectionEntry } from "astro:content";
+import "@/styles/caso.css";
+
+interface Props {
+  entry: CollectionEntry<"casos">;
+  lang: "es" | "en";
+}
+
+const { entry, lang } = Astro.props;
+const { title, description, eyebrow, deck, meta, links, footer, palette } = entry.data;
+const paletteCss = `:root{${Object.entries(palette)
+  .map(([name, value]) => `--${name}:${value}`)
+  .join(";")}}`;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    />
+    <style set:html={paletteCss}></style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="top">
+        <p class="eyebrow">{eyebrow}</p>
+        <h1>{title}</h1>
+        <p class="deck">{deck}</p>
+        <div class="meta">
+          {meta.map((item) => <span><b>{item.label}</b> — {item.value}</span>)}
+        </div>
+        {links.length > 0 && (
+          <div class="live">
+            {links.map((link) => (
+              <a href={link.href} target="_blank" rel="noopener noreferrer">
+                <span class="k">{link.kind}</span><span class="v">{link.name}</span><span class="u">{link.label}</span>
+              </a>
+            ))}
+          </div>
+        )}
+      </header>
+
+      <slot />
+
+      <div class="foot">
+        <span>{footer[0]}</span>
+        <span>{footer[1]}</span>
+      </div>
+    </div>
+  </body>
+</html>

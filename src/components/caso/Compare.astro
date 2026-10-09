@@ -1,0 +1,22 @@
+---
+/**
+ * Two lists side by side. "before-after" colours the labels (before in the
+ * warning tone, after in the accent); "plain" keeps both in the accent.
+ */
+interface Props {
+  kind: "before-after" | "plain";
+  columns: [{ label: string; items: string[] }, { label: string; items: string[] }];
+}
+
+const { kind, columns } = Astro.props;
+const states = kind === "before-after" ? ["before", "after"] : [null, null];
+---
+
+<div class={kind === "before-after" ? "before-after" : "next"}>
+  {columns.map((column, i) => (
+    <div class:list={["ba", states[i]]}>
+      <div class="k">{column.label}</div>
+      <ul>{column.items.map((item) => <li>{item}</li>)}</ul>
+    </div>
+  ))}
+</div>

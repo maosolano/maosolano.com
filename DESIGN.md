@@ -158,7 +158,25 @@ vertical rhythm. Use it for long-form only — not for a paragraph on a page.
 
 ---
 
-## 4. Adding things
+## 4. Case studies
+
+A project can have a case study: a standalone page with **its own look**, not
+this system's. It is built at `/casos/<slug>/` and embedded (iframe, full
+height) on the project page, which finds it by id — no flag needed.
+
+- **Content** — `src/content/casos/<lang>/<slug>.mdx`, same id as the project.
+  Structured blocks (decisions, tour, tools, stats, artifacts) live in the
+  frontmatter; the MDX body holds the prose and places the blocks.
+- **Look** — `src/styles/caso.css`, shared by every case, plus the project's
+  `palette` in the frontmatter (every colour required). Always light.
+- **Blocks** — `src/components/caso/`: `Section`, `Pull`, `Callout`,
+  `Decisions`, `Tour`, `Tools`, `Stats`, `Compare`, `Artifacts`. One-off
+  pieces, like a hand-drawn diagram, go in `src/components/caso/<slug>/`.
+- **Screenshots** — `public/casos/<slug>/img/`. Tour coordinates are in the
+  screenshot's 1440×900 space.
+- Quote YAML values that contain a comma inside `{ … }`, or they get cut.
+
+## 5. Adding things
 
 ### A new token
 1. If it is a colour, add the raw value to the **base** layer *and* a semantic

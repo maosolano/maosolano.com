@@ -1,0 +1,23 @@
+---
+interface Props {
+  rows: { topic: string; options: string; pick: string }[];
+  labels: [topic: string, options: string, pick: string];
+}
+
+const { rows, labels } = Astro.props;
+---
+
+<div class="table-wrap">
+  <table>
+    <thead><tr>{labels.map((label) => <th>{label}</th>)}</tr></thead>
+    <tbody>
+      {rows.map((row) => (
+        <tr>
+          <td>{row.topic}</td>
+          <td>{row.options}</td>
+          <td class="pick">{row.pick}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
