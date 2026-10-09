@@ -17,9 +17,11 @@ interface Props {
   /** Overrides the route table — used by Lab posts, whose slugs differ per language. */
   alternates?: Record<Lang, string>;
   noindex?: boolean;
+  /** Drops the reading-width cap, for pages that embed something wider. */
+  wide?: boolean;
 }
 
-const { pageKey, title, description, alternates, noindex = false } = Astro.props;
+const { pageKey, title, description, alternates, noindex = false, wide = false } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -83,7 +85,7 @@ const ogLocale = lang === "es" ? "es_CO" : "en_US";
     <a class="skip-link" href="#content">{t("nav.skip")}</a>
     <Nav pageKey={pageKey} altHref={alt[otherLang]} />
     <main id="content" class="main">
-      <div class="main__inner">
+      <div class:list={["main__inner", { "main__inner--wide": wide }]}>
         <slot />
       </div>
     </main>
@@ -94,6 +96,10 @@ const ogLocale = lang === "es" ? "es_CO" : "en_US";
   .main__inner {
     max-width: var(--content-max);
     padding: var(--space-7) var(--space-5) var(--space-8);
+  }
+
+  .main__inner--wide {
+    max-width: none;
   }
 
   @media (min-width: 800px) {

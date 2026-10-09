@@ -1,0 +1,153 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+import { Image } from "astro:assets";
+import Layout from "@/layouts/Layout.astro";
+import Prose from "@/components/Prose.astro";
+import { useTranslations, routes, projectPath, projectSlug, type Lang } from "@/i18n/ui";
+
+interface Props {
+  entry: CollectionEntry<"projects">;
+  lang: Lang;
+}
+
+const { entry, lang } = Astro.props;
+const t = useTranslations(lang);
+const { Content } = await render(entry);
+const { title, url, image, summary, caseStudy } = entry.data;
+const slug = projectSlug(entry.id);
+---
+
+<Layout
+  pageKey="projects"
+  title={title}
+  description={summary}
+  alternates={{ es: projectPath("es", slug), en: projectPath("en", slug) }}
+  wide={Boolean(caseStudy)}
+>
+  <article class="project">
+    <div class="project__intro">
+      <h1>{title}</h1>
+
+      {image && (
+        <Image
+          class="project__image"
+          src={image}
+          alt={`${t("projects.imageAlt")}: ${title}`}
+          widths={[720, 1440]}
+          sizes="(min-width: 800px) 720px, 100vw"
+        />
+      )}
+
+      <Prose>
+        <Content />
+      </Prose>
+
+      <p class="project__visit"><a href={url}>{t("projects.visit")}</a></p>
+    </div>
+
+    {caseStudy && (
+      <iframe
+        class="project__case"
+        src={caseStudy}
+        title={`${title} — ${lang === "es" ? "caso de estudio" : "case study"}`}
+        loading="lazy"
+      ></iframe>
+    )}
+
+    <p class="project__back"><a href={routes[lang].projects}>{t("projects.back")}</a></p>
+  </article>
+</Layout>
+
+<style>
+  /* With a case study the page goes wide; the text keeps the reading width. */
+  .project__intro,
+  .project__back {
+    max-width: var(--content-max);
+  }
+
+  .project__image {
+    width: 100%;
+    height: auto;
+    margin-top: var(--space-6);
+    border: var(--border-width) solid var(--color-border);
+  }
+
+  .project :global(.prose) {
+    margin-top: var(--space-6);
+  }
+
+  .project__visit {
+    font-size: var(--text-sm);
+  }
+
+  /* The case study is its own page and keeps its own look, so it is framed,
+     not restyled. It bleeds to the edges of the content area and grows to
+     its full height, so the page has a single scroll. */
+  .project__case {
+    display: block;
+    width: calc(100% + 2 * var(--space-4));
+    margin: var(--space-7) calc(var(--space-4) * -1) 0;
+    height: 100vh;
+    border: 0;
+    border-top: var(--border-width) solid var(--color-border);
+    border-bottom: var(--border-width) solid var(--color-border);
+  }
+
+  @media (min-width: 800px) {
+    .project__case {
+      width: calc(100% + 2 * var(--space-7));
+      margin-inline: calc(var(--space-7) * -1);
+    }
+  }
+
+  .project__back {
+    margin-top: var(--space-7);
+    padding-top: var(--space-5);
+    border-top: var(--border-width) solid var(--color-border);
+    font-size: var(--text-sm);
+  }
+
+  .project__case + .project__back {
+    border-top: 0;
+    padding-top: 0;
+  }
+</style>
+
+<script>
+  // Same origin, so the frame can be sized to its document: one scroll for
+  // the whole page, and the case study's in-page links scroll this window.
+  for (const frame of document.querySelectorAll<HTMLIFrameElement>(".project__case")) {
+    const fit = () => {
+      const doc = frame.contentDocument;
+      if (!doc?.body) return;
+      // The body, not the root: the root's scrollHeight never drops below
+      // the frame's own height, so it could only ever grow.
+      const borders = frame.offsetHeight - frame.clientHeight;
+      frame.style.height = `${Math.ceil(doc.body.getBoundingClientRect().height) + borders}px`;
+    };
+
+    const wire = () => {
+      const doc = frame.contentDocument;
+      if (!doc?.body) return;
+      fit();
+      new ResizeObserver(fit).observe(doc.body);
+
+      doc.addEventListener("click", (event) => {
+        const link = (event.target as Element).closest<HTMLAnchorElement>('a[href^="#"]');
+        const target = link && doc.getElementById(link.hash.slice(1));
+        if (!target) return;
+        event.preventDefault();
+        const top = frame.getBoundingClientRect().top + target.getBoundingClientRect().top;
+        // On mobile the site bar is sticky and would cover the target.
+        const bar = document.querySelector<HTMLElement>(".bar");
+        const covered = bar && getComputedStyle(bar).position === "sticky" ? bar.offsetHeight : 0;
+        window.scrollTo({ top: window.scrollY + top - covered - 24 });
+      });
+    };
+
+    frame.addEventListener("load", wire);
+    const doc = frame.contentDocument;
+    if (doc?.readyState === "complete" && doc.URL !== "about:blank") wire();
+  }
+</script>

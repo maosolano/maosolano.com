@@ -14,6 +14,8 @@ const projects = defineCollection({
       image: image().optional(),
       summary: z.string(),
       order: z.number(),
+      // A standalone page under /public embedded as-is on the project's page.
+      caseStudy: z.string().optional(),
     }),
 });
 

@@ -4,6 +4,8 @@ import { Image } from "astro:assets";
 interface Props {
   title: string;
   url: string;
+  /** Where the title links. Defaults to the live site (`url`). */
+  href?: string;
   image?: ImageMetadata;
   imageAlt: string;
   visitLabel: string;
@@ -15,13 +17,13 @@ interface Props {
   layout?: "split" | "stacked";
 }
 
-const { title, url, image, imageAlt, visitLabel, layout = "split" } = Astro.props;
+const { title, url, href = url, image, imageAlt, visitLabel, layout = "split" } = Astro.props;
 const stacked = layout === "stacked";
 ---
 
 <article class="card">
   <h3 class="card__title">
-    <a href={url}>{title}</a>
+    <a href={href}>{title}</a>
   </h3>
 
   <div class:list={["card__row", { "card__row--stacked": stacked }]}>

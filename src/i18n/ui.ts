@@ -71,6 +71,7 @@ export const ui = {
       "Proyectos de UX, contenido y sistemas de diseño: The Bike Memory Project, Matcha y VISTA.",
     "projects.visit": "Ver el sitio",
     "projects.imageAlt": "Captura de pantalla del proyecto",
+    "projects.back": "Volver a Proyectos",
 
     "about.title": "Sobre mí",
     "about.description":
@@ -127,6 +128,7 @@ export const ui = {
       "Projects in UX, content, and design systems: The Bike Memory Project, Matcha, and VISTA.",
     "projects.visit": "Visit the site",
     "projects.imageAlt": "Project screenshot",
+    "projects.back": "Back to Projects",
 
     "about.title": "About",
     "about.description":
@@ -335,6 +337,16 @@ export function useTranslations(lang: Lang) {
 /** Locale-prefixed path for a known route. */
 export function localePath(lang: Lang, key: PageKey): string {
   return routes[lang][key];
+}
+
+/** Project ids keep their locale folder ("es/vista"); the slug drops it. */
+export function projectSlug(id: string): string {
+  return id.replace(/^(es|en)\//, "");
+}
+
+/** Detail page of a project, one level under the Projects page. */
+export function projectPath(lang: Lang, slug: string): string {
+  return `${routes[lang].projects}/${slug}`;
 }
 
 /** Date formatted in the page's language. */

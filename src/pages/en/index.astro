@@ -2,7 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
 import { getCollection } from "astro:content";
-import { useTranslations, profile } from "@/i18n/ui";
+import { projectPath, projectSlug, useTranslations, profile } from "@/i18n/ui";
 
 const lang = "en" as const;
 const t = useTranslations(lang);
@@ -27,6 +27,7 @@ const projects = (await getCollection("projects", ({ id }) => id.startsWith("en/
     <ProjectCard
       title={project.data.title}
       url={project.data.url}
+      href={projectPath(lang, projectSlug(project.id))}
       image={project.data.image}
       imageAlt={t("projects.imageAlt")}
       visitLabel={t("projects.visit")}
