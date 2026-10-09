@@ -268,7 +268,7 @@ import Compare from "@/components/caso/Compare.astro";
 import Artifacts from "@/components/caso/Artifacts.astro";
 import FlujoDiagram from "@/components/caso/vista/FlujoDiagram.astro";
 
-<Section title="1. El problema" question="¿Qué resolviste y por qué te importaba resolverlo?">
+<Section title="1. El problema" question="¿Qué resolví y por qué me importaba resolverlo?">
 
 VISTA es una plataforma para cuidar el arbolado urbano. La usan tres perfiles: el gestor de espacios verdes, el arborista y el urbanista. Cuando empecé, el producto existía en PDFs, bocetos de taller y presentaciones, pero no había nada que alguien pudiera usar con las manos.
 
@@ -285,7 +285,7 @@ El flujo que más me importaba es el del arborista. Hoy, entre que se detecta un
 
 </Section>
 
-<Section title="2. Mi proceso" question="¿Qué alternativas consideraste y por qué elegiste ese camino?">
+<Section title="2. Mi proceso" question="¿Qué alternativas consideré y por qué elegí ese camino?">
 
 En lugar de pedirle a la IA “hazme una pantalla”, primero escribí un **reglamento** que Claude debía seguir siempre: un archivo con todos los colores, tamaños y espacios permitidos (`tokens.json`), las reglas de diseño (`SYSTEM.md`), una ficha por componente y una lista de revisión que Claude corre antes de entregar. Con eso, cada pantalla nueva sale consistente sin que yo tenga que corregirla a mano.
 
@@ -297,7 +297,7 @@ Dos reglas sostuvieron todo el proceso: **los prototipos son desechables** (sirv
 
 </Section>
 
-<Section title="3. Qué construí" question="Muéstranoslo funcionando y nombra las herramientas o modelos exactos.">
+<Section title="3. Qué construí" question="Lo muestro funcionando y nombro las herramientas o modelos exactos.">
 
 Un prototipo web con dos de los tres módulos funcionando, publicado en una URL que cualquiera puede abrir. El centro es el recorrido **Alerta → Tarea** del módulo Maintain: así se ve de principio a fin.
 
@@ -349,7 +349,7 @@ El trabajo se convirtió en dos entregables para el cliente: un **plan de entreg
 
 </Section>
 
-<Section title="5. Lo que sigue" question="¿Qué harías diferente o qué te gustaría probar con más tiempo o acceso?">
+<Section title="5. Lo que sigue" question="¿Qué haría diferente o qué me gustaría probar con más tiempo o acceso?">
 
 <Callout kind="feature" label="Primero en el backlog" title="Un prototipo que se explica solo">Construir dentro del prototipo el mismo tour de la sección 3: oscurecer la pantalla, resaltar el módulo donde ocurre cada paso y mostrar notas numeradas con Anterior y Siguiente. Así cualquier persona del cliente puede revisarlo sin que yo esté presente para narrarlo. Empieza por el flujo Alerta → Tarea y se activa desde la barra de herramientas del prototipo, junto al selector de estados.</Callout>
 
