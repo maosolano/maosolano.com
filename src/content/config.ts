@@ -82,7 +82,7 @@ const casos = defineCollection({
       .default([]),
     tour: z
       .object({
-        note: z.string(),
+        note: z.string().optional(),
         shots: z.array(
           z.object({
             id: z.string().optional(),

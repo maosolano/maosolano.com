@@ -19,12 +19,16 @@ interface Props {
 
 const { tour, base, labels } = Astro.props;
 const offsetVar = (arrow: string) => (arrow === "l" || arrow === "r" ? "--ay" : "--ax");
+// Plain screenshots (no highlighted areas anywhere) need no guide toggle.
+const guided = tour.shots.some((shot) => (shot.holes ?? []).length > 0);
 ---
 
-<div class="guide-bar">
-  <p>{tour.note}</p>
-  <button type="button" id="guide-toggle" aria-pressed="true" data-show={labels.show} data-hide={labels.hide}>{labels.hide}</button>
-</div>
+{guided && (
+  <div class="guide-bar">
+    {tour.note && <p>{tour.note}</p>}
+    <button type="button" id="guide-toggle" aria-pressed="true" data-show={labels.show} data-hide={labels.hide}>{labels.hide}</button>
+  </div>
+)}
 
 <div class="flow" id="tour">
   {tour.shots.map((raw) => {

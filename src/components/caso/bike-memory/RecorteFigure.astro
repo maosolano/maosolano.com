@@ -1,0 +1,38 @@
+---
+/** The Bike Memory Project: one drawing (Bike - 018) in its three image states, side by side. */
+const base = "/casos/bike-memory/img/";
+const states = [
+  { src: "018-scan.jpg", label: "1 · Escaneo", text: "La página completa, con espiral. La bici ocupa una esquina.", alt: "Escaneo original de la Bike - 018: página de cuaderno con el espiral arriba y una bici pequeña en la esquina inferior derecha" },
+  { src: "018-crop.jpg", label: "2 · Recorte automático", text: "El script quita espiral y bordes y recorta hasta la tinta. Es la imagen del muro.", alt: "La misma bici recortada al borde de la tinta", tight: true },
+  { src: "018-detail.jpg", label: "3 · Vista de hoja", text: "Para la página de la bici: el espacio en blanco real del papel, sin rastro del espiral.", alt: "Vista de hoja de la Bike - 018: la bici con el espacio en blanco real de la página, sin la marca del espiral" },
+];
+---
+
+<figure id="recorte" class="figure-wide">
+  <div class="crop">
+    {states.map((state) => (
+      <div>
+        <div class:list={["pic", { tight: state.tight }]}><img src={`${base}${state.src}`} alt={state.alt} loading="lazy" /></div>
+        <div class="txt"><span class="k">{state.label}</span><p>{state.text}</p></div>
+      </div>
+    ))}
+  </div>
+  <figcaption><span class="step">Imágenes</span><p><b>Del cuaderno a la pantalla, con la Bike - 018.</b> El mismo dibujo en sus tres estados. El recorte automático procesó 387 páginas; la vista de hoja la hice a mano en 29 bicis donde el recorte perdía contexto o cortaba la firma.</p></figcaption>
+</figure>
+
+<style>
+  .crop{display:grid;grid-template-columns:1.25fr .9fr 1fr;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:var(--shadow)}
+  .crop > div{display:flex;flex-direction:column;min-width:0;border-right:1px solid var(--line)}
+  .crop > div:last-child{border-right:0}
+  .pic{background:var(--bg);height:clamp(180px,24vw,240px);display:flex;align-items:center;justify-content:center;padding:10px}
+  .pic img{max-height:100%;width:auto;max-width:100%;object-fit:contain;display:block}
+  .pic.tight img{width:62%}
+  .txt{padding:12px 14px 14px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:3px;flex:1}
+  .txt .k{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-deep)}
+  .txt p{font-size:13.5px;color:var(--muted);line-height:1.45}
+  @media (max-width:760px){
+    .crop{grid-template-columns:1fr}
+    .crop > div{border-right:0;border-bottom:1px solid var(--line)}
+    .crop > div:last-child{border-bottom:0}
+  }
+</style>

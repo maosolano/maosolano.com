@@ -12,7 +12,7 @@ const { items } = Astro.props;
       {item.href ? (
         <a href={item.href} target="_blank" rel="noopener noreferrer">{item.name}</a>
       ) : (
-        <span>{item.name}</span>
+        <span class="name">{item.name}</span>
       )}
       <span class="t">{item.when}</span>
       <span class="d">{item.what}</span>

@@ -1,0 +1,74 @@
+---
+/** The Bike Memory Project: three paths into the wall, drawn by hand. Styled by the .dg-* rules in caso.css. */
+---
+
+<figure id="caminos" class="figure-wide">
+  <div class="diagram">
+    <svg viewBox="0 0 1000 300" role="img" aria-label="Diagrama: tres caminos llegan al muro. Uno: cuaderno, escaneo, script de recorte. Dos: hoja de cálculo, importador de fichas, ficha por bici. Tres: dibuja la tuya, pendiente de revisión, curaduría aprueba. Los tres terminan en el muro público con 387 bicis.">
+      <defs>
+        <marker id="dgN" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-head-n"></path></marker>
+        <marker id="dgA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="dg-head-a"></path></marker>
+      </defs>
+
+      {/* los dibujos */}
+      <text x="20" y="28" class="lane">LOS DIBUJOS</text>
+      <rect x="20" y="40" width="160" height="56" rx="8" class="dg-node-n"></rect>
+      <text x="100" y="64" text-anchor="middle" class="dg-title">Cuaderno</text>
+      <text x="100" y="81" text-anchor="middle" class="dg-sub">2020 – 2025</text>
+      <rect x="230" y="40" width="160" height="56" rx="8" class="dg-node-n"></rect>
+      <text x="310" y="64" text-anchor="middle" class="dg-title">Escaneo</text>
+      <text x="310" y="81" text-anchor="middle" class="dg-sub">dos tandas, 387 páginas</text>
+      <rect x="440" y="40" width="180" height="56" rx="8" class="dg-node-n"></rect>
+      <text x="530" y="64" text-anchor="middle" class="dg-title">Script de recorte</text>
+      <text x="530" y="81" text-anchor="middle" class="dg-sub">sin espiral, 72 → 12 MB</text>
+
+      {/* los datos */}
+      <text x="20" y="128" class="lane">LOS DATOS</text>
+      <rect x="20" y="140" width="160" height="56" rx="8" class="dg-node-n"></rect>
+      <text x="100" y="164" text-anchor="middle" class="dg-title">Hoja de cálculo</text>
+      <text x="100" y="181" text-anchor="middle" class="dg-sub">lo que recuerdo de cada bici</text>
+      <rect x="230" y="140" width="160" height="56" rx="8" class="dg-node-n"></rect>
+      <text x="310" y="164" text-anchor="middle" class="dg-title">Importador</text>
+      <text x="310" y="181" text-anchor="middle" class="dg-sub">prueba primero, todo o nada</text>
+      <rect x="440" y="140" width="180" height="56" rx="8" class="dg-win"></rect>
+      <text x="530" y="164" text-anchor="middle" class="dg-title">Ficha por bici</text>
+      <text x="530" y="181" text-anchor="middle" class="dg-sub">nombre visible solo con permiso</text>
+
+      {/* la gente */}
+      <text x="20" y="228" class="lane">LA GENTE</text>
+      <rect x="20" y="240" width="160" height="56" rx="8" class="dg-node-n"></rect>
+      <text x="100" y="264" text-anchor="middle" class="dg-title">Dibuja la tuya</text>
+      <text x="100" y="281" text-anchor="middle" class="dg-sub">dos permisos separados</text>
+      <rect x="230" y="240" width="160" height="56" rx="8" class="dg-node-n"></rect>
+      <text x="310" y="264" text-anchor="middle" class="dg-title">Pendiente</text>
+      <text x="310" y="281" text-anchor="middle" class="dg-sub">guardado en Vercel Blob</text>
+      <rect x="440" y="240" width="180" height="56" rx="8" class="dg-win"></rect>
+      <text x="530" y="264" text-anchor="middle" class="dg-title">Curaduría</text>
+      <text x="530" y="281" text-anchor="middle" class="dg-sub">aprobar o borrar</text>
+
+      <line x1="180" y1="68" x2="227" y2="68" class="dg-n" marker-end="url(#dgN)"></line>
+      <line x1="390" y1="68" x2="437" y2="68" class="dg-n" marker-end="url(#dgN)"></line>
+      <line x1="180" y1="168" x2="227" y2="168" class="dg-n" marker-end="url(#dgN)"></line>
+      <line x1="390" y1="168" x2="437" y2="168" class="dg-n" marker-end="url(#dgN)"></line>
+      <line x1="180" y1="268" x2="227" y2="268" class="dg-n" marker-end="url(#dgN)"></line>
+      <line x1="390" y1="268" x2="437" y2="268" class="dg-n" marker-end="url(#dgN)"></line>
+
+      <path d="M620,68 H700 V150 H757" class="dg-a" marker-end="url(#dgA)"></path>
+      <line x1="620" y1="168" x2="757" y2="168" class="dg-a" marker-end="url(#dgA)"></line>
+      <path d="M620,268 H700 V186 H757" class="dg-a" marker-end="url(#dgA)"></path>
+
+      {/* el muro */}
+      <rect x="760" y="120" width="220" height="96" rx="8" class="dg-badge"></rect>
+      <text x="870" y="158" text-anchor="middle" class="wall-title">El muro</text>
+      <text x="870" y="180" text-anchor="middle" class="wall-sub">387 bicis · buscador</text>
+      <text x="870" y="198" text-anchor="middle" class="wall-sub">sin cookies ni analítica</text>
+    </svg>
+  </div>
+  <figcaption class="diagram-cap"><b>Tres caminos, una puerta.</b> Los escaneos y las fichas se preparan en mi computador y se publican con cada cambio en el código. Los dibujos nuevos son lo único que el sitio guarda por su cuenta, y ninguno aparece en el muro sin que yo lo apruebe. Las casillas resaltadas son los puntos donde se decide qué se muestra.</figcaption>
+</figure>
+
+<style>
+  .lane{font-family:var(--f-mono);font-size:10.5px;font-weight:500;letter-spacing:.1em;fill:var(--accent-deep)}
+  .wall-title{font-family:var(--f-display);font-size:18px;font-weight:500;fill:var(--on-accent)}
+  .wall-sub{font-family:var(--f-body);font-size:11.5px;fill:var(--on-accent)}
+</style>

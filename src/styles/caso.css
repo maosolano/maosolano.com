@@ -104,6 +104,7 @@ figcaption p b{color:var(--ink);font-weight:600}
 .art:last-child{border-bottom:0}
 .art a{font-weight:600;text-decoration:none}
 .art a:hover{text-decoration:underline}
+.art .name{font-weight:600;color:var(--ink)}
 .art .d{grid-column:1/-1;font-size:14px;color:var(--muted)}
 .art .t{font-family:var(--f-mono);font-size:11px;color:var(--faint);white-space:nowrap}
 
@@ -190,6 +191,7 @@ figcaption p b{color:var(--ink);font-weight:600}
 .body > :is(.table-wrap,.tools,.nums,.before-after,.next,.artifacts,.feature){margin-top:22px}
 .body > :is(.table-wrap,.tools,.nums,.before-after,.next,.figure-wide) + :is(p,ul,ol){margin-top:22px}
 .body > .figure-wide{margin-top:0}
+.body > .figure-wide + .figure-wide{margin-top:36px}
 .body > .guide-bar{margin-top:44px}
 .body > .flow{margin-top:26px}
 .body > .flow ~ h3{margin-top:40px} /* ~ because the tour script sits between them */
