@@ -23,6 +23,9 @@ links:
 footer:
   - The Bike Memory Project · #TheBikeMemoryProject
   - Mao Solano · octubre de 2026
+extended:
+  href: https://claude.ai/artifact/HCus3ytZfaCzQU82mn9dEg
+  label: Leer la versión extensa del caso
 
 # The principal colour, from the Bike Memory Project site's CSS. Everything else is shared (caso.css).
 palette:
@@ -37,31 +40,32 @@ palette:
 decisions:
   - topic: Orden del muro
     options: Barajar las bicis en cada visita.
-    pick: Un muro fijo. Barajar causaba un error al cargar la página, y con un orden fijo cada bici siempre está en el mismo lugar.
+    pick: Un muro fijo.
+    why: Barajar causaba un error de carga. Así, cada bici siempre está en el mismo lugar.
   - topic: Preparar 387 escaneos
     options: Recortar a mano uno por uno; o mostrar la página completa.
-    pick: "Un script que quita el espiral y los bordes, recorta hasta la tinta y comprime: de 72 MB a 12 MB. Para 29 bicis donde el recorte perdía la firma o el contexto, hice a mano una “vista de hoja”."
-  - topic: Guardar los datos de cada bici
+    pick: Un script de recorte.
+    why: "Quita espiral y bordes y comprime: de 72 MB a 12 MB. 29 bicis llevan además una “vista de hoja” hecha a mano."
+  - topic: Datos de cada bici
     options: Una base de datos con cuentas de usuario.
-    pick: Una hoja de cálculo que un script convierte en una ficha por bici. Primero hace una prueba sin guardar nada, y si una fila tiene un error no importa ninguna. Así cargué 201 fichas sin riesgo.
+    pick: Una hoja de cálculo y un importador.
+    why: Primero prueba sin guardar, y si una fila falla no importa ninguna. Así cargué 201 fichas sin riesgo.
   - topic: Recibir dibujos nuevos
-    options: Publicarlos de inmediato; o pedir que la gente cree una cuenta.
-    pick: "Una herramienta para dibujar en el navegador. El dibujo queda pendiente hasta que yo lo apruebo, y si lo rechazo se borra. Pide dos permisos por separado: mostrar el dibujo y mostrar el nombre."
-  - topic: Anécdotas de los visitantes
-    options: Cuentas de usuario con formulario propio.
-    pick: Un formulario de Google con el número de la bici ya escrito. Las cuentas quedaron para una segunda versión.
+    options: Publicarlos al instante; o pedir una cuenta.
+    pick: Dibujar en el navegador, con mi aprobación.
+    why: "Si lo rechazo, se borra. Pide 2 permisos por separado: mostrar el dibujo y mostrar el nombre."
   - topic: Nombres sin permiso
     options: Mostrarlos; o borrarlos.
-    pick: Ocultarlos, pero dejar que el buscador los encuentre. Si buscas tu nombre, el servidor te devuelve el número de tu bici, nunca el nombre. Aplica a 247 bicis.
-  - topic: Firmas dentro de los dibujos
+    pick: Ocultos, pero buscables.
+    why: Si buscas tu nombre, recibes el número de tu bici, nunca el nombre. Aplica a 247 bicis.
+  - topic: Firmas en los dibujos
     options: Taparlas o recortarlas.
-    pick: Mostrarlas, porque la firma es el crédito que la propia persona escribió, junto con un aviso de derechos y la promesa de retirar cualquier dibujo en cuanto su autor lo pida.
-  - topic: Filtrar el muro por tipo de dibujo
-    options: Que la IA etiquete las 387 bicis sola.
-    pick: "Lo probé con Claude Haiku y no sirvió: marcó el 83 % como “muy detallada”. Lo pausé. La IA puede proponer etiquetas, pero una persona tiene que revisarlas."
-  - topic: Tienda de láminas
-    options: Abrirla ya.
-    pick: Oculta hasta tener el permiso de cada autor y un piloto de impresión bajo demanda.
+    pick: Mostrarlas.
+    why: La firma es el crédito que la persona eligió. Va con un aviso de derechos y el retiro a pedido.
+  - topic: Filtrar por tipo de dibujo
+    options: Que la IA etiquete sola las 387 bicis.
+    pick: En pausa.
+    why: "Claude Haiku marcó el 83% como “muy detallada”. La IA puede proponer etiquetas; una persona tiene que revisarlas."
 
 # Plain screenshots, no highlighted areas: the tour renders without the guide toggle.
 tour:
@@ -71,38 +75,38 @@ tour:
       alt: "Portada del sitio: fondo negro y el titular Un cuaderno, un rapidógrafo, una excusa para hablar con desconocidos, con el contador 387 bicicletas"
       step: Portada
       lead: La historia en una frase.
-      text: "“Un cuaderno, un rapidógrafo, una excusa para hablar con desconocidos.” Debajo, el contador de bicis y la entrada al muro."
+      text: "“Un cuaderno, un rapidógrafo, una excusa para hablar con desconocidos.” Debajo, el contador de bicis."
     - id: muro
       src: wall.jpg
       alt: "El muro: cuadrícula de dibujos de bicicletas a tinta sobre papel, un buscador arriba y una celda naranja con el texto Una historia"
       step: El muro
       lead: 387 bicis y un buscador.
-      text: Se puede buscar por número, nombre, lugar o año. Las celdas naranjas llevan a la historia del proyecto. Cada bici siempre ocupa el mismo lugar.
+      text: Por número, nombre, lugar o año. Las celdas naranjas llevan a la historia del proyecto.
     - id: una-bici
       src: drawing.jpg
       alt: "Página de la Bike - 018 con la vista de hoja, el título Parecida a una bici. Cuenta., los botones Dibuja la tuya, Compartir y WhatsApp, y el enlace Cuéntanos sobre esta bici"
       step: Una bici
-      lead: Cada bici tiene su página.
-      text: "Un título propio (“Parecida a una bici. Cuenta.”), el año, botones para compartir con su propia miniatura y un enlace al formulario para contar una anécdota. Se navega con las flechas del teclado o deslizando en el teléfono."
+      lead: Una página por bici.
+      text: Título propio, año, botones para compartir y un formulario para contar una anécdota.
     - id: participa
       src: draw.jpg
       alt: "Página Dibuja la tuya: el titular Sin ciclista y sin ver referencias; solo una bici, como la recuerdes, y el lienzo en blanco"
       step: Participa
       lead: Dibuja la tuya.
-      text: Un lienzo en blanco y una sola instrucción. Al terminar, puedes descargar tu dibujo o enviarlo a la colección. Es la única parte del proyecto que pide permiso al momento, a la propia persona que dibuja.
+      text: Un lienzo y una instrucción. Descargas tu dibujo o lo envías a la colección, con permiso explícito.
 
 tools:
   - kind: IA
     featured: true
-    html: "<b>Claude Design</b> para la propuesta visual del sitio (“400 Bikes”) y las pantallas de auditoría. <b>Claude Code</b> (app de escritorio) para todo el código y todos los documentos del proyecto: alcance, pendientes, sistema de diseño, revisión de textos y plan de tienda. <b>Claude Haiku 4.5</b> por API (<code>claude-haiku-4-5-20251001</code>) para el experimento de etiquetado visual. Este resumen lo armé con <b>Claude Opus 5.5</b>."
+    html: "<b>Claude Design</b> para la propuesta visual y las pantallas de auditoría. <b>Claude Code</b> (app de escritorio) para el código y los documentos del proyecto. <b>Claude Haiku 4.5</b> por API (<code>claude-haiku-4-5-20251001</code>) para el experimento de etiquetas. Este resumen: <b>Claude Opus 5.5</b>."
   - kind: Código
-    html: "<b>Next.js 16.2, React 19.2, TypeScript 5 y Tailwind CSS v4.</b> Scripts en TypeScript con <b>tsx</b>. Código en <b>GitHub</b>, en un repositorio privado."
+    html: "<b>Next.js 16.2, React 19.2, TypeScript 5 y Tailwind CSS v4.</b> Scripts con <b>tsx</b>. Repositorio privado en <b>GitHub</b>."
   - kind: Imágenes
-    html: "<b>sharp 0.34</b> para recortar y comprimir los escaneos a WebP de 1200 px."
+    html: "<b>sharp 0.34</b> para recortar y comprimir a WebP de 1200 px."
   - kind: Publicación y datos
-    html: "<b>Vercel</b> para alojar el sitio, <b>Vercel Blob</b> para los dibujos enviados y el <b>Firewall de Vercel</b> para limitar envíos repetidos. <b>Google Forms</b> para las anécdotas."
+    html: "<b>Vercel</b> para el sitio, <b>Vercel Blob</b> para los envíos y su <b>Firewall</b> contra envíos repetidos. <b>Google Forms</b> para las anécdotas."
   - kind: Diseño
-    html: "Tres tipografías con un trabajo cada una: <b>Archivo</b> para el contenido, <b>Montserrat</b> para el logo y los botones, <b>Zilla Slab</b> para la curaduría. Colores y medidas en un archivo de tokens que se cambia junto con el código."
+    html: "<b>Archivo</b> para el contenido, <b>Montserrat</b> para logo y botones, <b>Zilla Slab</b> para la curaduría. Tokens que cambian junto con el código."
 
 stats:
   - { value: "387", label: "dibujos en línea, antes guardados solo en papel" }
@@ -114,38 +118,38 @@ artifacts:
   - name: Draw Me a Bike · Plan de rediseño
     href: https://claude.ai/artifact/8thpT6V4wQN2Bcs7b6WA3G
     when: 18 sep
-    what: El plan para pasar del prototipo con bicis de relleno al sitio con el nuevo diseño.
+    what: Del prototipo con bicis de relleno al sitio con el nuevo diseño.
   - name: AnatomyBreakdownCard · 6 estados
     href: https://claude.ai/artifact/AoNZtGtmNiShV1pNg71gTN
     when: 19 sep
-    what: "La tarjeta de auditoría anatómica en todos sus estados: completa, parcial, sin datos, error y cargando."
+    what: La tarjeta de auditoría anatómica en todos sus estados.
   - name: SubmissionDrawer · 6 estados
     href: https://claude.ai/artifact/ME4jLf2B3DfGML5VvBDwRH
     when: 19 sep
-    what: El panel lateral de revisión de cada dibujo, con sus seis estados.
+    what: El panel de revisión de cada dibujo enviado.
   - name: SubmissionDrawer · Entregable 2 referencia
     href: https://claude.ai/artifact/GcSBsiX9wnx5YQt5c7SuLs
     when: 19 sep
-    what: La referencia de diseño que se usó para programar el panel.
+    what: La referencia de diseño para programar ese panel.
   - name: Copy del sitio
     href: https://claude.ai/artifact/J3XCifHxGKY5eDK1VRJRhH
     when: 28 sep
-    what: Todos los textos del sitio en español, para la revisión editorial.
+    what: Todos los textos del sitio, para la revisión editorial.
   - name: Brief del proyecto
     when: 20 sep
-    what: Qué es, qué entra en la primera y la segunda versión, el inventario de datos y las preguntas para el abogado.
+    what: Alcance de cada versión, inventario de datos y preguntas para el abogado.
   - name: Sistema de diseño
     when: 20 sep
-    what: Colores, tipografías, contrastes medidos, logo y reglas de cada pantalla, con su archivo de tokens.
+    what: Colores, tipografías, contrastes medidos, logo y tokens.
   - name: Lista de pendientes y decisiones
     when: 20 sep
-    what: Prioridades y el registro de cada decisión con su porqué.
+    what: Prioridades y cada decisión con su porqué.
   - name: Plan de tienda bajo demanda
     when: 20 sep
-    what: Hipótesis de tienda, catálogo inicial de láminas y cómo repartir ingresos.
+    what: Hipótesis, catálogo inicial y reparto de ingresos.
   - name: Auditoría de textos
     when: 21 sep
-    what: Hallazgos sobre lo que el sitio prometía y no podía cumplir, y el borrador en español.
+    what: Lo que el sitio prometía y no podía cumplir, y el borrador corregido.
 ---
 
 import Section from "@/components/caso/Section.astro";
@@ -160,40 +164,47 @@ import Artifacts from "@/components/caso/Artifacts.astro";
 import CaminosDiagram from "@/components/caso/bike-memory/CaminosDiagram.astro";
 import RecorteFigure from "@/components/caso/bike-memory/RecorteFigure.astro";
 
-<Section title="1. El problema" question="¿Qué resolví y por qué me importaba resolverlo?">
+<Section title="1. El problema" question="¿Qué resolví y por qué me importaba resolverlo?" extended={frontmatter.extended}>
 
-Desde diciembre de 2020 le pido a la gente que dibuje una bicicleta de memoria, sin mirarla. Empecé con amigos en un viaje por los alrededores de Bogotá y seguí con desconocidos en la calle, en bares, talleres y galerías. Casi 400 personas aceptaron. Casi ninguna bici funcionaría en la vida real, y eso es lo bonito: cada dibujo es un recuerdo y, a la vez, una conversación.
+Desde 2020 le pido a la gente que dibuje una bicicleta de memoria, sin mirarla: amigos, desconocidos en la calle, bares, talleres y galerías. Casi 400 personas aceptaron. Casi ninguna bici funcionaría en la vida real, y ahí está la gracia: cada dibujo es un recuerdo y una conversación.
 
-Todo eso vivía en cuadernos de espiral. Quería mostrarlo, pero me encontré con cuatro problemas:
+Todo vivía en cuadernos. Para mostrarlo había cuatro problemas:
 
-- **Nadie podía verlos.** Los dibujos existían en papel, en una sola copia y sin respaldo.
-- **Los escaneos eran páginas enteras.** El espiral, los bordes y el espacio en blanco hacían que la bici se viera diminuta.
-- **No había datos.** Quién dibujó, dónde y cuándo había que reconstruirlo de memoria, bici por bici.
-- **No había permisos.** Son obras de otras personas, a veces con su nombre o su firma, y nunca firmaron un consentimiento.
+- **Nadie podía verlos.** Una sola copia en papel, sin respaldo.
+- **Escaneos de página completa.** Espiral, bordes y blanco dejaban la bici diminuta.
+- **Sin datos.** Quién, dónde y cuándo había que reconstruirlo de memoria.
+- **Sin permisos.** Son obras de otras personas, a veces firmadas, sin consentimiento.
 
-También era un experimento personal: ¿qué puede construir una sola persona, sin equipo de desarrollo, en pocas semanas, trabajando con un asistente de IA?
+**También era un experimento:** ¿qué puede construir una sola persona con IA, sin equipo de desarrollo, en pocas semanas?
 
-<Pull>La meta: un muro público donde cualquiera pueda ver las bicis, buscar la suya y sumar una nueva, sin poner en riesgo a quienes las dibujaron.</Pull>
+<Pull>La meta: un muro público para ver las bicis, buscar la tuya y sumar una nueva, sin poner en riesgo a quienes las dibujaron.</Pull>
 
 </Section>
 
-<Section title="2. Mi proceso" question="¿Qué alternativas consideré y por qué elegí ese camino?">
+<Section title="2. Mi proceso" question="¿Qué alternativas consideré y por qué elegí ese camino?" extended={frontmatter.extended}>
 
-Primero diseñé y luego construí. Con **Claude Design** hice la propuesta visual del sitio y las pantallas internas de revisión. Después pasé esos diseños a **Claude Code** para programarlos.
+**Primero diseñé, luego construí:** la propuesta visual en **Claude Design** y el código en **Claude Code**.
 
-Antes de pedir pantallas, escribí las **reglas del juego** en archivos que Claude lee al empezar cada sesión: un criterio de diseño (“si hay dos opciones razonables, elige la más simple”), los colores y tipografías permitidos, el alcance del proyecto y la lista de pendientes. Así cada sesión arrancaba con la misma memoria y no tenía que repetir las decisiones.
+Antes de pedir pantallas, escribí las **reglas del juego** que Claude lee al empezar cada sesión:
 
-Estas fueron las decisiones grandes:
+- Un criterio: “si hay dos opciones razonables, elige la más simple”.
+- Los colores y tipografías permitidos.
+- El alcance y la lista de pendientes.
+
+Así cada sesión arrancaba con la misma memoria.
 
 <Decisions rows={frontmatter.decisions} labels={["Decisión", "Alternativas", "Lo que elegí y por qué"]} />
 
-Dos reglas sostuvieron todo: **lo simple gana** (una sola forma de nombrar las bicis, “Bike - 073”, tres tipografías y un solo color de acento) y **la IA propone, yo decido**. Las contraseñas, las reglas de seguridad y cada pregunta legal las resolví yo.
+**Dos reglas de fondo:**
+
+- **Lo simple gana.** Un solo formato de nombre (“Bike - 073”), 3 tipografías y 1 color de acento.
+- **La IA propone, yo decido.** Contraseñas, seguridad y preguntas legales las resolví yo.
 
 </Section>
 
-<Section title="3. Qué construí" question="Lo muestro funcionando y nombro las herramientas o modelos exactos.">
+<Section title="3. Qué construí" question="Lo muestro funcionando y nombro las herramientas o modelos exactos." extended={frontmatter.extended}>
 
-Un sitio público en español con las 387 bicis, una herramienta para dibujar y enviar la tuya, y un área interna para revisar cada dibujo. Las bicis llegan al muro por tres caminos:
+Un sitio público con las 387 bicis, una herramienta para dibujar la tuya y un área interna de revisión. Las bicis llegan al muro por tres caminos:
 
 <CaminosDiagram />
 
@@ -207,22 +218,22 @@ Un sitio público en español con las 387 bicis, una herramienta para dibujar y 
     {
       label: "Lo que ve el público",
       items: [
-        "El muro, con buscador por número, nombre, lugar y año.",
-        "Una página por bici, con título, ficha, compartir y formulario de anécdotas.",
+        "El muro, con buscador.",
+        "Una página por bici, con anécdotas.",
         "Dibuja la tuya, con envío a la colección.",
-        "Acerca de y El autor, con 37 fotos de cómo nació el proyecto.",
-        "Privacidad: qué datos se tratan y cómo retirar un dibujo.",
-        "Un logo cuyas dos “O” giran como ruedas, también al agitar el teléfono.",
+        "Acerca de y El autor, con 37 fotos del origen.",
+        "Privacidad: qué datos hay y cómo retirar un dibujo.",
+        "Un logo cuyas “O” giran como ruedas al agitar el teléfono.",
       ],
     },
     {
       label: "Lo que ve el equipo",
       items: [
-        "Un área de curaduría con contraseña, para editar o solo revisar.",
-        "Una ficha por bici con “Guardar y siguiente” para avanzar rápido.",
-        "Auditoría anatómica: ¿el marco cierra un triángulo?, ¿la cadena mueve la rueda?, ¿el manubrio gira?, ¿los pedales conectan?",
-        "Una cola de moderación para los dibujos enviados.",
-        "Una puerta escondida: mantener presionado el logo abre la curaduría.",
+        "Curaduría con contraseña, para editar o solo revisar.",
+        "Fichas con “Guardar y siguiente”.",
+        "Auditoría anatómica: marco, cadena, manubrio y pedales.",
+        "Una cola de moderación para los envíos.",
+        "Una puerta escondida: mantener presionado el logo.",
       ],
     },
   ]}
@@ -234,7 +245,7 @@ Un sitio público en español con las 387 bicis, una herramienta para dibujar y 
 
 </Section>
 
-<Section title="4. El resultado" question="¿Qué cambió a partir de esto? ¿Qué impacto tuvo?">
+<Section title="4. El resultado" question="¿Qué cambió a partir de esto? ¿Qué impacto tuvo?" extended={frontmatter.extended}>
 
 <Stats items={frontmatter.stats} />
 
@@ -245,34 +256,34 @@ Un sitio público en español con las 387 bicis, una herramienta para dibujar y 
       label: "Antes",
       items: [
         "Cuadernos en un cajón, en una sola copia",
-        "Para mostrar una bici había que llevar el cuaderno",
-        "Ningún dato sobre quién dibujó, dónde ni cuándo",
-        "Cero permisos de las personas que dibujaron",
-        "Para sumar un dibujo había que cruzarse conmigo",
+        "Para mostrar una bici, había que llevar el cuaderno",
+        "Sin datos de quién, dónde ni cuándo",
+        "Cero permisos de quienes dibujaron",
+        "Para sumar un dibujo, había que encontrarme",
       ],
     },
     {
       label: "Después",
       items: [
-        "Un enlace con las 387 bicis, que funciona en el teléfono",
-        "Cualquiera puede buscar su bici por nombre, lugar o año",
-        "Cualquiera puede dibujar y enviar la suya, con permiso explícito",
-        "Los nombres sin permiso no se muestran, pero sí se pueden buscar",
-        "Un sitio sin cookies, sin analítica y sin publicidad",
+        "Las 387 bicis en un enlace, también en el teléfono",
+        "Cualquiera busca su bici por nombre, lugar o año",
+        "Cualquiera envía la suya, con permiso explícito",
+        "Nombres sin permiso: ocultos, pero buscables",
+        "Sin cookies, analítica ni publicidad",
       ],
     },
   ]}
 />
 
-El cambio más grande fue de perspectiva. **Construir fue la parte rápida**: casi todo el sitio salió en seis días de trabajo. Lo lento y lo importante fue lo que la IA no resuelve: de quién son los dibujos, qué se puede publicar y quién decide qué es una bici bien documentada.
-
-Por eso el proyecto también dejó un **expediente legal**: un inventario de qué datos hay, dónde viven y quién los ve, y doce preguntas para un abogado sobre derechos de autor, menores de edad, uso comercial y protección de datos. La tienda y la versión 3D esperan esas respuestas.
+- **Construir fue lo rápido.** Casi todo el sitio salió en 6 días de trabajo.
+- **Lo lento fue lo que la IA no resuelve:** de quién son los dibujos, qué se puede publicar y quién decide.
+- **Un expediente legal:** inventario de datos y 12 preguntas para un abogado. La tienda y la versión 3D esperan esas respuestas.
 
 </Section>
 
-<Section title="5. Lo que sigue" question="¿Qué haría diferente o qué me gustaría probar con más tiempo o acceso?">
+<Section title="5. Lo que sigue" question="¿Qué haría diferente o qué me gustaría probar con más tiempo o acceso?" extended={frontmatter.extended}>
 
-<Callout kind="feature" label="Primero en la lista" title="Pedir permiso a quienes dibujaron">Llevar el expediente a un abogado y, con su respuesta, pedir a cada persona tres permisos por separado: mostrar el dibujo, mostrar su nombre y, si quiere, licenciarlo para otros usos. Sin eso no se abre la tienda ni se hace nada nuevo con los dibujos.</Callout>
+<Callout kind="feature" label="Primero en la lista" title="Pedir permiso a quienes dibujaron">Con la respuesta del abogado, pedir a cada persona 3 permisos por separado: mostrar el dibujo, mostrar su nombre y, si quiere, licenciarlo. Sin eso no hay tienda ni usos nuevos.</Callout>
 
 <Compare
   kind="plain"
@@ -280,21 +291,21 @@ Por eso el proyecto también dejó un **expediente legal**: un inventario de qu�
     {
       label: "Haría diferente",
       items: [
-        "Empezar por el consentimiento, no por la interfaz. La pregunta legal frenó más que cualquier pantalla.",
-        "Probar la IA en una muestra revisada a mano antes de etiquetar las 387 bicis.",
-        "Pedir fichas con menos campos, para que fuera realista completarlas.",
-        "Pedir siempre confirmación antes de publicar. El primer despliegue salió directo a producción.",
-        "Mantener los documentos más cortos: varios se desactualizaron mientras el proyecto avanzaba.",
+        "Empezar por el consentimiento, no por la interfaz.",
+        "Probar la IA en una muestra revisada a mano antes de etiquetar todo.",
+        "Fichas con menos campos, realistas de completar.",
+        "Confirmar siempre antes de publicar: el primer despliegue salió directo a producción.",
+        "Documentos más cortos: varios se desactualizaron.",
       ],
     },
     {
       label: "Probaría con más tiempo o acceso",
       items: [
-        "Una pantalla para revisar etiquetas a mano y filtrar el muro por tipo de dibujo.",
-        "Una versión 3D: convertir cada dibujo en una bici en relieve, fiel a sus errores.",
-        "Una tienda de láminas que reparta ingresos con quienes autoricen su dibujo.",
-        "Una plantilla abierta del código para que otras colecciones puedan copiarla.",
-        "Que la IA proponga la auditoría anatómica de cada bici y una persona la confirme.",
+        "Revisar etiquetas a mano para filtrar el muro por tipo de dibujo.",
+        "Una versión 3D de cada bici, fiel a sus errores.",
+        "Una tienda de láminas que reparta ingresos con cada autor.",
+        "Una plantilla abierta para otras colecciones.",
+        "Auditoría anatómica propuesta por la IA y confirmada por una persona.",
       ],
     },
   ]}
@@ -302,12 +313,12 @@ Por eso el proyecto también dejó un **expediente legal**: un inventario de qu�
 
 </Section>
 
-<Section title="Artefactos creados en el camino" question="Documentos que acompañaron cada etapa.">
+<Section title="Artefactos creados en el camino" question="Documentos que acompañaron cada etapa." extended={frontmatter.extended}>
 
-Los cinco primeros están publicados en Claude; los demás viven en el repositorio privado del proyecto.
+Los 5 primeros están publicados en Claude; el resto vive en el repositorio privado.
 
 <Artifacts items={frontmatter.artifacts} />
 
-Cada dibujo es de quien lo hizo. Las capturas muestran el sitio en vivo el 8 de octubre de 2026.
+Cada dibujo es de quien lo hizo. Capturas del sitio en vivo, 8 de octubre de 2026.
 
 </Section>

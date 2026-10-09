@@ -1,15 +1,24 @@
 ---
-/** One numbered section: title, the guiding question, then the body. */
+/**
+ * One numbered section: title, the guiding question, then the body.
+ * With `extended`, it ends with a link to the long version of the case.
+ */
 interface Props {
   title: string;
   question: string;
+  extended?: { href: string; label: string };
 }
 
-const { title, question } = Astro.props;
+const { title, question, extended } = Astro.props;
 ---
 
 <section>
   <h2>{title}</h2>
   <p class="q">{question}</p>
   <div class="body"><slot /></div>
+  {extended && (
+    <p class="more">
+      <a href={extended.href} target="_blank" rel="noopener noreferrer">{extended.label}<span aria-hidden="true"> ↗</span></a>
+    </p>
+  )}
 </section>

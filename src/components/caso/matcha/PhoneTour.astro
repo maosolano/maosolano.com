@@ -16,8 +16,8 @@ const steps = [
     y: "34%",
     step: "Paso 1 de 4 · Agregar opciones",
     title: "Pegas el link, Matcha lee el anuncio",
-    text: "Funciona con Fincaraíz y Metrocuadrado, o a mano si no hay link. Matcha lee costo, área y barrio. Lo que no encuentra te lo pregunta, no lo rellena por ti.",
-    alt2: ["Abajo:", "Cedritos ya avisa “costo sin dato”. Es la primera señal de la honestidad del producto."],
+    text: "Fincaraíz, Metrocuadrado o a mano. Lee costo, área y barrio. Lo que falta, lo pregunta: no lo inventa.",
+    alt2: ["Abajo:", "Cedritos avisa “costo sin dato”. La honestidad empieza en el primer paso."],
   },
   {
     id: "paso-2",
@@ -28,8 +28,8 @@ const steps = [
     y: "40%",
     step: "Paso 2 de 4 · Decir qué importa",
     title: "Una palabra por criterio",
-    text: "Baja, Media, Alta o Innegociable. Arriba a la derecha se ve en vivo cuánto influye ese criterio en el match: aquí costo pesa 40%.",
-    alt2: ["Debajo:", "cada criterio pide su ideal, como hasta cuánto pagar al mes contando la administración."],
+    text: "Baja, Media, Alta o Innegociable. Arriba se ve en vivo cuánto influye: aquí costo pesa 40%.",
+    alt2: ["Debajo:", "el ideal de cada criterio, como el tope de arriendo con administración."],
   },
   {
     id: "paso-3",
@@ -40,8 +40,8 @@ const steps = [
     y: "55%",
     step: "Paso 3 de 4 · Comparar",
     title: "Un orden que se explica",
-    text: "El 90% no es una nota del apartamento: es qué tan bien encaja con tus prioridades. Abrirlo muestra de dónde sale cada punto.",
-    alt2: ["Más abajo:", "cuántos datos tiene la opción y una frase con dónde más suma y dónde cede."],
+    text: "90% no es una nota del apartamento: es cuánto encaja con tus prioridades. Al abrirlo ves de dónde sale cada punto.",
+    alt2: ["Más abajo:", "cuántos datos tiene y dónde suma o cede."],
   },
   {
     id: "paso-4",
@@ -52,14 +52,14 @@ const steps = [
     y: "58%",
     step: "Paso 4 de 4 · Detalle",
     title: "43% no significa “malo”",
-    text: "Cedritos queda de último porque falta la administración, así que no se sabe el costo real y ese criterio suma cero. La pantalla lo dice: “Falta 1 de 5 datos”.",
-    alt2: ["Abajo:", "el dato se completa ahí mismo. Es lo que más quiero observar en sesión: ¿la persona lo completa o descarta el apartamento?"],
+    text: "Falta la administración, así que el costo suma cero. La pantalla lo dice: “Falta 1 de 5 datos”.",
+    alt2: ["Abajo:", "el dato se completa ahí mismo. Lo que quiero observar: ¿lo completan o descartan el apartamento?"],
   },
 ];
 ---
 
 <div class="guide-bar">
-  <p>Recorrido guiado sobre el prototipo en vivo: la pantalla se oscurece, se resalta dónde ocurre cada paso y al lado se explica qué ver.</p>
+  <p>Recorrido guiado sobre el prototipo en vivo: se resalta dónde ocurre cada paso y al lado se explica qué ver.</p>
   <button type="button" id="guide-toggle" aria-pressed="true" data-show="Mostrar guía" data-hide="Ocultar guía">Ocultar guía</button>
 </div>
 

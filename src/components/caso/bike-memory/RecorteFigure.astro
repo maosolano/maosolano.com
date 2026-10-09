@@ -2,9 +2,9 @@
 /** The Bike Memory Project: one drawing (Bike - 018) in its three image states, side by side. */
 const base = "/casos/bike-memory/img/";
 const states = [
-  { src: "018-scan.jpg", label: "1 · Escaneo", text: "La página completa, con espiral. La bici ocupa una esquina.", alt: "Escaneo original de la Bike - 018: página de cuaderno con el espiral arriba y una bici pequeña en la esquina inferior derecha" },
-  { src: "018-crop.jpg", label: "2 · Recorte automático", text: "El script quita espiral y bordes y recorta hasta la tinta. Es la imagen del muro.", alt: "La misma bici recortada al borde de la tinta", tight: true },
-  { src: "018-detail.jpg", label: "3 · Vista de hoja", text: "Para la página de la bici: el espacio en blanco real del papel, sin rastro del espiral.", alt: "Vista de hoja de la Bike - 018: la bici con el espacio en blanco real de la página, sin la marca del espiral" },
+  { src: "018-scan.jpg", label: "1 · Escaneo", text: "La página completa, con espiral. La bici, en una esquina.", alt: "Escaneo original de la Bike - 018: página de cuaderno con el espiral arriba y una bici pequeña en la esquina inferior derecha" },
+  { src: "018-crop.jpg", label: "2 · Recorte automático", text: "Sin espiral ni bordes, hasta la tinta. Es la imagen del muro.", alt: "La misma bici recortada al borde de la tinta", tight: true },
+  { src: "018-detail.jpg", label: "3 · Vista de hoja", text: "El blanco real del papel, sin espiral. Para la página de la bici.", alt: "Vista de hoja de la Bike - 018: la bici con el espacio en blanco real de la página, sin la marca del espiral" },
 ];
 ---
 
@@ -17,7 +17,7 @@ const states = [
       </div>
     ))}
   </div>
-  <figcaption><span class="step">Imágenes</span><p><b>Del cuaderno a la pantalla, con la Bike - 018.</b> El mismo dibujo en sus tres estados. El recorte automático procesó 387 páginas; la vista de hoja la hice a mano en 29 bicis donde el recorte perdía contexto o cortaba la firma.</p></figcaption>
+  <figcaption><span class="step">Imágenes</span><p><b>Del cuaderno a la pantalla, con la Bike - 018.</b> El recorte automático procesó 387 páginas. La vista de hoja la hice a mano en 29, donde el recorte cortaba la firma o el contexto.</p></figcaption>
 </figure>
 
 <style>

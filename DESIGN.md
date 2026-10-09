@@ -175,6 +175,12 @@ height) on the project page, which finds it by id — no flag needed.
 - **Blocks** — `src/components/caso/`: `Section`, `Pull`, `Callout`,
   `Decisions`, `Tour`, `Tools`, `Stats`, `Compare`, `Artifacts`. One-off
   pieces, like a hand-drawn diagram, go in `src/components/caso/<slug>/`.
+- **Short page, long artifact** — the page is the scannable version: bullets
+  with a bold lead, one idea each, numbers as digits. In `Decisions`, `pick`
+  is the choice in a few words (bold) and `why` the reason. The full text
+  lives in a Claude artifact set in `extended` (`href`, `label`); pass
+  `extended={frontmatter.extended}` to every `Section` and it ends with a
+  link there. The artifact must be shared “anyone with the link”.
 - **Screenshots** — `public/casos/<slug>/img/`. Tour coordinates are in the
   screenshot's 1440×900 space.
 - **Drafts** — `draft: true` builds the case in `astro dev` only, embedded on

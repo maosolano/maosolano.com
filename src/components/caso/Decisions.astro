@@ -1,6 +1,6 @@
 ---
 interface Props {
-  rows: { topic: string; options: string; pick: string }[];
+  rows: { topic: string; options: string; pick: string; why?: string }[];
   labels: [topic: string, options: string, pick: string];
 }
 
@@ -15,7 +15,7 @@ const { rows, labels } = Astro.props;
         <tr>
           <td>{row.topic}</td>
           <td>{row.options}</td>
-          <td class="pick">{row.pick}</td>
+          <td class="pick"><b>{row.pick}</b>{row.why && <span class="why"> {row.why}</span>}</td>
         </tr>
       ))}
     </tbody>

@@ -19,6 +19,9 @@ links:
 footer:
   - Mao Solano · Caso de estudio Matcha
   - Capturas del prototipo en vivo, 8 de octubre de 2026
+extended:
+  href: https://claude.ai/artifact/BG74SvV3654WkoZz7Rxu2Q
+  label: Leer la versión extensa del caso
 
 # The principal colour, from the Matcha prototype's CSS. Everything else is shared (caso.css).
 palette:
@@ -32,39 +35,42 @@ palette:
 
 decisions:
   - topic: Cómo se calcula el match
-    options: Un rango mínimo–máximo cuando faltan datos, con empates cuando los rangos se cruzan.
-    pick: "Una sola cifra sobre 100: cada prioridad suma sus puntos, y si falta un dato aporta cero y dice “sin dato”. Es mucho más fácil de leer. El costo es que una opción incompleta queda más abajo, y eso es justo lo que hay que observar en las sesiones."
-  - topic: Cómo mostrar el match
-    options: Un selector para ver porcentajes exactos o palabras (“muy alto”, “medio”).
-    pick: Siempre el porcentaje. El modo de palabras duplicaba el trabajo en cada pantalla y en celular tapaba el título de la tarjeta.
+    options: Un rango mínimo–máximo cuando faltan datos.
+    pick: Una sola cifra sobre 100.
+    why: "Si falta un dato, suma cero y dice “sin dato”. Es más fácil de leer, y lo que cuesta (una opción incompleta baja) es justo lo que hay que observar."
   - topic: Cómo pedir prioridades
-    options: "Cuatro maneras de repartir el 100%: sliders vinculados, fichas con + y −, una barra que se arrastra y un gráfico circular. Las exploré como prototipos interactivos."
-    pick: Ninguna de las cuatro. Cambié el reparto por una escala de palabras (Baja, Media, Alta, Innegociable) que muestra en vivo cuánto influye cada criterio. La pantalla pasó de 2.092 a 1.364 px de alto, y por dentro guarda los mismos puntos, así que el cálculo no cambió.
+    options: "4 maneras de repartir el 100%: sliders, fichas, barra y gráfico circular."
+    pick: Ninguna. Una escala de palabras.
+    why: Baja, Media, Alta o Innegociable, con su influencia en vivo. La pantalla bajó de 2.092 a 1.364 px y el cálculo no cambió.
   - topic: Orden de los pasos
     options: Pedir prioridades antes de ver opciones.
-    pick: Primero las opciones, después las prioridades. Pedir pesos en abstracto hace que la gente los invente; ver sus apartamentos les da una referencia concreta.
+    pick: Primero las opciones.
+    why: Con sus apartamentos enfrente, la gente no inventa los pesos.
   - topic: Dónde vive el prototipo
-    options: Construirlo dentro del producto con cuentas reales.
-    pick: Una rama aparte y una publicación aparte en Vercel, sin cuentas y con los datos guardados en el navegador. Usa los mismos lectores de anuncios del producto, así que lee links reales sin tocar producción.
+    options: Dentro del producto, con cuentas reales.
+    pick: Aparte, en Vercel y sin cuentas.
+    why: Usa los mismos lectores de anuncios, así que lee links reales sin tocar producción.
   - topic: Editar un anuncio
-    options: Un botón “Editar” que cambia toda la pantalla a modo edición.
-    pick: "Editar en el mismo dato: un subrayado punteado dice “esto se cambia aquí”. Antes, tocar Área abría su campo 420 px más abajo."
+    options: Un botón que pone toda la pantalla en modo edición.
+    pick: Editar en el mismo dato.
+    why: Un subrayado punteado dice qué se puede cambiar. Antes, el campo se abría 420 px más abajo.
   - topic: Contactar a quien publica
     options: Un link directo para llamar.
-    pick: Una hoja de contacto. Metrocuadrado publica el teléfono, pero Fincaraíz lo oculta. Un link que marca a un número incompleto no sirve, así que el dato se declara ausente y la persona lo completa.
+    pick: Una hoja de contacto.
+    why: Fincaraíz oculta el teléfono. Si falta, se declara ausente y la persona lo completa.
 
 tools:
   - kind: IA
     featured: true
-    html: "<b>Claude Code</b> (app de escritorio) con <b>Claude Opus 5</b> para construir el prototipo: cada commit lo firma como coautor. <b>Claude Design</b> para el sistema de diseño de Matcha y las cuatro exploraciones de prioridades, publicadas como <b>Claude Artifacts</b>. Claude también me ayudó a escribir el brief, el handoff y el plan de investigación. Este resumen lo armé con <b>Claude Opus 5.5</b>."
+    html: "<b>Claude Code</b> (app de escritorio) con <b>Claude Opus 5</b> para construir el prototipo: firma cada commit como coautor. <b>Claude Design</b> para el sistema de diseño y las 4 exploraciones de prioridades, publicadas como <b>Claude Artifacts</b>. Claude también me ayudó con el brief, el handoff y el plan de investigación. Este resumen: <b>Claude Opus 5.5</b>."
   - kind: Código
-    html: "<b>Next.js 16, React 19, TypeScript y Tailwind CSS v4</b>, con íconos lucide-react. El modelo de match tiene 16 pruebas con el runner de Node. Código en <b>GitHub</b>."
+    html: "<b>Next.js 16, React 19, TypeScript y Tailwind CSS v4</b>, con lucide-react. 16 pruebas del modelo de match con el runner de Node. En <b>GitHub</b>."
   - kind: Datos
-    html: "Los <b>lectores de anuncios</b> del producto para Fincaraíz y Metrocuadrado (costo, área, barrio y ahora el contacto). Las sesiones se guardan en el navegador, sin cuentas."
+    html: "Los <b>lectores de anuncios</b> del producto para Fincaraíz y Metrocuadrado. Sesiones guardadas en el navegador, sin cuentas."
   - kind: Diseño
-    html: "Sistema de diseño propio: <b>Space Grotesk, DM Sans y Geist Mono</b>, verde lima solo como relleno. Paleta armada en <b>Coolors</b>. Bitácora de decisiones en <b>Notion</b>."
+    html: "Sistema propio: <b>Space Grotesk, DM Sans y Geist Mono</b>; lima solo como relleno. Paleta en <b>Coolors</b>, bitácora en <b>Notion</b>."
   - kind: Publicación
-    html: "Prototipo en un proyecto propio de <b>Vercel</b>, separado de producción (matcha.place corre en Cloudflare Workers)."
+    html: "Proyecto propio en <b>Vercel</b>, separado de producción (matcha.place corre en Cloudflare Workers)."
 
 stats:
   - { value: "5 días", label: "del handoff al prototipo publicado, en 17 commits" }
@@ -75,26 +81,26 @@ stats:
 artifacts:
   - name: Brief del rediseño de Matcha
     when: 24 jul – 12 sep
-    what: "Documento vivo: el producto, los cuatro valores, los recorridos (como hipótesis), qué método usar para cada pregunta y el registro de decisiones."
+    what: "Documento vivo: producto, valores, recorridos, métodos y registro de decisiones."
   - name: Handoff a Claude Code (rev. 3)
     when: 12 sep
-    what: El flujo, el modelo de match, los textos de cada pantalla, lo que queda fuera y los criterios de aceptación. Es la base del prototipo.
+    what: Flujo, modelo de match, textos y criterios de aceptación. La base del prototipo.
   - name: "Brief para Claude Design: “Definir prioridades”"
     when: 13 sep
-    what: El sistema de diseño actual y el pedido de explorar cuatro maneras de repartir el 100%.
+    what: El pedido de explorar 4 maneras de repartir el 100%.
   - name: Cuatro exploraciones interactivas de distribución
     href: https://claude.ai/artifact/NHTjZQ8nrxbSuuMyijdvna
     when: 14–15 sep
-    what: Sliders vinculados, fichas, barra apilada y gráfico circular, funcionando para probarlos con la mano.
+    what: Sliders, fichas, barra y gráfico circular, para probarlos con la mano.
   - name: Sistema de diseño del prototipo
     when: 15 sep
-    what: Tokens, componentes, recetas y convenciones. Se lee antes de escribir cualquier pantalla.
+    what: Tokens, componentes, recetas y convenciones.
   - name: "Plan de research: agregar → prioridades → comparar"
     when: 14 – 18 sep
-    what: Siete preguntas, perfil de participantes, guion de sesión, criterios de evaluación y cómo analizar con apoyo de Claude.
+    what: 7 preguntas, participantes, guion de sesión y criterios de análisis.
   - name: Audios explicativos
     when: 25 jul
-    what: "“Why Matcha Rejects Universal Ratings”, “How Explicit Weighting Fixes Apartment Hunting” y “La psicología tras el rediseño de Matcha”, para contar la idea a otras personas."
+    what: Tres audios para contar la idea a otras personas.
 ---
 
 import Section from "@/components/caso/Section.astro";
@@ -110,31 +116,35 @@ import Timeline from "@/components/caso/matcha/Timeline.astro";
 import PhoneTour from "@/components/caso/matcha/PhoneTour.astro";
 import PrioridadesAntesDespues from "@/components/caso/matcha/PrioridadesAntesDespues.astro";
 
-<Section title="1. El problema" question="¿Qué resolví y por qué me importaba resolverlo?">
+<Section title="1. El problema" question="¿Qué resolví y por qué me importaba resolverlo?" extended={frontmatter.extended}>
 
-Buscar arriendo en Bogotá es un caos. Llegan links por WhatsApp de amigos y corredores, hay decenas de pestañas abiertas en Fincaraíz y Metrocuadrado, las notas de las visitas se pierden y no hay una forma honesta de comparar. **Matcha** existe para eso: guardas los anuncios, dices qué te importa y recibes cada opción con un porcentaje de *match* con tus prioridades. No es una nota del apartamento. Es qué tan bien encaja contigo.
+Buscar arriendo en Bogotá es un caos: links por WhatsApp, decenas de pestañas abiertas, notas perdidas y ninguna forma honesta de comparar.
 
-El producto ya estaba construido. Lo que faltaba era que el corazón de la experiencia, **agregar opciones → decir qué te importa → comparar**, se sintiera claro y confiable en un celular, que es donde llegan los anuncios. Encontré tres problemas:
+**Matcha** guarda tus anuncios, te pregunta qué te importa y le da a cada opción un porcentaje de *match*. No califica el apartamento: mide qué tan bien encaja contigo.
 
-- **Nadie había hablado con usuarios.** Los perfiles y los recorridos eran hipótesis. No había nada que se pudiera poner en manos de una persona para observarla.
-- **Un número puede engañar.** Si a un anuncio le falta un dato (por ejemplo, la administración), su porcentaje baja. La persona puede leer “mal apartamento” cuando en realidad significa “todavía no sabemos”.
-- **Pedir prioridades es difícil.** Repartir 100 puntos entre costo, zona y espacio obliga a hacer cuentas en vez de pensar en lo que de verdad importa.
+El producto ya existía. Faltaba que su corazón, **agregar → priorizar → comparar**, fuera claro y confiable en el celular.
 
-Me importaba porque elegir dónde vivir es una decisión grande, de una vez al año, con mucha ansiedad. Una herramienta que la simplifica tiene que ser honesta con lo que no sabe. Si no, empuja a la gente a decidir mal con mucha seguridad.
+- **Cero usuarios.** Perfiles y recorridos eran hipótesis, sin nada que probar con personas.
+- **Un número puede engañar.** Si falta un dato, el match baja: “todavía no sabemos” se lee como “mal apartamento”.
+- **Priorizar era hacer cuentas.** Repartir 100 puntos distrae de lo que de verdad importa.
 
-<Pull>La meta: un prototipo navegable, en celular y con anuncios reales, para ver en sesión si la gente entiende y confía en el match. Y un plan de investigación para hacerlo.</Pull>
+**Por qué importaba:** elegir dónde vivir es una decisión grande y ansiosa. Una herramienta que no es honesta con lo que no sabe empuja a decidir mal con mucha seguridad.
+
+<Pull>La meta: un prototipo en celular, con anuncios reales, para ver en sesión si la gente entiende el match y confía en él. Y un plan de investigación para hacerlo.</Pull>
 
 </Section>
 
-<Section title="2. Mi proceso" question="¿Qué alternativas consideré y por qué elegí ese camino?">
+<Section title="2. Mi proceso" question="¿Qué alternativas consideré y por qué elegí ese camino?" extended={frontmatter.extended}>
 
-Empecé por escribir las reglas del juego en un **brief vivo**. Ahí quedaron cuatro valores de diseño que no se negocian y un registro de decisiones con su porqué. Cuando una propuesta rompía un valor, se paraba y se revisaba.
+Escribí las reglas del juego en un **brief vivo**: cuatro valores que no se negocian y un registro de decisiones con su porqué. Si una propuesta rompía un valor, se revisaba.
 
 <Values />
 
-Usé el Doble Diamante solo como vocabulario para saber en qué fase estábamos, y elegí un método distinto para cada pregunta. Para ver cómo compara la gente, por ejemplo, el método correcto es observarla pensando en voz alta frente a sus propias opciones, no una encuesta. También usé la psicología de la decisión como lente de crítica: anclaje, aversión a la ambigüedad, sobrecarga de opciones.
+**Cómo elegí los métodos:**
 
-Estas fueron las decisiones grandes:
+- **Doble Diamante**, solo como vocabulario para saber en qué fase íbamos.
+- **Un método por pregunta.** Para ver cómo compara la gente, observarla pensando en voz alta; no una encuesta.
+- **Psicología de la decisión** como lente de crítica: anclaje, aversión a la ambigüedad y sobrecarga de opciones.
 
 <Decisions rows={frontmatter.decisions} labels={["Decisión", "Alternativas", "Lo que elegí y por qué"]} />
 
@@ -144,9 +154,9 @@ Estas fueron las decisiones grandes:
 
 </Section>
 
-<Section title="3. Qué construí" question="Lo muestro funcionando y nombro las herramientas o modelos exactos.">
+<Section title="3. Qué construí" question="Lo muestro funcionando y nombro las herramientas o modelos exactos." extended={frontmatter.extended}>
 
-Un prototipo web pensado para celular con el flujo completo en tres pasos. Pegas el link de un anuncio y Matcha lee costo, área y barrio. Lo que no encuentra, te lo pregunta en vez de inventarlo. Las capturas son del prototipo en vivo con el escenario de ejemplo (6 opciones en Bogotá).
+Un prototipo para celular con el flujo completo en 3 pasos. Pegas el link de un anuncio y Matcha lee costo, área y barrio. Las capturas usan el escenario de ejemplo: 6 opciones en Bogotá.
 
 <PhoneTour />
 
@@ -154,7 +164,7 @@ Un prototipo web pensado para celular con el flujo completo en tres pasos. Pegas
 
 <PrioridadesAntesDespues />
 
-Para quien facilita las sesiones hay un panel oculto (se abre manteniendo presionado el logo): carga el escenario de ejemplo, borra todo entre participantes y copia los datos de la sesión para las notas.
+**Para quien facilita las sesiones:** un panel oculto (se abre manteniendo presionado el logo) carga el ejemplo, borra todo entre participantes y copia los datos para las notas.
 
 ### Herramientas y modelos exactos
 
@@ -162,7 +172,7 @@ Para quien facilita las sesiones hay un panel oculto (se abre manteniendo presio
 
 </Section>
 
-<Section title="4. El resultado" question="¿Qué cambió a partir de esto? ¿Qué impacto tuvo?">
+<Section title="4. El resultado" question="¿Qué cambió a partir de esto? ¿Qué impacto tuvo?" extended={frontmatter.extended}>
 
 <Stats items={frontmatter.stats} />
 
@@ -172,37 +182,39 @@ Para quien facilita las sesiones hay un panel oculto (se abre manteniendo presio
     {
       label: "Antes",
       items: [
-        "Perfiles y recorridos sin validar, nada que probar con personas",
-        "Un match que podía castigar en silencio a una opción incompleta",
-        "Prioridades por reparto de 100 puntos con contador exacto",
-        "Un modo “Editar” que te llevaba lejos del dato",
+        "Hipótesis, sin nada que probar con personas",
+        "Un match que castigaba en silencio a una opción incompleta",
+        "Prioridades repartiendo 100 puntos",
+        "Un modo “Editar” lejos del dato",
         "Decisiones que se volvían a discutir",
       ],
     },
     {
       label: "Después",
       items: [
-        "Un link con el flujo completo, en celular, leyendo anuncios reales",
-        "Cada dato que falta dice “sin dato” y se completa en el mismo lugar",
+        "El flujo completo en celular, con anuncios reales",
+        "Cada dato que falta dice “sin dato” y se completa ahí mismo",
         "Prioridades en palabras, con su influencia visible",
-        "Dos versiones vivas de prioridades para compararlas en una misma sesión",
-        "Un registro de decisiones con su porqué, y un plan de investigación listo",
+        "Dos versiones de prioridades para comparar en sesión",
+        "Decisiones con su porqué y un plan de investigación listo",
       ],
     },
   ]}
 />
 
-El trabajo también mejoró el producto principal, no solo el prototipo. La revisión de links encontró que 26 de los 55 links de la app solo se notaban al pasar el mouse, algo que no existe en un celular. Se agregó un componente de link con subrayado visible y quedó como regla del sistema de diseño. Los lectores de anuncios ahora también traen el contacto de quien publica.
+**También mejoró el producto principal:**
 
-Además dejé un **plan de investigación** con siete preguntas, criterios para elegir 6 a 8 participantes, un guion de sesión de 45 a 60 minutos y señales de éxito y de alerta para cada pregunta.
+- **Links visibles en celular.** 26 de 55 solo se notaban al pasar el mouse. Ahora hay un componente con subrayado visible, y es regla del sistema.
+- **Contacto en los anuncios.** Los lectores ahora traen el contacto de quien publica.
+- **Un plan de investigación listo:** 7 preguntas, 6 a 8 participantes, sesiones de 45 a 60 minutos y señales de éxito y alerta.
 
-<Callout kind="deal" label="Lo que todavía no sé">Las sesiones con usuarios no se han hecho. El impacto real, si la gente entiende y confía en el match, está por medirse. El prototipo y el plan existen para responder justo eso.</Callout>
+<Callout kind="deal" label="Lo que todavía no sé">Las sesiones con usuarios no se han hecho. Si la gente entiende el match y confía en él, está por medirse.</Callout>
 
 </Section>
 
-<Section title="5. Lo que sigue" question="¿Qué haría diferente o qué me gustaría probar con más tiempo o acceso?">
+<Section title="5. Lo que sigue" question="¿Qué haría diferente o qué me gustaría probar con más tiempo o acceso?" extended={frontmatter.extended}>
 
-<Callout kind="feature" label="Primero en la lista" title="Correr las sesiones con 6 a 8 personas que estén buscando arriendo">Con su propio celular y sus propios anuncios. Las preguntas más importantes: si un 43% por falta de datos se lee como “mal apartamento”, si la gente pone todo en “Alta” y aplana el match, y quién más está decidiendo con ellos. Antes de empezar, congelar la versión publicada para no mezclar resultados.</Callout>
+<Callout kind="feature" label="Primero en la lista" title="Sesiones con 6 a 8 personas que buscan arriendo">Con su celular y sus anuncios. Las preguntas clave: ¿un 43% por falta de datos se lee como “mal apartamento”? ¿Ponen todo en “Alta”? ¿Quién más decide con ellos?</Callout>
 
 <Compare
   kind="plain"
@@ -210,19 +222,19 @@ Además dejé un **plan de investigación** con siete preguntas, criterios para 
     {
       label: "Haría diferente",
       items: [
-        "Hablar con usuarios antes de publicar siete versiones en seis días. Muchas decisiones se tomaron con buen criterio, pero sin evidencia.",
-        "Empezar con la escala de palabras. El propio handoff ya avisaba que si la gente se trababa repartiendo puntos, nos habíamos pasado.",
-        "Revisar el escenario de ejemplo desde el inicio. Mostraba el costo como límite en una pantalla y como peso en otra.",
-        "Crear el componente de link en el sistema de diseño desde el día uno.",
+        "Hablar con usuarios antes de publicar 7 versiones en 6 días.",
+        "Empezar por la escala de palabras: el handoff ya lo advertía.",
+        "Revisar el escenario de ejemplo desde el inicio: mostraba el costo como límite y como peso.",
+        "Crear el componente de link desde el primer día.",
       ],
     },
     {
       label: "Probaría con más tiempo o acceso",
       items: [
-        "Si la gente pone todo en “Alta”: un desempate por pares (“¿qué pesa más, zona o espacio?”) en lugar de volver a los 100 puntos.",
-        "Comparar en sesión la escala de palabras contra el reparto de puntos.",
-        "La decisión en pareja o con roomies: compartir la comparación y ver dónde no están de acuerdo.",
-        "Llevar lo que funcione del prototipo a matcha.place y medir el tiempo de agregar a comparar (meta del producto: menos de 10 minutos).",
+        "Si todo queda en “Alta”: un desempate por pares (“¿qué pesa más, zona o espacio?”).",
+        "Palabras contra puntos, con la misma persona.",
+        "Decidir en pareja o con roomies: ver dónde no coinciden.",
+        "Llevarlo a matcha.place y medir el tiempo de agregar a comparar (meta: menos de 10 minutos).",
       ],
     },
   ]}
@@ -230,7 +242,7 @@ Además dejé un **plan de investigación** con siete preguntas, criterios para 
 
 </Section>
 
-<Section title="Artefactos creados en el camino" question="Documentos que acompañaron cada etapa.">
+<Section title="Artefactos creados en el camino" question="Documentos que acompañaron cada etapa." extended={frontmatter.extended}>
 
 <Artifacts items={frontmatter.artifacts} />
 

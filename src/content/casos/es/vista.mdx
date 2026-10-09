@@ -23,6 +23,9 @@ links:
 footer:
   - VISTA · plataforma de arbolado urbano · piloto 1, Ámsterdam
   - Mao Solano · octubre 2026
+extended:
+  href: https://claude.ai/artifact/GvLcvC3c2KiTvpTAJbkv71
+  label: Leer la versión extensa del caso
 
 # The principal colour, from VISTA's tokens.json. Everything else is shared (caso.css).
 palette:
@@ -36,36 +39,39 @@ palette:
 
 decisions:
   - topic: Cómo producir pantallas
-    options: Diseñar todo en Figma y luego programar; o pedirle a la IA pantallas sueltas.
-    pick: Prototipos generados con Claude a partir de reglas escritas. Así el sistema crece con cada pantalla y no se desordena.
+    options: Todo en Figma y luego programar; o pantallas sueltas hechas con IA.
+    pick: Prototipos con Claude a partir de reglas escritas.
+    why: El sistema crece con cada pantalla sin desordenarse.
   - topic: El mapa
-    options: Un mapa “dibujado” de mentira (lo decidí primero, el 12 de agosto); Mapbox como servicio pagado.
-    pick: Un mapa real con MapLibre e imágenes satelitales Sentinel-2 de Ámsterdam, alojado por nosotros. Cambié de opinión dos días después porque los usuarios reaccionan distinto a datos reales, y alojarlo nosotros evita costos y dependencias.
-  - topic: Datos de prueba
-    options: Simular un servidor completo (MSW).
-    pick: "Datos simples en archivos: 8 distritos, 23 barrios y ~200 árboles. Más rápido y suficiente para probar ideas."
+    options: Un mapa dibujado de mentira; o Mapbox, que es pago.
+    pick: Un mapa real con MapLibre e imágenes Sentinel-2, alojado por nosotros.
+    why: La gente reacciona distinto a datos reales, y no hay costos ni dependencias.
   - topic: Panel lateral de Maintain
-    options: "Cuatro opciones: tarjetas apiladas, interruptor salud/alertas, franja sobre el mapa, pestañas."
-    pick: Construí la opción 1 en código y dejé la 3 y la 4 en Figma para compararlas lado a lado. Mostrar varias opciones evita casarse con la primera idea.
+    options: Cuatro diseños posibles.
+    pick: Uno en código y dos en Figma, para compararlos.
+    why: Ver varias opciones evita casarse con la primera idea.
   - topic: Confirmar una tarea creada
     options: Una ventana de confirmación que hay que cerrar.
-    pick: Un resaltado suave “Recién creada” en la fila nueva que desaparece solo. Un clic menos en el flujo principal.
+    pick: Un resaltado “Recién creada” que se va solo.
+    why: Un clic menos en el flujo principal.
   - topic: Dónde vive “la verdad”
-    options: Figma como fuente única; o sincronizar Figma y código en ambas direcciones.
-    pick: El código manda en lo construido y Figma manda en lo que aún no existe. Cada dato viaja en una sola dirección, así nadie tiene que reconciliar dos versiones a mano.
+    options: Figma como única fuente; o sincronizar en las dos direcciones.
+    pick: El código manda en lo construido; Figma, en lo que falta.
+    why: Cada dato viaja en una sola dirección y nadie reconcilia versiones a mano.
   - topic: Galería de componentes
-    options: Una página escrita a mano (ya cubría solo 11 de 33 componentes).
-    pick: Storybook, que se genera desde el código y avisa cuando un color o tamaño se desalinea del sistema.
+    options: Una página hecha a mano (cubría 11 de 33).
+    pick: Storybook.
+    why: Se genera desde el código y avisa cuando algo se desalinea del sistema.
 
 tour:
-  note: "Las capturas son de la versión en vivo (8 de octubre de 2026). Las anotaciones muestran el tour guiado que quiero construir dentro del prototipo: oscurecer la pantalla, resaltar dónde ocurre cada paso y explicarlo."
+  note: "Capturas de la versión en vivo (8 oct 2026). Las anotaciones muestran el tour guiado que quiero construir dentro del prototipo."
   shots:
     - id: contexto
       src: monitor.jpg
       alt: "Módulo Monitor: mapa satelital de Ámsterdam con distritos coloreados por salud del dosel, métrica de 128 árboles en riesgo y tabla de distritos más afectados"
       step: Contexto
       lead: "Monitor: la salud de la ciudad."
-      text: Antes del flujo, el gestor de espacios verdes ve el mapa con capas de dosel, calor y alertas, la temporada con y sin hojas, y los distritos más afectados ordenados por costo y urgencia.
+      text: Mapa con capas de dosel, calor y alertas, y los distritos más afectados por costo y urgencia.
       holes: [[372, 203, 1040, 466, 10]]
       pins: [{ left: 25.83%, top: 22.56%, label: M }]
       tips:
@@ -81,8 +87,8 @@ tour:
       src: maintain.jpg
       alt: Módulo Maintain con dos alertas del clima en el panel lateral, calor en Centrum y viento en West, marcadas también sobre el mapa
       step: Paso 1
-      lead: Llega la alerta · panel lateral y mapa.
-      text: "El arborista entra a Maintain y ve las alertas del clima activas: cuántas hay, en cuántos distritos y qué porcentaje de árboles afectan."
+      lead: Llega la alerta · panel y mapa.
+      text: El arborista ve cuántas alertas hay, dónde y a qué porcentaje de árboles afectan.
       holes: [[28, 358, 328, 158, 10], [389, 253, 158, 60, 8], [705, 253, 158, 60, 8]]
       pins: [{ left: 1.94%, top: 39.78%, label: "1" }]
       tips:
@@ -92,7 +98,7 @@ tour:
           offset: 22px
           step: Paso 1 de 6
           title: Llega la alerta
-          text: "Aparece en el panel lateral y sobre el distrito afectado en el mapa: calor en Centrum y viento en West."
+          text: "Aparece en el panel y sobre el distrito en el mapa: calor en Centrum y viento en West."
           prev: ["#contexto", "← Anterior"]
           next: ["#paso-2", "Siguiente →"]
     - id: paso-2
@@ -100,7 +106,7 @@ tour:
       alt: "Alerta de estrés por calor en Centrum abierta: 19 árboles en riesgo, confianza media, actuar ahora 1.400 euros frente a no hacer nada 4.800 euros, botones Crear tarea y Ahora no"
       step: Pasos 2 y 3
       lead: Revisa y decide · tarjeta de la alerta.
-      text: "Al abrirla, la alerta se expande en el mismo panel y se resalta su distrito en el mapa: 19 árboles en riesgo, confianza media del pronóstico y la comparación que justifica actuar, 1.400 € si se actúa ahora contra 4.800 € si no se hace nada."
+      text: "19 árboles en riesgo, confianza media y el argumento para actuar: 1.400 € ahora contra 4.800 € si no se hace nada."
       holes: [[28, 412, 328, 270, 10], [389, 253, 158, 60, 8]]
       pins:
         - { left: 1.94%, top: 45.78%, label: "2" }
@@ -127,7 +133,7 @@ tour:
       alt: Formulario Crear tarea con título, prioridad, responsable, fecha límite y notas; el campo de fecha muestra su texto de ayuda al tener el foco
       step: Paso 4
       lead: Crea la tarea · ventana modal.
-      text: Título, prioridad, responsable, plazo y notas, sin salir de Maintain. La ayuda que aparece al enfocar un campo se volvió una regla del sistema de diseño.
+      text: Título, prioridad, responsable, plazo y notas, sin salir de Maintain.
       holes: [[516, 183, 408, 534, 12]]
       pins: [{ left: 35.83%, top: 20.33%, label: "4" }]
       tips:
@@ -146,7 +152,7 @@ tour:
       alt: "Ventana Descartar alerta para el estrés por calor en Centrum, con el motivo escrito: ya se regó esta mañana, el equipo de Centrum lo confirmó en sitio"
       step: Rama 4b
       lead: Ahora no · ventana modal.
-      text: Elegir “Ahora no” abre esta ventana. El botón de descartar no se activa hasta que hay un motivo, porque no actuar también es una decisión que debe quedar registrada.
+      text: "Descartar exige un motivo: no actuar también es una decisión."
       holes: [[516, 318, 408, 264, 12], [191, 629, 152, 40, 8]]
       pins: [{ left: 35.83%, top: 35.33%, label: 4b }]
       tips:
@@ -156,7 +162,7 @@ tour:
           offset: 24px
           step: Rama 4b
           title: Ahora no, con motivo
-          text: Descartar exige escribir por qué. La alerta sale del panel y del mapa, y la decisión queda guardada.
+          text: La alerta sale del panel y del mapa, y la decisión queda guardada.
           prev: ["#paso-4", "← Anterior"]
           next: ["#paso-5", "Volver al flujo →"]
     - id: paso-5
@@ -164,7 +170,7 @@ tour:
       alt: Tablero de tareas con la nueva tarea resaltada en verde y la etiqueta Recién creada, con botón Marcar como completada
       step: Paso 5
       lead: Entra al tablero · tablero de tareas.
-      text: La tarea aterriza en la misma pantalla con su prioridad, responsable y plazo. El resaltado desaparece solo a los pocos segundos.
+      text: La tarea aparece con su prioridad, responsable y plazo. El resaltado se va solo.
       holes: [[372, 731, 1040, 141, 10]]
       pins: [{ left: 36.11%, top: 81.22%, label: "5" }]
       tips:
@@ -182,7 +188,7 @@ tour:
       alt: Barra de logros abierta con valor protegido de 2.100 euros y la tarea marcada como hecha en el tablero
       step: Paso 6
       lead: Completa y suma un logro · barra de logros.
-      text: La tarea pasa a “Hecha” y su valor se suma al indicador de valor protegido. Así el equipo no solo ve riesgos, también lo que ha salvado.
+      text: "Su valor se suma al valor protegido: el equipo ve lo que ha salvado, no solo los riesgos."
       holes: [[4, 179, 1432, 81, 8], [376, 822, 1032, 48, 8]]
       pins: [{ left: 13.19%, top: 19.89%, label: "6" }]
       tips:
@@ -199,20 +205,20 @@ tour:
       alt: "Página de Storybook que lista los colores del sistema y compara cada uno con lo que el código entrega: 29 sincronizados, 0 desalineados, 1 sin usar"
       step: Storybook
       lead: El sistema se revisa solo.
-      text: "Esta página lee el archivo de colores y lo compara con lo que la app realmente usa: 29 sincronizados, 0 desalineados, 1 sin usar."
+      text: "Compara los colores del sistema con los que usa la app: 29 sincronizados, 0 desalineados, 1 sin usar."
 
 tools:
   - kind: IA
     featured: true
-    html: "<b>Claude Code</b> (app de escritorio) con <b>Claude Sonnet 5</b> para casi toda la construcción, y <b>Claude Opus 5</b> para el trabajo de estrategia: el plan de entrega, el diagrama del proceso, la propuesta y el resumen ejecutivo. Los reportes y comparaciones los publiqué como <b>Claude Artifacts</b>. Este resumen lo armé con <b>Claude Opus 5.5</b>."
+    html: "<b>Claude Code</b> (app de escritorio) con <b>Claude Sonnet 5</b> para construir y <b>Claude Opus 5</b> para la estrategia: plan de entrega, propuesta y resumen ejecutivo. Reportes publicados como <b>Claude Artifacts</b>. Este resumen: <b>Claude Opus 5.5</b>."
   - kind: Diseño
-    html: "<b>Figma</b> conectado a Claude mediante el <b>servidor MCP de Figma</b>: variables, componentes y la página del flujo Alerta → Tarea se mantienen al día con el código. Diagramas de flujo en <b>Mermaid</b>."
+    html: "<b>Figma</b> conectado a Claude por el <b>servidor MCP de Figma</b>: variables y componentes al día con el código. Diagramas en <b>Mermaid</b>."
   - kind: Código
-    html: "<b>Vite 6, React 18, TypeScript 5.7, Tailwind CSS v4</b>, react-router-dom 7, zustand 5 e íconos lucide-react. Código en <b>GitHub</b>."
+    html: "<b>Vite 6, React 18, TypeScript 5.7 y Tailwind CSS v4</b>, con react-router-dom 7, zustand 5 y lucide-react. En <b>GitHub</b>."
   - kind: Mapas y datos
-    html: "<b>MapLibre GL 6</b> con un mapa base <b>PMTiles</b> alojado por nosotros, límites de distritos en GeoJSON e índice NDVI de <b>Sentinel-2</b>, descargado con un script de Python desde <b>Copernicus Data Space</b>."
+    html: "<b>MapLibre GL 6</b>, mapa base <b>PMTiles</b> propio, distritos en GeoJSON e índice NDVI de <b>Sentinel-2</b> desde <b>Copernicus Data Space</b>."
   - kind: Calidad y publicación
-    html: "<b>Storybook 10</b> con revisión de accesibilidad, Vitest y Playwright. Prototipo y Storybook publicados en <b>Vercel</b>."
+    html: "<b>Storybook 10</b> con revisión de accesibilidad, Vitest y Playwright. Todo publicado en <b>Vercel</b>."
 
 stats:
   - { value: "2 / 3", label: "módulos funcionando en dos semanas (Monitor y Maintain)" }
@@ -224,22 +230,22 @@ artifacts:
   - name: VISTA Progress Report
     href: https://claude.ai/artifact/TqyscxnikbVFKdxfQ39UkG
     when: 14 ago
-    what: "Resumen ejecutivo de los primeros tres días: fundación, módulo Monitor y mapa satelital."
+    what: "Resumen ejecutivo de los primeros 3 días: fundación, Monitor y mapa satelital."
   - name: Alert-to-Task UI Options
     href: https://claude.ai/artifact/JKw7CkJSev1NSyE5YRVvNT
     when: 18 ago
-    what: Tres formas de organizar el panel de alertas, comparadas con pros y contras.
+    what: Tres formas de organizar el panel de alertas, con pros y contras.
   - name: The VISTA Pipeline
     href: https://claude.ai/artifact/4gmch1kGMRYcCYdVk8WBxy
     when: 21 ago
-    what: "Diagrama del proceso completo: de notas y bocetos a Figma, Claude, Git y el prototipo."
+    what: "El proceso completo: de notas y bocetos a Figma, Claude, Git y el prototipo."
   - name: The Handoff Contract
     href: https://claude.ai/artifact/C5hEg6sJiyV1msKb4ddiT8
     when: 22 ago
-    what: "Plan de entrega al equipo de desarrollo: dónde vive cada verdad y los 7 controles que evitan romper decisiones."
+    what: "Plan de entrega al equipo de desarrollo: dónde vive cada verdad y 7 controles."
   - name: Documento vivo del flujo Alerta → Tarea
     when: en el repositorio
-    what: Contexto, flujo en Mermaid, 6 pantallas, preguntas abiertas para Vista y registro de decisiones, más la hoja de ruta (ROADMAP.md) con cada cambio fechado.
+    what: Flujo, 6 pantallas, preguntas abiertas y decisiones, más la hoja de ruta fechada.
 ---
 
 import Section from "@/components/caso/Section.astro";
@@ -253,38 +259,44 @@ import Compare from "@/components/caso/Compare.astro";
 import Artifacts from "@/components/caso/Artifacts.astro";
 import FlujoDiagram from "@/components/caso/vista/FlujoDiagram.astro";
 
-<Section title="1. El problema" question="¿Qué resolví y por qué me importaba resolverlo?">
+<Section title="1. El problema" question="¿Qué resolví y por qué me importaba resolverlo?" extended={frontmatter.extended}>
 
-VISTA es una plataforma para cuidar el arbolado urbano. La usan tres perfiles: el gestor de espacios verdes, el arborista y el urbanista. Cuando empecé, el producto existía en PDFs, bocetos de taller y presentaciones, pero no había nada que alguien pudiera usar con las manos.
+VISTA es una plataforma para cuidar el arbolado urbano. La usan gestores de espacios verdes, arboristas y urbanistas. Cuando llegué, solo existía en PDFs, bocetos y presentaciones.
 
-Encontré cuatro problemas concretos:
+- **Visión y ejecución separadas.** Las ideas perdían su intención en el camino a la pantalla.
+- **Sin sistema de diseño.** Cada pantalla empezaba de cero: lenta y distinta a las demás.
+- **Sin registro de decisiones.** Las mismas preguntas se discutían dos veces.
+- **Un proceso en fila.** Pasaban semanas antes de poder probar algo.
 
-- **La visión y la ejecución vivían separadas.** Las ideas perdían su intención al pasar del taller a la pantalla.
-- **No había un sistema de diseño compartido.** Cada pantalla se hacía desde cero, así que salían lentas y distintas entre sí.
-- **No se registraban las decisiones.** Las mismas preguntas se discutían dos veces y el porqué se perdía.
-- **El proceso era secuencial.** Idea, diseño, prototipo y desarrollo esperaban su turno, y pasaban semanas antes de poder probar algo.
+**Por qué importaba:** entre detectar un árbol en riesgo y enviar un equipo hay una revisión manual, lenta y que exige saber GIS. El resultado son árboles perdidos y decisiones que nadie puede auditar.
 
-El flujo que más me importaba es el del arborista. Hoy, entre que se detecta un árbol en riesgo y que sale un equipo a atenderlo, hay un paso manual de revisión lento y que depende de saber usar herramientas GIS. Eso se traduce en árboles que se pierden y decisiones que nadie puede auditar después.
-
-<Pull>La meta: que una alerta del clima se convierta en una tarea asignada en menos de 3 minutos, sin salir de la herramienta, y que decidir “no actuar” también quede registrado.</Pull>
+<Pull>La meta: que una alerta del clima se vuelva una tarea asignada en menos de 3 minutos, sin salir de la herramienta. Y que “no actuar” también quede registrado.</Pull>
 
 </Section>
 
-<Section title="2. Mi proceso" question="¿Qué alternativas consideré y por qué elegí ese camino?">
+<Section title="2. Mi proceso" question="¿Qué alternativas consideré y por qué elegí ese camino?" extended={frontmatter.extended}>
 
-En lugar de pedirle a la IA “hazme una pantalla”, primero escribí un **reglamento** que Claude debía seguir siempre: un archivo con todos los colores, tamaños y espacios permitidos (`tokens.json`), las reglas de diseño (`SYSTEM.md`), una ficha por componente y una lista de revisión que Claude corre antes de entregar. Con eso, cada pantalla nueva sale consistente sin que yo tenga que corregirla a mano.
+Antes de pedirle pantallas a Claude, escribí un **reglamento** que sigue siempre:
 
-Estas fueron las decisiones grandes:
+- `tokens.json`: los colores, tamaños y espacios permitidos.
+- `SYSTEM.md`: las reglas de diseño.
+- Una ficha por componente.
+- Una lista de revisión que Claude corre antes de entregar.
+
+Así cada pantalla nueva sale consistente sin corregirla a mano.
 
 <Decisions rows={frontmatter.decisions} labels={["Decisión", "Alternativas", "Lo que elegí y por qué"]} />
 
-Dos reglas sostuvieron todo el proceso: **los prototipos son desechables** (sirven para probar ideas, no para producción) y **los patrones nuevos se señalan, no se cuelan**: si Claude inventa algo que no está en el sistema, lo anota, y solo se vuelve oficial cuando dos pantallas lo necesitan.
+**Dos reglas de fondo:**
+
+- **Los prototipos son desechables.** Sirven para probar ideas, no para producción.
+- **Lo nuevo se señala, no se cuela.** Si Claude inventa un patrón, lo anota. Se vuelve oficial cuando dos pantallas lo necesitan.
 
 </Section>
 
-<Section title="3. Qué construí" question="Lo muestro funcionando y nombro las herramientas o modelos exactos.">
+<Section title="3. Qué construí" question="Lo muestro funcionando y nombro las herramientas o modelos exactos." extended={frontmatter.extended}>
 
-Un prototipo web con dos de los tres módulos funcionando, publicado en una URL que cualquiera puede abrir. El centro es el recorrido **Alerta → Tarea** del módulo Maintain: así se ve de principio a fin.
+Un prototipo web con 2 de los 3 módulos funcionando, en una URL pública. El centro es el recorrido **Alerta → Tarea** del módulo Maintain:
 
 <FlujoDiagram />
 
@@ -296,9 +308,9 @@ Un prototipo web con dos de los tres módulos funcionando, publicado en una URL 
 
 </Section>
 
-<Section title="4. El resultado" question="¿Qué cambió a partir de esto? ¿Qué impacto tuvo?">
+<Section title="4. El resultado" question="¿Qué cambió a partir de esto? ¿Qué impacto tuvo?" extended={frontmatter.extended}>
 
-<Callout kind="deal" label="El cliente compró la idea">Vamos a empezar a trabajar juntos en cuanto el cliente consiga el presupuesto para contratarme como fractional designer y AI builder.</Callout>
+<Callout kind="deal" label="El cliente compró la idea">Trabajaremos juntos en cuanto el cliente consiga el presupuesto para contratarme como fractional designer y AI builder.</Callout>
 
 <Stats items={frontmatter.stats} />
 
@@ -309,34 +321,33 @@ Un prototipo web con dos de los tres módulos funcionando, publicado en una URL 
       label: "Antes",
       items: [
         "PDFs, bocetos y notas de taller",
-        "Semanas para poder probar una idea",
+        "Semanas para probar una idea",
         "Opiniones sobre imágenes estáticas",
-        "Decisiones que se olvidaban o se volvían a discutir",
-        "Figma y código desalineados sin que nadie lo notara",
+        "Decisiones olvidadas o repetidas",
+        "Figma y código desalineados sin aviso",
       ],
     },
     {
       label: "Después",
       items: [
-        "Un enlace con la app navegable y datos satelitales reales",
-        "De la idea al prototipo revisable en horas: 8 iteraciones en 3 días al inicio",
-        "El flujo Alerta → Tarea completo, probado en el navegador sin errores",
-        "Cada pantalla puede forzarse a estados vacío, cargando, error o datos parciales",
-        "Un registro de decisiones que sobrevive a cambios de equipo",
+        "Una app navegable con datos satelitales reales",
+        "De la idea al prototipo en horas: 8 iteraciones en 3 días",
+        "El flujo Alerta → Tarea completo y probado",
+        "Cada pantalla se puede forzar a vacío, cargando, error o datos parciales",
+        "Un registro de decisiones que sobrevive a los cambios de equipo",
       ],
     },
   ]}
 />
 
-El proceso también empezó a detectar sus propios errores. Encontré que las reglas escritas decían que el espacio entre tarjetas era de 16 px mientras el código usaba 12 px desde hacía días. Ese hallazgo justificó Storybook y el plan de controles automáticos.
-
-El trabajo se convirtió en dos entregables para el cliente: un **plan de entrega** (qué recibe su equipo de desarrollo y cómo se evita que una pantalla nueva rompa una decisión anterior) y una **propuesta de colaboración** para seguir desarrollando el sistema con su equipo. Esa propuesta es la que el cliente compró.
+- **El proceso detecta sus errores.** Las reglas decían 16 px entre tarjetas y el código usaba 12 px. Eso justificó Storybook y los controles automáticos.
+- **Dos entregables para el cliente:** un plan de entrega para su equipo de desarrollo y la propuesta de colaboración que compró.
 
 </Section>
 
-<Section title="5. Lo que sigue" question="¿Qué haría diferente o qué me gustaría probar con más tiempo o acceso?">
+<Section title="5. Lo que sigue" question="¿Qué haría diferente o qué me gustaría probar con más tiempo o acceso?" extended={frontmatter.extended}>
 
-<Callout kind="feature" label="Primero en el backlog" title="Un prototipo que se explica solo">Construir dentro del prototipo el mismo tour de la sección 3: oscurecer la pantalla, resaltar el módulo donde ocurre cada paso y mostrar notas numeradas con Anterior y Siguiente. Así cualquier persona del cliente puede revisarlo sin que yo esté presente para narrarlo. Empieza por el flujo Alerta → Tarea y se activa desde la barra de herramientas del prototipo, junto al selector de estados.</Callout>
+<Callout kind="feature" label="Primero en el backlog" title="Un prototipo que se explica solo">Llevar el tour de la sección 3 dentro del prototipo, para que el cliente lo revise sin que yo lo narre. Empieza por Alerta → Tarea.</Callout>
 
 <Compare
   kind="plain"
@@ -344,19 +355,19 @@ El trabajo se convirtió en dos entregables para el cliente: un **plan de entreg
     {
       label: "Haría diferente",
       items: [
-        "Montar Storybook y los controles automáticos desde el primer día, no después de que algo se desalineara.",
-        "Probar con arboristas reales mucho antes. La meta de “menos de 3 minutos” todavía no se ha medido con usuarios.",
-        "Llevar las decisiones en archivos cortos en lugar de un documento de 57 KB que cuesta leer en cada sesión.",
-        "No trabajar con dos sesiones de Claude sobre el mismo código a la vez: causó una falsa alarma que costó tiempo diagnosticar.",
+        "Storybook y controles automáticos desde el primer día.",
+        "Probar antes con arboristas reales: la meta de 3 minutos aún no se ha medido.",
+        "Decisiones en archivos cortos, no en un documento de 57 KB.",
+        "Una sola sesión de Claude por código: dos a la vez causaron una falsa alarma.",
       ],
     },
     {
       label: "Probaría con más tiempo o acceso",
       items: [
-        "El experimento v2: alertas con recomendaciones y tres maneras de presentarlas, para saber qué información necesita alguien para crear una tarea.",
-        "Conectar los datos reales de Vista: sensores de humedad, inventario de árboles y nivel de barrio y árbol.",
-        "Convertir los componentes en un paquete que su equipo instale en su app de Next.js, con revisión visual automática.",
-        "Construir el módulo Planning (escenarios y retorno de inversión), la exportación real a PDF y el ciclo de vida completo de las tareas.",
+        "Alertas con recomendaciones, en 3 formatos, para ver qué se necesita para crear una tarea.",
+        "Los datos reales de Vista: sensores de humedad e inventario de árboles.",
+        "Un paquete de componentes para su app de Next.js, con revisión visual automática.",
+        "El módulo Planning, la exportación a PDF y el ciclo de vida completo de las tareas.",
       ],
     },
   ]}
@@ -364,7 +375,7 @@ El trabajo se convirtió en dos entregables para el cliente: un **plan de entreg
 
 </Section>
 
-<Section title="Artefactos creados en el camino" question="Documentos que acompañaron cada etapa.">
+<Section title="Artefactos creados en el camino" question="Documentos que acompañaron cada etapa." extended={frontmatter.extended}>
 
 <Artifacts items={frontmatter.artifacts} />
 
