@@ -158,8 +158,9 @@ const tile = layout === "tile";
     border-top: var(--border-width) solid var(--color-border);
   }
 
+  /* Hover: a lime ring outside the border. Box-shadow, so the layout does not move. */
   .card--tile:hover {
-    background-color: var(--color-accent);
+    box-shadow: 0 0 0 var(--space-1) var(--color-accent);
   }
 
   .card--tile:has(.tile__link:focus-visible) {
@@ -216,15 +217,12 @@ const tile = layout === "tile";
     color: var(--color-text);
   }
 
-  .card--tile:hover .tile__text :global(p) {
-    color: var(--color-text);
-  }
-
-  .card--tile:hover .tile__subtitle {
-    border-left-color: var(--color-text);
+  .card--tile:hover .tile__visit {
+    background-color: var(--color-accent);
   }
 
   .tile__visit {
+    align-self: flex-start;
     margin-top: auto;
     font-weight: var(--weight-medium);
     font-size: var(--text-sm);
