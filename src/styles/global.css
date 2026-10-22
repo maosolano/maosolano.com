@@ -32,8 +32,9 @@ html {
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
-  font-family: var(--font-body);
+  font-family: var(--font-sans);
   font-size: var(--text-base);
+  font-weight: var(--weight-regular);
   line-height: var(--leading-body);
   overflow-x: hidden;
 }
@@ -47,49 +48,52 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-title);
-  font-weight: 700;
+  font-family: var(--font-sans);
+  font-weight: var(--weight-bold);
   line-height: var(--leading-title);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-title);
   color: var(--color-heading);
 }
 
 h1 {
   font-size: var(--text-2xl);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-h1);
 }
 h2 {
   font-size: var(--text-xl);
+  letter-spacing: var(--tracking-h2);
 }
 h3 {
   font-size: var(--text-lg);
+  line-height: var(--leading-snug);
+  font-weight: var(--weight-medium);
 }
 
-em,
-i {
-  font-style: italic;
+strong,
+b {
+  font-weight: var(--weight-bold);
 }
 
 small {
   font-size: var(--text-sm);
+  line-height: var(--leading-sm);
 }
 
 /* ============================================================
    Links
-   Ink text + thick yellow underline. On hover the yellow
-   becomes the background. Yellow is never the text colour.
+   Ink text + thick ink underline. On hover the lime becomes the
+   background. Lime is never the text colour or a line.
    ============================================================ */
 a {
   color: var(--color-text);
   text-decoration: underline;
-  text-decoration-color: var(--color-accent);
+  text-decoration-color: var(--color-underline);
   text-decoration-thickness: var(--underline-thickness);
   text-underline-offset: 2px;
 }
 
 a:hover {
   background-color: var(--color-accent);
-  text-decoration-color: var(--color-accent-strong);
 }
 
 /* A linked heading follows the heading colour, not the link colour. */
@@ -103,9 +107,9 @@ h6 a {
 }
 
 /* ============================================================
-   Selection — the accent yellow, with ink on top.
+   Selection — the accent lime, with ink on top.
    Headings are grey, so the colour is forced back to ink here
-   to keep the text readable against the yellow.
+   to keep the text readable against the lime.
    ============================================================ */
 ::selection {
   background-color: var(--color-accent);

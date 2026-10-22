@@ -7,6 +7,7 @@ import {
   type PageKey,
   type Lang,
 } from "@/i18n/ui";
+import "@fontsource-variable/space-grotesk/wght.css";
 import "@/styles/global.css";
 
 interface Props {
@@ -66,13 +67,6 @@ const ogLocale = lang === "es" ? "es_CO" : "en_US";
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={ogLocale} />
     <meta name="twitter:card" content="summary" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Quattrocento:wght@400;700&display=swap"
-    />
 
     <!-- Runs before paint so the mobile menu never flashes open. -->
     <script is:inline>

@@ -4,8 +4,8 @@ Short and practical. Live reference at [`/styleguide`](src/pages/styleguide.astr
 (not in the menu, `noindex`).
 
 The look is a pen sketch on paper: white ground, ink text, 1px lines, square
-corners, generous white space. Yellow is the only accent. No shadows, no
-gradients, no animation beyond the menu opening.
+corners, generous white space. Lime is the only accent, and it is a fill. No
+shadows, no gradients, no animation beyond the menu opening.
 
 ---
 
@@ -17,62 +17,79 @@ value repaints the whole site; touching a component does not.
 
 ### Colour
 
+Base palette: a blue-tinted `--slate-*` ramp (900, 850, 800, 700, 500, 300,
+100, 50), `--white`, and two limes (`--lime-500`, `--lime-400`).
+
 | Semantic | Base | Job |
 |---|---|---|
 | `--color-bg` | `--white` `#FFFFFF` | Page background |
-| `--color-surface` | `--gray-100` `#EBEBEB` | Surfaces on the background |
-| `--color-border` | `--gray-300` `#C0C0C0` | Borders, dividers |
-| `--color-border-subtle` | `--gray-200` `#D6D6D6` | Dividers inside a block |
-| `--color-text` | `--ink-900` `#020A12` | Body text |
-| `--color-heading` | `--gray-800` `#4E5459` | All headings, `h1`–`h6` |
-| `--color-text-muted` | `--gray-700` `#616569` | Secondary text, dates |
-| `--color-accent` | `--yellow-500` `#FBFF0A` | Underlines, highlight, active state |
-| `--color-accent-strong` | `--yellow-700` `#C9CC00` | Underline on hover |
-| `--color-focus` | `--ink-900` | Focus ring |
+| `--color-surface` | `--slate-50` `#F2F4FF` | Surfaces on the background |
+| `--color-border` | `--slate-300` `#BEC5E2` | Borders, dividers |
+| `--color-border-subtle` | `--slate-100` `#E6EAFC` | Dividers inside a block |
+| `--color-text` | `--slate-900` `#202332` | Body text |
+| `--color-heading` | `--slate-800` `#353A4F` | All headings, `h1`–`h6` |
+| `--color-text-muted` | `--slate-500` `#616885` | Secondary text, dates |
+| `--color-underline` | `--slate-900` | Link underlines, emphasis rules |
+| `--color-accent` | `--lime-500` `#C8FF4D` | Fill: hover, highlight, active state |
+| `--color-accent-strong` | `--lime-400` `#C1FF72` | Fill on button hover |
+| `--color-focus` | `--slate-900` | Focus ring |
 
 ### Colour rules
 
-- **Yellow is never text, and never a thin line that carries meaning.** It
-  fails contrast on the page background — on white it is worse still, at about
-  1.1:1. It is a highlight, not information.
+- **Lime is a fill, never text and never a line.** On white it is 1.2:1. Put
+  `--color-text` on top of it (13:1). For a line that must be seen — an
+  underline, a quote rule, a card edge — use `--color-underline`.
 - **Links** are `--color-text` with a `--underline-thickness` (3px)
-  `--color-accent` underline. On hover the yellow becomes the *background*.
-- **The active menu item** uses that same yellow block.
+  `--color-underline` underline. On hover the lime becomes the *background*.
+- **The active menu item** uses that same lime block.
 - **Focus** is `2px solid --color-focus` with 2px offset, on everything
   interactive. Never remove it.
-- All text meets AA.
+- All text meets AA. `--color-text-muted` is 5.5:1 on white; do not use it for
+  text smaller than `--text-sm`.
 
 ### Type
 
 ```
---font-title: "Oswald", "Arial Narrow", system-ui, sans-serif   /* 400, 700 */
---font-body:  "Quattrocento", Georgia, serif                    /* 400, 700 */
+--font-sans: "Space Grotesk Variable", "Space Grotesk", system-ui, sans-serif
 ```
 
-| Token | Size | Used for |
-|---|---|---|
-| `--text-2xl` | 2.25rem | `h1` |
-| `--text-xl` | 1.875rem | `h2` |
-| `--text-lg` | 1.5rem | `h3`, card titles |
-| `--text-base` | 1.25rem (1.1875rem mobile) | Body |
-| `--text-sm` | 1rem | Dates, metadata |
+Self-hosted through `@fontsource-variable/space-grotesk` (imported in
+`Layout.astro`); weights 400, 500 and 700 via `--weight-regular`,
+`--weight-medium`, `--weight-bold`.
+
+The scale steps by roughly 1.25. Mobile (<800px) shrinks every step but
+`--text-sm` and `--text-xs`.
+
+| Token | Desktop | Mobile | Used for |
+|---|---|---|---|
+| `--text-3xl` | 3rem | 2.375rem | Display (Home name) |
+| `--text-2xl` | 2.25rem | 1.875rem | `h1` |
+| `--text-xl` | 1.75rem | 1.5625rem | `h2` |
+| `--text-lg` | 1.375rem | 1.25rem | `h3`, lead, card titles |
+| `--text-base` | 1.125rem | 1.0625rem | Body |
+| `--text-sm` | 0.9375rem | same | Dates, metadata, captions |
+| `--text-xs` | 0.8125rem | same | Labels (caps) |
+| `--text-2xs` | 0.6875rem | same | Dense labels: case studies, tooltips |
+
+Line height and tracking are tokens too: `--leading-tight` (1.1, display and
+`h1`), `--leading-title` (1.2), `--leading-snug` (1.3), `--leading-sm` (1.5),
+`--leading-body` (1.6); `--tracking-display` (−0.03em), `--tracking-h1`
+(−0.02em), `--tracking-h2` (−0.01em), `--tracking-label` (0.08em).
 
 ### Type rules
 
-- **Oswald** for the name, the menu, and every heading. **Quattrocento** for
-  everything else.
-- **All headings are uppercase**, set once on `h1`–`h6` in `global.css` with
-  `--tracking-title` (0.02em). Oswald is condensed and caps need the air.
-  `text-transform` is visual only — assistive tech still reads the real casing.
-- **Headings are `--color-heading`, not `--color-text`** — a softer grey than the
-  body, so a wall of condensed caps does not shout. A linked heading inherits
-  that colour instead of the link colour, so card and post titles match the
-  headings around them.
-- The name and the menu stay **mixed case**. The contrast against caps headings
-  is deliberate.
-- **Neither family has an italic face.** Any `<em>` is a browser-synthesised
-  oblique. Prefer weight, a rule, or spacing to set something apart.
-- Body is 20px / 1.55. It is set on `body`; do not override per component.
+- **One family.** Space Grotesk for everything: name, menu, headings, body.
+- **Headings are sentence case**, bold (`h3` medium), with the tight tracking
+  above. Uppercase is only for labels at `--text-xs` and `--text-2xs`, with
+  `--tracking-label`.
+- **Headings are `--color-heading`, not `--color-text`** — a slightly softer
+  ink. A linked heading inherits that colour instead of the link colour, so
+  card and post titles match the headings around them.
+- UI text (menu, buttons, meta labels) uses `--weight-medium`. Body is
+  `--weight-regular`.
+- **No italic face.** Any `<em>` is a browser-synthesised oblique. Prefer
+  weight, a rule, or spacing to set something apart.
+- Body is 18px / 1.6. It is set on `body`; do not override per component.
 
 ### Spacing, line, layout
 
@@ -96,7 +113,7 @@ There are no global utility classes.
 The whole chrome: name, menu, language switch. Rendered once by the layout —
 never place it yourself. The name is a link home, not a heading.
 - **≥800px** — sticky header, one row: name left, menu and language switch
-  right. The current section is the yellow block, including its sub-pages.
+  right. The current section is the lime block, including its sub-pages.
 - **<800px** — top bar with a real `<button>` (`aria-expanded`, `aria-controls`,
   visible "Menú" label, 44px). Escape closes it and returns focus; choosing a
   link closes it.
@@ -122,7 +139,7 @@ Three layouts, set with `layout`:
 
 - `"tile"` — image on top (16:10), title, one-line summary and a "see details →"
   line. The whole card is one link (the title link is stretched over it); hover
-  turns the card yellow. For a three-up grid on Home.
+  turns the card lime. For a three-up grid on Home.
 
 All collapse to one column below 800px, so the prop only matters on desktop.
 
@@ -177,8 +194,11 @@ height) on the project page, which finds it by id — no flag needed.
   Structured blocks (decisions, tour, tools, stats, artifacts) live in the
   frontmatter; the MDX body holds the prose and places the blocks.
 - **Look** — `src/styles/caso.css`, shared by every case: VISTA's neutrals
-  and status colours, and this site's yellow for everything clickable (links,
-  link cards, buttons), never as text. The project's `palette` in the
+  and status colours, and this site's lime for everything clickable (links,
+  link cards, buttons), never as text. It imports `tokens.css` and takes the
+  lime, focus ring, underline thickness, spacing, type scale, leading and
+  tracking from it; its own font families (Newsreader, IBM Plex), weights,
+  radii and shadows stay local. The project's `palette` in the
   frontmatter sets only its principal colour (`accent-*`, `on-accent`,
   `spot*`; every key required). Always light.
 - **Blocks** — `src/components/caso/`: `Section`, `Pull`, `Callout`,
@@ -220,7 +240,8 @@ height) on the project page, which finds it by id — no flag needed.
 
 ### Checklist before shipping
 - [ ] Semantic tokens only; no raw hex, no bare px
-- [ ] Headings uppercase, body in Quattrocento
+- [ ] Lime only as a fill with ink on top; lines use `--color-underline`
+- [ ] Headings in sentence case, everything in Space Grotesk; no italics
 - [ ] Focus visible on everything interactive
 - [ ] 44px minimum touch targets on mobile
 - [ ] Meaningful `alt` on every image

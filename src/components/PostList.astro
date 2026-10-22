@@ -38,7 +38,6 @@ const { posts, lang, emptyLabel } = Astro.props;
 <style>
   .empty {
     color: var(--color-text-muted);
-    font-style: italic;
   }
 
   .posts {
@@ -59,7 +58,7 @@ const { posts, lang, emptyLabel } = Astro.props;
 
   .posts__title a {
     text-decoration: none;
-    border-bottom: var(--underline-thickness) solid var(--color-accent);
+    border-bottom: var(--underline-thickness) solid var(--color-underline);
   }
 
   .posts__date {

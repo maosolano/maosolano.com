@@ -56,7 +56,7 @@ const casos = defineCollection({
     // with a link to it, so the page itself can stay short.
     extended: z.object({ href: z.string().url(), label: z.string() }).optional(),
     // The project's principal colour. Neutrals, status colours and the
-    // yellow for interaction are shared by every case (caso.css). Every key
+    // lime for interaction are shared by every case (caso.css). Every key
     // is required, so a new case cannot fall back to another project's colour.
     palette: z.object({
       accent: z.string(),

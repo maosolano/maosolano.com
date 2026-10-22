@@ -11,23 +11,26 @@ const sample = await getEntry("projects", "es/matcha");
 
 const colors = [
   ["--color-bg", "--white", "Fondo de página"],
-  ["--color-surface", "--gray-100", "Superficies sobre el fondo"],
-  ["--color-border", "--gray-300", "Bordes y separadores"],
-  ["--color-border-subtle", "--gray-200", "Separadores internos"],
-  ["--color-text", "--ink-900", "Texto principal"],
-  ["--color-heading", "--gray-800", "Todos los encabezados, h1 a h6"],
-  ["--color-text-muted", "--gray-700", "Texto secundario, fechas"],
-  ["--color-accent", "--yellow-500", "Subrayados, resaltado, estado activo"],
-  ["--color-accent-strong", "--yellow-700", "Subrayado en hover"],
-  ["--color-focus", "--ink-900", "Anillo de foco"],
+  ["--color-surface", "--slate-50", "Superficies sobre el fondo"],
+  ["--color-border", "--slate-300", "Bordes y separadores"],
+  ["--color-border-subtle", "--slate-100", "Separadores internos"],
+  ["--color-text", "--slate-900", "Texto principal"],
+  ["--color-heading", "--slate-800", "Todos los encabezados, h1 a h6"],
+  ["--color-text-muted", "--slate-500", "Texto secundario, fechas"],
+  ["--color-underline", "--slate-900", "Subrayado de enlaces y filetes de énfasis"],
+  ["--color-accent", "--lime-500", "Relleno: hover, resaltado, estado activo"],
+  ["--color-accent-strong", "--lime-400", "Relleno en hover de botones"],
+  ["--color-focus", "--slate-900", "Anillo de foco"],
 ];
 
 const typeScale = [
+  ["--text-3xl", "3rem", "Display (home)"],
   ["--text-2xl", "2.25rem", "h1"],
-  ["--text-xl", "1.875rem", "h2"],
-  ["--text-lg", "1.5rem", "h3, títulos de tarjeta"],
-  ["--text-base", "1.25rem", "Cuerpo"],
-  ["--text-sm", "1rem", "Fechas, metadatos, pie"],
+  ["--text-xl", "1.75rem", "h2"],
+  ["--text-lg", "1.375rem", "h3, lead, títulos de tarjeta"],
+  ["--text-base", "1.125rem", "Cuerpo"],
+  ["--text-sm", "0.9375rem", "Fechas, metadatos, pie"],
+  ["--text-xs", "0.8125rem", "Etiquetas en mayúsculas"],
 ];
 
 const spacing = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -50,7 +53,8 @@ const spacing = [1, 2, 3, 4, 5, 6, 7, 8];
     <h2>Color</h2>
     <p class="note">
       Los componentes usan solo los nombres semánticos de la izquierda.
-      Los amarillos nunca son color de texto ni líneas finas con significado.
+      El lima es solo relleno: nunca texto ni líneas, porque sobre el fondo claro
+      apenas se distingue (1.2:1). Con tinta encima llega a 13:1.
     </p>
     <ul class="swatches">
       {colors.map(([semantic, base, use]) => (
@@ -68,8 +72,9 @@ const spacing = [1, 2, 3, 4, 5, 6, 7, 8];
   <section>
     <h2>Tipografía</h2>
     <p class="note">
-      Oswald para nombre, menú y títulos, siempre en mayúsculas.
-      Quattrocento para el cuerpo. Ninguna de las dos tiene cursiva real.
+      Space Grotesk para todo (400, 500 y 700). No tiene cursiva real:
+      el énfasis va con peso, no con oblicua. Los títulos van en minúsculas
+      de oración; las mayúsculas quedan para las etiquetas.
     </p>
     <ul class="type">
       {typeScale.map(([token, size, use]) => (
@@ -80,9 +85,9 @@ const spacing = [1, 2, 3, 4, 5, 6, 7, 8];
       ))}
       <li class="type__row">
         <span class="type__sample type__sample--body">
-          Cuerpo en Quattrocento a 20px, interlínea 1.55.
+          Cuerpo en Space Grotesk a 18px, interlínea 1.6.
         </span>
-        <span class="type__meta"><code>--font-body</code></span>
+        <span class="type__meta"><code>--font-sans</code></span>
       </li>
     </ul>
   </section>
@@ -104,8 +109,8 @@ const spacing = [1, 2, 3, 4, 5, 6, 7, 8];
   <section>
     <h2>Enlaces y botones</h2>
     <p class="note">
-      El enlace es texto tinta con subrayado amarillo grueso. En hover el
-      amarillo pasa a ser el fondo. El botón solo existe en el menú móvil.
+      El enlace es texto tinta con subrayado tinta grueso. En hover el
+      lima pasa a ser el fondo. El botón solo existe en el menú móvil.
     </p>
     <p><a href="/styleguide">Enlace en párrafo</a> dentro de una línea de texto.</p>
     <p class="demo">
@@ -270,17 +275,13 @@ const spacing = [1, 2, 3, 4, 5, 6, 7, 8];
 
   .type__sample {
     display: block;
-    font-family: var(--font-title);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-title);
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-h2);
     line-height: var(--leading-title);
   }
 
   .type__sample--body {
-    font-family: var(--font-body);
-    font-weight: 400;
-    text-transform: none;
+    font-weight: var(--weight-regular);
     letter-spacing: normal;
     font-size: var(--text-base);
     line-height: var(--leading-body);
@@ -330,7 +331,7 @@ const spacing = [1, 2, 3, 4, 5, 6, 7, 8];
     background: none;
     border: var(--border-width) solid var(--color-border);
     border-radius: var(--radius);
-    font-family: var(--font-title);
+    font-weight: var(--weight-medium);
     font-size: var(--text-sm);
     color: var(--color-text);
     cursor: pointer;
