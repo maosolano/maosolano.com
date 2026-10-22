@@ -1,0 +1,123 @@
+---
+title: Matcha
+url: https://matcha-prototipo.vercel.app/prototipo
+image: ../../../assets/projects/matcha.png
+subtitle: From a decision-making problem to a functional AI-assisted prototype
+summary: How might we help people compare housing options without adding more complexity to an already overwhelming search? I built a functional prototype to find out.
+order: 1
+---
+
+import Seccion from "@/components/proyecto/Seccion.astro";
+import Esquema from "@/components/proyecto/Esquema.astro";
+import Pantallas from "@/components/proyecto/Pantallas.astro";
+import Cifras from "@/components/proyecto/Cifras.astro";
+import Enlaces from "@/components/proyecto/Enlaces.astro";
+
+Matcha is a product by Lucho Molina for finding a rental in Bogotá: it saves your listings, asks what matters to you, and gives each option a *match* percentage. I redesigned its core flow, **add → prioritize → compare**, and built it as a mobile prototype.
+
+**My role:** UX design with AI · **Period:** brief from July 24; prototype from September 12 to 18, 2026 · **Status:** prototype, not yet tested with users.
+
+<Seccion id="problem" title="Problem" lead="Searching for a rental is already overwhelming. Comparing options should not add to it.">
+
+Listings live in WhatsApp links, open tabs, and scattered notes. Matcha already organized that, but its core, the decision flow, carried three risks:
+
+- **No real people yet.** Profiles and journeys were hypotheses nobody had tested.
+- **A number can mislead.** When a piece of data is missing, the match drops, and "we don't know yet" reads as "bad apartment."
+- **Prioritizing meant doing math.** Splitting 100 points distracts from what actually matters.
+
+<Esquema
+  label="From chaos to a specific risk"
+  items={[
+    { title: "Today", text: "WhatsApp links, open tabs, and lost notes.", tone: "muted" },
+    { title: "Missing", text: "An honest way to compare options." },
+    { title: "Risk", text: "A percentage that silently penalizes what it doesn't know.", tone: "accent" },
+  ]}
+/>
+
+</Seccion>
+
+<Seccion id="what-i-did" title="What did I do?" lead="A functional prototype of the full flow, using real listings.">
+
+You paste a listing link and Matcha reads the cost, area, and neighborhood. Then you say what matters to you and see the ranking. The screenshots use the sample scenario: 6 options in Bogotá.
+
+<Esquema
+  label="The flow in three steps"
+  items={[
+    { title: "1 · Add", text: "Paste the link; missing data is asked for, not invented." },
+    { title: "2 · Prioritize", text: "One word per criterion, with its influence shown live." },
+    { title: "3 · Compare", text: "A ranking that explains itself and says which data is missing." },
+  ]}
+/>
+
+<Pantallas
+  items={[
+    { src: "/casos/matcha/img/inicio.jpg", alt: "Step 1: field to paste the listing link and a list of options; Cedritos shows cost with no data", tag: "Add", caption: "Reads the listing. A missing cost shows as “no data”." },
+    { src: "/casos/matcha/img/prioridades.jpg", alt: "Step 2: each criterion with the scale Low, Medium, High, Non-negotiable and its percentage of influence", tag: "Prioritize", caption: "Low, Medium, High, or Non-negotiable; above, how much each criterion weighs." },
+    { src: "/casos/matcha/img/comparacion.jpg", alt: "Step 3: comparison with Chapinero Alto at 90% match, 5 of 5 data points, and a summary of where it scores and where it gives", tag: "Compare", caption: "The 90% does not grade the apartment: it measures how well it fits you." },
+    { src: "/casos/matcha/img/detalle.jpg", alt: "Detail of an apartment in Cedritos: 43% match, 1 of 5 data points missing, cost with no data because the building fee is missing", tag: "Detail", caption: "43% with “1 of 5 data points missing”: you fill it in right there." },
+  ]}
+/>
+
+### Two decisions that changed the screen
+
+<Pantallas
+  items={[
+    { src: "/casos/matcha/img/puntos.jpg", alt: "Previous version: Split 100 points, with a counter, bars, and plus and minus buttons", tag: "Before", caption: "Splitting 100 points: 2,092 px tall and math to do." },
+    { src: "/casos/matcha/img/prioridades.jpg", alt: "New version: a word scale per criterion with live influence", tag: "After", caption: "One word per criterion: 1,364 px, 35% shorter, same calculation." },
+  ]}
+/>
+
+- **Missing data.** An absent data point adds zero and the screen says so (“no data”) instead of hiding it. An incomplete option scores lower, and that is exactly what I want to observe in sessions.
+- **Options first.** With their own apartments in front of them, people don't invent weights.
+
+</Seccion>
+
+<Seccion id="ai" title="How did I use AI?" lead="Claude sped up exploration and implementation; I set the rules and the criteria.">
+
+<Esquema
+  label="From my rules to the prototype"
+  items={[
+    { title: "Living brief", text: "Values, journeys, and a decision log with the reasons.", tone: "muted" },
+    { title: "Handoff", text: "Flow, match model, copy, and acceptance criteria." },
+    { title: "Claude Design", text: "4 interactive explorations of how to split priorities." },
+    { title: "Claude Code", text: "The prototype, with 24 components and its own design system." },
+    { title: "Tests", text: "16 automated tests of the match model.", tone: "accent" },
+  ]}
+/>
+
+- **Claude** helped me with the brief, the handoff, and the research plan.
+- **Claude Design** produced the four explorations (sliders, chips, bar, and pie chart) as artifacts I tried by hand. None won: I chose a word scale.
+- **Claude Code**, with Claude Opus 5, wrote the code from the handoff and signs every commit as co-author. I defined the product decisions and acceptance criteria before implementation.
+
+The automated tests verify the match model, not usability.
+
+</Seccion>
+
+<Seccion id="results" title="What were the results?" lead="What was built is measured; what depends on people is not yet.">
+
+<Cifras
+  items={[
+    { value: "5 days", label: "from handoff to published prototype, in 17 commits" },
+    { value: "24", label: "components, documented in their own design system" },
+    { value: "16", label: "automated tests of the match model" },
+    { value: "7", label: "questions in the research plan, ready for sessions" },
+  ]}
+/>
+
+The main product improved too: 26 of 55 links in the app did not look like links on mobile, and there is now a component with a visible underline, which is a system rule.
+
+**What I still don't know.** The sessions with 6 to 8 people searching for a rental have not been run. I don't know whether a 43% caused by missing data reads as “bad apartment,” or whether people trust the match. That is the next step.
+
+</Seccion>
+
+<Seccion id="links" title="Links" lead="What you can open and try.">
+
+<Enlaces
+  items={[
+    { name: "Live prototype", what: "The full flow: add, prioritize, and compare, with the sample scenario.", href: "https://matcha-prototipo.vercel.app/prototipo", label: "matcha-prototipo.vercel.app/prototipo" },
+    { name: "Four ways to split priorities", what: "The interactive explorations made with Claude Design.", href: "https://claude.ai/artifact/NHTjZQ8nrxbSuuMyijdvna", label: "Interactive artifact · Sep 15" },
+    { name: "Extended case study", what: "Decisions, day-by-day process, and what I would do differently.", href: "https://claude.ai/artifact/BG74SvV3654WkoZz7Rxu2Q", label: "Artifact on Claude" },
+  ]}
+/>
+
+</Seccion>

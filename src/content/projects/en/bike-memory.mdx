@@ -1,0 +1,137 @@
+---
+title: The Bike Memory Project
+url: https://www.bicis.maosolano.com
+image: ../../../assets/projects/bike.png
+subtitle: From a collection of drawings to a collaborative digital archive
+summary: A collection of bicycle drawings made from memory became a public archive and a collaborative project, with 387 drawings published.
+exploreLabel: Explore the archive
+order: 3
+---
+
+import Seccion from "@/components/proyecto/Seccion.astro";
+import Esquema from "@/components/proyecto/Esquema.astro";
+import Pantallas from "@/components/proyecto/Pantallas.astro";
+import Cifras from "@/components/proyecto/Cifras.astro";
+import Enlaces from "@/components/proyecto/Enlaces.astro";
+
+Since 2020 I have been asking people to draw a bicycle from memory, without looking at one: friends, strangers on the street, bars, workshops, and galleries. Almost 400 people said yes. Almost none of the bikes would work in real life, and that is the fun of it: each drawing is a memory and a conversation. I turned that notebook into a public archive and a project anyone can join.
+
+**My role:** author, designer, and AI builder · **Period:** June to October 2026 (most of the work between September 20 and October 1) · **Status:** in production.
+
+<Seccion id="problem" title="Problem" lead="Almost 400 drawings nobody could see, and that were not only mine.">
+
+Everything lived in notebooks, and showing it meant facing four problems:
+
+- **Nobody could see them.** A single paper copy, with no backup.
+- **Full-page scans.** Spiral binding, edges, and white space left the bike tiny.
+- **No data.** Who, where, and when had to be reconstructed from memory.
+- **No permissions.** They are other people's work, sometimes signed, shared without consent.
+
+It was also an experiment: what can one person build with AI, with no development team, in a few weeks?
+
+<Esquema
+  label="From notebooks to a public archive"
+  items={[
+    { title: "Today", text: "Notebooks in a drawer, in a single copy.", tone: "muted" },
+    { title: "Missing", text: "A wall to browse, find your bike, and add a new one." },
+    { title: "Condition", text: "Without putting the people who drew at risk.", tone: "accent" },
+  ]}
+/>
+
+</Seccion>
+
+<Seccion id="what-i-did" title="What did I do?" lead="An end-to-end product: a public archive, a way to contribute, and private tools to curate it.">
+
+I designed and built all three parts, and how they connect.
+
+<Esquema
+  label="The three parts of the product"
+  items={[
+    { title: "Public archive", text: "A wall with search and a page for every bike." },
+    { title: "Contribution", text: "Draw yours in the browser and submit it with explicit consent." },
+    { title: "Private curation", text: "Entries, a per-drawing audit, and a moderation queue." },
+  ]}
+/>
+
+<Pantallas
+  kind="wide"
+  items={[
+    { src: "/casos/bike-memory/img/hero.jpg", alt: "Site home page: black background and the headline A notebook, a technical pen, an excuse to talk to strangers, with a counter showing 387 bicycles", tag: "Home", caption: "The story in one sentence, and the bike counter." },
+    { src: "/casos/bike-memory/img/wall.jpg", alt: "The wall: a grid of ink bicycle drawings on paper, a search box on top, and an orange cell with the text A story", tag: "Public archive", caption: "The wall: 387 bikes and a search by number, name, place, or year." },
+    { src: "/casos/bike-memory/img/drawing.jpg", alt: "Page for Bike - 018 with the sheet view, buttons Draw yours, Share, and WhatsApp, and the link Tell us about this bike", tag: "One bike", caption: "A page per bike, with share buttons and a form to tell a story." },
+    { src: "/casos/bike-memory/img/draw.jpg", alt: "Draw yours page: the headline No cyclist and no references; just a bike, as you remember it, and the blank canvas", tag: "Contribution", caption: "A canvas and one instruction. Download your drawing or submit it, with explicit consent." },
+  ]}
+/>
+
+### From notebook to screen
+
+Images go through a cropping script that removes the spiral and the edges and compresses them: from 72 MB to 12 MB. On 29 bikes the crop cut off the signature or the context, so I made a “sheet view” by hand.
+
+<Pantallas
+  items={[
+    { src: "/casos/bike-memory/img/018-scan.jpg", alt: "Original scan of Bike - 018: a notebook page with the spiral on top and a small bike in the bottom right corner", tag: "Scan", caption: "The full page, with the spiral." },
+    { src: "/casos/bike-memory/img/018-crop.jpg", alt: "The same bike cropped to the edge of the ink", tag: "Crop", caption: "This is the image on the wall." },
+    { src: "/casos/bike-memory/img/018-detail.jpg", alt: "Sheet view of Bike - 018: the bike with the real white space of the page, without the spiral mark", tag: "Sheet view", caption: "For the bike's own page." },
+  ]}
+/>
+
+Curation is private, so I don't show it: it is password-protected and lets me edit entries with “Save and next,” audit each drawing's anatomy (frame, chain, handlebars, and pedals), and review submissions in a moderation queue.
+
+**Product decisions that protect the people who drew:**
+
+- **A fixed wall.** Shuffling the bikes caused a loading error, and a fixed order keeps every bike in the same place.
+- **Two separate permissions.** When submitting a drawing, I ask for permission to show it and, separately, to show the name. If I reject it, it is deleted.
+- **Names without permission are hidden but searchable.** If you search for your name, you get your bike's number, never the name. This applies to 247 bikes.
+- **No cookies, analytics, or ads.**
+
+</Seccion>
+
+<Seccion id="ai" title="How did I use AI?" lead="AI sped up the build. The decisions, the judgment, and the legal questions were mine.">
+
+<Esquema
+  label="From design to the published site"
+  items={[
+    { title: "Ground rules", text: "Criteria, colors, typefaces, scope, and to-dos.", tone: "muted" },
+    { title: "Claude Design", text: "The visual proposal and the audit screens." },
+    { title: "Claude Code", text: "The code and the project documents." },
+    { title: "My review", text: "Security, passwords, and legal questions.", tone: "accent" },
+  ]}
+/>
+
+- **Before asking for screens**, I wrote the rules Claude reads at the start of every session, such as “if there are two reasonable options, pick the simpler one.” That way each session started with the same memory.
+- **Claude Design** produced the visual proposal; **Claude Code** wrote the code. Neither delivered the product on its own: I directed every screen and every decision.
+- **AI proposes, I decide.** Passwords, security, and legal questions were mine to settle.
+- **An experiment I put on hold:** I tried having Claude Haiku label the drawings by level of detail, and it marked 83% as “very detailed.” AI can suggest labels, but a person has to review them.
+
+</Seccion>
+
+<Seccion id="results" title="What were the results?" lead="A working archive, ready to grow; what depends on permissions is still open.">
+
+<Cifras
+  items={[
+    { value: "387", label: "drawings online, previously kept only on paper" },
+    { value: "12 MB", label: "of images, versus 72 MB of scans" },
+    { value: "201", label: "entries loaded from a spreadsheet" },
+    { value: "6 days", label: "of work for almost the whole site" },
+  ]}
+/>
+
+Today all 387 bikes are behind one link that also opens on a phone, and anyone can search for theirs or submit a new one.
+
+**What is still unresolved.** Building was the fast part; the slow part is what AI cannot solve: whose drawings these are, what can be published, and who decides. There is a data inventory and 12 open questions for a lawyer. Until I have those answers, the shop and new uses are on hold, and I still need to ask each person who drew for their permissions separately.
+
+</Seccion>
+
+<Seccion id="links" title="Links" lead="What you can open and try.">
+
+<Enlaces
+  items={[
+    { name: "The wall", what: "The public archive: 387 bikes with search.", href: "https://www.bicis.maosolano.com", label: "bicis.maosolano.com" },
+    { name: "One bike", what: "The page for Bike - 018, with its sheet view and the story form.", href: "https://www.bicis.maosolano.com/drawing/018", label: "bicis.maosolano.com/drawing/018" },
+    { name: "Draw yours", what: "The canvas for drawing a bike from memory and submitting it to the collection.", href: "https://www.bicis.maosolano.com/draw", label: "bicis.maosolano.com/draw" },
+    { name: "Redesign plan", what: "From the prototype with placeholder bikes to the site with the new design.", href: "https://claude.ai/artifact/8thpT6V4wQN2Bcs7b6WA3G", label: "Artifact on Claude · Sep 18" },
+    { name: "Extended case study", what: "Process, decisions, and what I would do differently.", href: "https://claude.ai/artifact/HCus3ytZfaCzQU82mn9dEg", label: "Artifact on Claude" },
+  ]}
+/>
+
+</Seccion>
