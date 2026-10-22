@@ -30,7 +30,7 @@ export const routes: Record<Lang, Record<PageKey, string>> = {
   },
 };
 
-/** Menu order. Home is the name in the sidebar, so it is not a menu item. */
+/** Menu order. Home is the name in the header, so it is not a menu item. */
 export type NavKey = "projects" | "about" | "lab" | "contact";
 export const navOrder: NavKey[] = ["projects", "about", "lab", "contact"];
 
@@ -44,7 +44,7 @@ export const LINKEDIN = "https://linkedin.com/in/maosolano";
 export const ui = {
   es: {
     "site.name": "Mao Solano",
-    "site.title": "Mao Solano — Diseñador generalista, creativo tecnológico y maker",
+    "site.title": "Mao Solano — UX Designer & AI Builder",
 
     "nav.projects": "Proyectos",
     "nav.about": "Sobre mí",
@@ -60,11 +60,12 @@ export const ui = {
 
     "home.title": "Inicio",
     "home.description":
-      "Diseñador generalista, creativo tecnológico y maker. Uso palabras, sistemas y tecnología para convertir ideas en productos, experiencias y proyectos creativos.",
-    "home.tagline": "Diseñador generalista, creativo tecnológico y maker",
-    "home.personal":
-      "Uso palabras, sistemas y tecnología para convertir ideas en productos, experiencias y proyectos creativos.",
-    "home.recent": "Proyectos recientes",
+      "UX Designer & AI Builder. Diseño productos digitales que convierten problemas complejos en experiencias claras y útiles, de la comprensión del problema al prototipo funcional.",
+    "home.heading": "UX Designer & AI Builder",
+    "home.cta.projects": "Explorar proyectos",
+    "home.cta.contact": "Hablemos",
+    "home.featured": "Proyectos destacados",
+    "home.aboutMore": "Conocer más",
 
     "projects.title": "Proyectos",
     "projects.description":
@@ -101,7 +102,7 @@ export const ui = {
   },
   en: {
     "site.name": "Mao Solano",
-    "site.title": "Mao Solano — Generalist designer, creative technologist, and maker",
+    "site.title": "Mao Solano — UX Designer & AI Builder",
 
     "nav.projects": "Projects",
     "nav.about": "About",
@@ -117,16 +118,17 @@ export const ui = {
 
     "home.title": "Home",
     "home.description":
-      "Generalist designer, creative technologist, and maker. I use words, systems, and technology to turn ideas into products, experiences, and creative projects.",
-    "home.tagline": "Generalist designer, creative technologist, and maker",
-    "home.personal":
-      "I use words, systems, and technology to turn ideas into products, experiences, and creative projects.",
-    "home.recent": "Recent projects",
+      "UX Designer & AI Builder. I design digital products that turn complex problems into clear, useful experiences, from understanding the problem to a working prototype.",
+    "home.heading": "UX Designer & AI Builder",
+    "home.cta.projects": "Explore projects",
+    "home.cta.contact": "Let's talk",
+    "home.featured": "Featured projects",
+    "home.aboutMore": "Learn more",
 
     "projects.title": "Projects",
     "projects.description":
       "Projects in UX, content, and design systems: The Bike Memory Project, Matcha, and VISTA.",
-    "projects.visit": "Learn more",
+    "projects.visit": "See details",
     "projects.imageAlt": "Project screenshot",
     "projects.back": "Back to Projects",
 
@@ -161,10 +163,23 @@ export const ui = {
 export type UIKey = keyof (typeof ui)[typeof defaultLang];
 
 /**
- * The profile, as paragraphs. Taken from the CV.
- * Its closing idea ("convertir ideas en productos, experiencias y proyectos
- * creativos") is carried by `home.personal`, so it is not repeated here.
+ * The home intro, as paragraphs. The last one is the closing line and is set
+ * in bold.
  */
+export const intro = {
+  es: [
+    "Diseño productos digitales que convierten problemas complejos en experiencias claras y útiles.",
+    "Combino mi experiencia en UX con IA generativa para explorar soluciones, construir prototipos funcionales y desarrollar sistemas de diseño que conectan el diseño con la implementación.",
+    "De la comprensión del problema al prototipo funcional.",
+  ],
+  en: [
+    "I design digital products that turn complex problems into clear, useful experiences.",
+    "I combine my UX background with generative AI to explore solutions, build working prototypes, and develop design systems that connect design to implementation.",
+    "From understanding the problem to a working prototype.",
+  ],
+} as const;
+
+/** The profile, as paragraphs. Taken from the CV. The home shows the first. */
 export const profile = {
   es: [
     "Soy un diseñador generalista con experiencia en redacción para UX en banca, ecommerce y productos digitales.",

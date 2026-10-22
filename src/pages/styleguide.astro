@@ -130,6 +130,20 @@ const spacing = [1, 2, 3, 4, 5, 6, 7, 8];
         <p>{sample.data.summary}</p>
       </ProjectCard>
     )}
+    {sample && (
+      <div style="max-width: 320px; margin-top: var(--space-6)">
+        <ProjectCard
+          title={sample.data.title}
+          url={sample.data.url}
+          image={sample.data.image}
+          imageAlt="Captura de pantalla del proyecto"
+          visitLabel="Conocer detalles"
+          layout="tile"
+        >
+          <p>{sample.data.summary}</p>
+        </ProjectCard>
+      </div>
+    )}
   </section>
 
   <!-- Carousel + Recommendation -->

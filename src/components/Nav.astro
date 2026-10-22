@@ -1,13 +1,10 @@
 ---
 import LangSwitch from "./LangSwitch.astro";
-import { getCollection } from "astro:content";
 import {
   getLangFromUrl,
   useTranslations,
   navOrder,
   routes,
-  projectPath,
-  projectSlug,
   type PageKey,
 } from "@/i18n/ui";
 
@@ -19,12 +16,6 @@ interface Props {
 const { pageKey, altHref } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const path = Astro.url.pathname.replace(/\/$/, "") || "/";
-
-/** Second level under Projects: one link per project page. */
-const projects = (await getCollection("projects", ({ id }) => id.startsWith(`${lang}/`)))
-  .sort((a, b) => a.data.order - b.data.order)
-  .map((entry) => ({ title: entry.data.title, href: projectPath(lang, projectSlug(entry.id)) }));
 ---
 
 <header class="bar">
@@ -45,7 +36,7 @@ const projects = (await getCollection("projects", ({ id }) => id.startsWith(`${l
   <nav id="primary-menu" class="menu" aria-label={t("nav.label")}>
     <ul class="menu__list">
       {navOrder.map((key) => {
-        const current = key === pageKey && path === routes[lang][key];
+        const current = key === pageKey;
         return (
           <li>
             <a
@@ -55,24 +46,6 @@ const projects = (await getCollection("projects", ({ id }) => id.startsWith(`${l
             >
               {t(`nav.${key}`)}
             </a>
-            {key === "projects" && (
-              <ul class="menu__sub">
-                {projects.map((project) => {
-                  const here = path === project.href;
-                  return (
-                    <li>
-                      <a
-                        href={project.href}
-                        class:list={["menu__link", "menu__link--sub", { "is-current": here }]}
-                        aria-current={here ? "page" : undefined}
-                      >
-                        {project.title}
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
           </li>
         );
       })}
@@ -104,7 +77,6 @@ const projects = (await getCollection("projects", ({ id }) => id.startsWith(`${l
 
   .menu {
     display: flex;
-    flex-direction: column;
   }
 
   .menu__list {
@@ -112,7 +84,6 @@ const projects = (await getCollection("projects", ({ id }) => id.startsWith(`${l
     padding: 0;
     margin: 0;
     display: flex;
-    flex-direction: column;
   }
 
   .menu__list li + li {
@@ -125,8 +96,7 @@ const projects = (await getCollection("projects", ({ id }) => id.startsWith(`${l
     font-family: var(--font-title);
     font-size: var(--text-base);
     text-decoration: none;
-    padding: var(--space-2) var(--space-2);
-    margin-left: calc(var(--space-2) * -1);
+    padding: var(--space-2) var(--space-3);
   }
 
   .menu__link:hover,
@@ -134,35 +104,25 @@ const projects = (await getCollection("projects", ({ id }) => id.startsWith(`${l
     background-color: var(--color-accent);
   }
 
-  .menu__sub {
-    list-style: none;
-    margin: 0 0 var(--space-2);
-    padding: 0 0 0 var(--space-4);
-  }
-
-  .menu__link--sub {
-    font-size: var(--text-sm);
-    padding-block: var(--space-1);
-  }
-
-  /* ---------- Desktop: fixed sidebar ---------- */
+  /* ---------- Desktop: one row, name left, menu right ---------- */
   @media (min-width: 800px) {
     .bar {
-      position: fixed;
-      inset: 0 auto 0 0;
-      width: var(--sidebar-width);
-      flex-direction: column;
-      padding: var(--space-7) var(--space-5);
-      border-right: var(--border-width) solid var(--color-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-4) var(--space-7);
+      border-bottom: var(--border-width) solid var(--color-border);
     }
 
     .menu {
-      flex: 1;
-      margin-top: var(--space-6);
+      align-items: center;
+      gap: var(--space-4);
     }
 
-    .menu__lang {
-      margin-top: auto;
+    .menu__list {
+      gap: var(--space-1);
     }
 
     .toggle {
@@ -221,7 +181,12 @@ const projects = (await getCollection("projects", ({ id }) => id.startsWith(`${l
 
     .menu {
       width: 100%;
+      flex-direction: column;
       padding-bottom: var(--space-3);
+    }
+
+    .menu__list {
+      flex-direction: column;
     }
 
     .menu__link {
@@ -229,10 +194,6 @@ const projects = (await getCollection("projects", ({ id }) => id.startsWith(`${l
       font-size: var(--text-lg);
       padding: var(--space-2) var(--space-3);
       margin-left: calc(var(--space-3) * -1);
-    }
-
-    .menu__link--sub {
-      font-size: var(--text-base);
     }
 
     .menu__lang {

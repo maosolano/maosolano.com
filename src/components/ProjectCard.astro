@@ -15,14 +15,39 @@ interface Props {
    * "split" puts the image left and the text right — right for a one-line
    * summary. "stacked" gives both the full column width, which long bodies
    * need: at 40% of the content width the measure drops to ~33 characters.
+   * "tile" is the compact summary for a grid (Home): image on top, and the
+   * whole card is one link to `href`, so `visitLabel` is plain text.
    */
-  layout?: "split" | "stacked";
+  layout?: "split" | "stacked" | "tile";
 }
 
 const { title, url, href = url, image, imageAlt, visitLabel, visitHref = url, layout = "split" } = Astro.props;
 const stacked = layout === "stacked";
+const tile = layout === "tile";
 ---
 
+{tile ? (
+  <article class="card card--tile">
+    <div class="tile__media">
+      {image ? (
+        <Image
+          src={image}
+          alt={`${imageAlt}: ${title}`}
+          widths={[420, 840]}
+          sizes="(min-width: 1000px) 320px, (min-width: 800px) 30vw, 100vw"
+          loading="lazy"
+        />
+      ) : (
+        <p class="card__placeholder">{title}</p>
+      )}
+    </div>
+    <div class="tile__text">
+      <h3 class="card__title"><a href={href} class="tile__link">{title}</a></h3>
+      <slot />
+      <p class="tile__visit">{visitLabel} →</p>
+    </div>
+  </article>
+) : (
 <article class="card">
   <h3 class="card__title">
     <a href={href}>{title}</a>
@@ -49,6 +74,7 @@ const stacked = layout === "stacked";
     </div>
   </div>
 </article>
+)}
 
 <style>
   .card + .card {
@@ -112,5 +138,75 @@ const stacked = layout === "stacked";
 
   .card__row--stacked .card__text {
     max-width: 68ch;
+  }
+
+  /* ---------- tile ---------- */
+  .card--tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: var(--border-width) solid var(--color-border);
+  }
+
+  .card + .card--tile,
+  .card--tile + .card--tile {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: var(--border-width) solid var(--color-border);
+  }
+
+  .card--tile:hover {
+    background-color: var(--color-accent);
+  }
+
+  .card--tile:has(.tile__link:focus-visible) {
+    outline: var(--focus-width) solid var(--color-focus);
+    outline-offset: var(--focus-offset);
+  }
+
+  .tile__media img,
+  .tile__media .card__placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border: 0;
+    border-bottom: var(--border-width) solid var(--color-border);
+  }
+
+  .tile__text {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: var(--space-3);
+    padding: var(--space-4);
+  }
+
+  .tile__text :global(p) {
+    font-size: var(--text-sm);
+  }
+
+  .card--tile .card__title {
+    margin-bottom: 0;
+  }
+
+  /* The title link covers the whole card. */
+  .tile__link {
+    border-bottom: 0;
+  }
+
+  .tile__link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+
+  .tile__link:hover {
+    background-color: transparent;
+  }
+
+  .tile__visit {
+    margin-top: auto;
+    font-family: var(--font-title);
+    font-size: var(--text-sm);
   }
 </style>

@@ -88,7 +88,6 @@
      in media queries — keep the two in sync.
      ---------------------------------------------------------- */
   --content-max: 720px;
-  --sidebar-width: 240px;
   --breakpoint-md: 800px;
   --tap-target: 44px;
 }

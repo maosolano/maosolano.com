@@ -80,7 +80,7 @@ value repaints the whole site; touching a component does not.
 Use these; never a bare pixel value.
 
 `--border-width: 1px` · `--radius: 0` (square, by design) ·
-`--content-max: 720px` · `--sidebar-width: 240px` · `--tap-target: 44px`
+`--content-max: 720px` · `--tap-target: 44px`
 
 `--breakpoint-md: 800px` is **documentation only** — custom properties do not
 work inside `@media`, so 800px is hard-coded in the media queries. Change both.
@@ -94,9 +94,9 @@ There are no global utility classes.
 
 ### `Nav.astro`
 The whole chrome: name, menu, language switch. Rendered once by the layout —
-never place it yourself.
-- **≥800px** — fixed 240px sidebar; name top, menu below, language switch pinned
-  to the bottom.
+never place it yourself. The name is a link home, not a heading.
+- **≥800px** — sticky header, one row: name left, menu and language switch
+  right. The current section is the yellow block, including its sub-pages.
 - **<800px** — top bar with a real `<button>` (`aria-expanded`, `aria-controls`,
   visible "Menú" label, 44px). Escape closes it and returns focus; choosing a
   link closes it.
@@ -114,13 +114,22 @@ A project: title above, then the image and the text. The text block is a slot �
 Home passes the summary, Projects passes the rendered Markdown body. Falls back
 to a bordered box with the project name when the image is missing.
 
-Two layouts, set with `layout`:
+Three layouts, set with `layout`:
 - `"split"` (default) — image left at 60%, text right. For a one-line summary.
 - `"stacked"` — both at full column width, capped at 68ch. For the full body:
   at 40% of the content width the measure drops to about 33 characters, which
   is too narrow to read comfortably.
 
-Both collapse to one column below 800px, so the prop only matters on desktop.
+- `"tile"` — image on top (16:10), title, one-line summary and a "see details →"
+  line. The whole card is one link (the title link is stretched over it); hover
+  turns the card yellow. For a three-up grid on Home.
+
+All collapse to one column below 800px, so the prop only matters on desktop.
+
+### `Home.astro`
+The home page, shared by `/` and `/en` (`lang` prop): intro (h1, copy in
+`intro`, two buttons), featured projects as `tile` cards, About and Contact
+summaries. Pages are just `Layout wide` + `Home`.
 
 ### `Carousel.astro`
 A horizontal row of items: native overflow scroll with snap, each item at
