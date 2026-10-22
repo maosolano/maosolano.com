@@ -28,7 +28,7 @@ const caseStudy = hasCase && EMBED_CASE ? casePath(lang, slug) : undefined;
   title={title}
   description={summary}
   alternates={{ es: projectPath("es", slug), en: projectPath("en", slug) }}
-  wide={Boolean(caseStudy)}
+  wide
 >
   <article class="project">
     <header class="project__head">
@@ -73,9 +73,20 @@ const caseStudy = hasCase && EMBED_CASE ? casePath(lang, slug) : undefined;
 
 <style>
   /* With a case study the page goes wide; the text keeps the reading width. */
-  .project__intro,
-  .project__head {
-    max-width: var(--content-max);
+  /* Wide enough for the schemes and screenshots to breathe on desktop, while
+     running text keeps its reading width (see Seccion and .project__intro). */
+  .project {
+    max-width: 1280px;
+  }
+
+  /* The MDX holds the sections, so the prose wrapper stays full width and
+     only running text is capped. */
+  .project :global(.prose) {
+    max-width: none;
+  }
+
+  .project :global(.prose) > :global(p) {
+    max-width: 68ch;
   }
 
   /* Stays under the site bar while the page scrolls. `top` is set from the
@@ -139,6 +150,15 @@ const caseStudy = hasCase && EMBED_CASE ? casePath(lang, slug) : undefined;
     height: auto;
     margin-top: var(--space-6);
     border: var(--border-width) solid var(--color-border);
+  }
+
+  @media (min-width: 1000px) {
+    /* The hero image sits beside the intro text; each section clears it. */
+    .project__image {
+      float: right;
+      width: 36%;
+      margin: 0 0 var(--space-6) var(--space-7);
+    }
   }
 
   .project :global(.prose) {

@@ -17,6 +17,7 @@ const { id, title, lead } = Astro.props;
 
 <style>
   .seccion {
+    clear: both;
     margin-top: var(--space-8);
     padding-top: var(--space-5);
     border-top: var(--border-width) solid var(--color-border);
@@ -24,6 +25,14 @@ const { id, title, lead } = Astro.props;
 
   .seccion > :global(* + *) {
     margin-top: var(--space-5);
+  }
+
+  /* Running text keeps its reading width; schemes and screenshots use the full column. */
+  .seccion > :global(p),
+  .seccion > :global(ul:not(.enlaces)),
+  .seccion > :global(h3),
+  .seccion__lead {
+    max-width: 68ch;
   }
 
   .seccion__lead {

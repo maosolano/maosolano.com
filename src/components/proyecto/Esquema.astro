@@ -85,8 +85,30 @@ const stacked = items.length > 3;
       grid-auto-flow: column;
       grid-auto-columns: 1fr;
     }
+  }
 
+  /* Four or five boxes only fit in a row on a wide desktop column. */
+  @media (min-width: 1000px) {
+    .esquema {
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+    }
+  }
+
+  @media (min-width: 800px) {
     .esquema:not(.esquema--stacked) .esquema__box:not(:last-child)::after {
+      content: "→";
+      left: auto;
+      right: calc(var(--space-5) * -1 + 1px);
+      bottom: auto;
+      top: var(--space-3);
+      width: var(--space-5);
+      text-align: center;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .esquema--stacked .esquema__box:not(:last-child)::after {
       content: "→";
       left: auto;
       right: calc(var(--space-5) * -1 + 1px);
