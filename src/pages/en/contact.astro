@@ -1,6 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { useTranslations, EMAIL, LINKEDIN } from "@/i18n/ui";
+import { useTranslations, EMAIL, LINKEDIN, linkAttrs } from "@/i18n/ui";
 
 const lang = "en" as const;
 const t = useTranslations(lang);
@@ -14,7 +14,7 @@ const t = useTranslations(lang);
     <dd><a href={`mailto:${EMAIL}`}>{EMAIL}</a></dd>
 
     <dt>{t("contact.linkedin")}</dt>
-    <dd><a href={LINKEDIN}>linkedin.com/in/maosolano</a></dd>
+    <dd><a href={LINKEDIN} {...linkAttrs(LINKEDIN)}>linkedin.com/in/maosolano</a></dd>
   </dl>
 </Layout>
 

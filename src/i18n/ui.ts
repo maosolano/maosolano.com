@@ -38,6 +38,12 @@ export const CV_PATH: Record<Lang, string> = {
   es: "/cv-mauricio-solano-ES.pdf",
   en: "/cv-mauricio-solano-EN.pdf",
 };
+/** Attributes that open an external (http/https) or downloadable link in a new tab. */
+export const linkAttrs = (href: string) =>
+  /^https?:\/\//.test(href) || href.endsWith(".pdf")
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : {};
+
 export const EMAIL = "mauricio.solano@gmail.com";
 export const LINKEDIN = "https://linkedin.com/in/maosolano";
 
@@ -78,9 +84,13 @@ export const ui = {
 
     "about.title": "Sobre mí",
     "about.description":
-      "Diseñador generalista con experiencia en redacción para UX en banca, ecommerce y productos digitales.",
+      "Diseñador generalista entre UX, narrativa y tecnología. Experiencia en redacción para UX en banca y ecommerce, y hoy en construcción de prototipos con IA.",
     "about.experience": "Experiencia",
     "about.strengths": "Fortalezas",
+    "about.howIWork": "Cómo trabajo",
+    "about.exploring": "Qué estoy explorando",
+    "about.journey": "Mi recorrido",
+    "about.recommendations.intro": "Dos recomendaciones de LinkedIn sobre el criterio analítico y la dirección creativa.",
     "about.ai": "Experimentando con IA",
     "about.cv": "Descargar CV (PDF)",
     "about.recommendations": "Recomendaciones",
@@ -141,6 +151,10 @@ export const ui = {
       "Generalist designer with experience in UX writing across banking, ecommerce, and digital products.",
     "about.experience": "Experience",
     "about.strengths": "Strengths",
+    "about.howIWork": "How I work",
+    "about.exploring": "What I'm exploring",
+    "about.journey": "My journey",
+    "about.recommendations.intro": "Two LinkedIn recommendations on analytical thinking and creative direction.",
     "about.ai": "Experimenting with AI",
     "about.cv": "Download CV (PDF)",
     "about.recommendations": "Recommendations",
@@ -186,8 +200,10 @@ export const intro = {
 /** The profile, as paragraphs. Taken from the CV. The home shows the first. */
 export const profile = {
   es: [
-    "Soy un diseñador generalista con experiencia en redacción para UX en banca, ecommerce y productos digitales.",
-    "He trabajado transformando procesos complejos en experiencias claras para millones de usuarios, colaborando con equipos de diseño, producto, investigación y desarrollo.",
+    "Soy un diseñador generalista que trabaja en la intersección entre UX, narrativa y tecnología.",
+    "Mi carrera pasa por el diseño visual, el diseño web, la transcreación y el diseño de producto digital, incluida la redacción para UX en banca y ecommerce. En Mercado Libre y Scotiabank aprendí a convertir procesos complejos en experiencias más claras, a colaborar con equipos multidisciplinarios y a establecer principios de diseño que ayudan a que los productos se mantengan consistentes.",
+    "Hoy amplío esa experiencia con IA generativa. Uso herramientas como Claude y Claude Code para explorar soluciones, construir prototipos funcionales y documentar las reglas y los sistemas que conectan las decisiones de diseño con la implementación.",
+    "Me interesa reducir la distancia entre entender un problema, diseñar una solución y hacerla funcionar. No se trata solo de construir más rápido, sino de usar la tecnología para explorar mejores alternativas y crear productos útiles con intención.",
   ],
   en: [
     "I'm a generalist designer with experience in UX writing across banking, ecommerce, and digital products.",
@@ -234,6 +250,43 @@ export const strengths = {
   ],
 } as const;
 
+/** About, block A. A short term and one line on what it means in practice. */
+export const howIWork = {
+  es: [
+    { title: "Pensamiento de producto", text: "Entender el problema antes de definir la solución." },
+    { title: "Diseño centrado en las personas", text: "Convertir procesos complejos en experiencias claras y comprensibles." },
+    { title: "Pensamiento sistémico", text: "Crear reglas, componentes y documentación que ayuden a que los productos se mantengan consistentes." },
+    { title: "Construcción asistida por IA", text: "Pasar de briefs y decisiones de diseño a prototipos funcionales con ayuda de la IA." },
+    { title: "Experimentación", text: "Explorar alternativas, documentar lo que aprendo y mejorar a partir de la evidencia." },
+  ],
+} as const;
+
+/** About, block B. Learning in progress, not claimed expertise. */
+export const exploring = {
+  es: {
+    intro:
+      "Esto es lo que estoy aprendiendo y practicando ahora. No lo presento como dominio, sino como la dirección en la que estoy creciendo, hacia el Design Engineering.",
+    items: [
+      "Desarrollo de producto asistido por IA",
+      "Sistemas de diseño y design tokens",
+      "Prototipado funcional con Claude Code",
+      "Fundamentos de frontend, accesibilidad y validación de interfaces",
+      "Flujos de diseño a código y componentes reutilizables",
+    ],
+  },
+} as const;
+
+/** About, block C. Stages in order; no dates here, the dated jobs are under Experience. */
+export const journey = {
+  es: [
+    { stage: "Diseño visual", text: "Comunicar con forma, color y composición." },
+    { stage: "Diseño web", text: "Llevar esas ideas a páginas y a la lógica de la navegación." },
+    { stage: "Transcreación y contenido", text: "Adaptar ideas entre idiomas sin perder su intención." },
+    { stage: "UX Writing", text: "Convertir procesos complejos en lenguaje claro, en banca y ecommerce." },
+    { stage: "Diseño de producto y construcción con IA", text: "Conectar el problema, el diseño y un prototipo funcional." },
+  ],
+} as const;
+
 export const aiPractice = {
   es: [
     "Claude para exploración y validación de conceptos",
@@ -265,6 +318,8 @@ export const recommendations: {
   role: string;
   org: string | null;
   lang: Lang;
+  /** Shown on the About page; the rest are on LinkedIn. */
+  featured: boolean;
   relation: Record<Lang, string>;
   quote: Record<Lang, string[]>;
 }[] = [
@@ -273,6 +328,7 @@ export const recommendations: {
     role: "Design Manager",
     org: "Zalando",
     lang: "en",
+    featured: true,
     relation: {
       es: "Supervisó mi trabajo directamente",
       en: "Managed me directly",
@@ -291,6 +347,7 @@ export const recommendations: {
     role: "Software Architect",
     org: "Publicis Groupe",
     lang: "en",
+    featured: false,
     relation: {
       es: "Trabajamos en el mismo equipo",
       en: "Worked on the same team",
@@ -309,6 +366,7 @@ export const recommendations: {
     role: "Design Engineer",
     org: null,
     lang: "en",
+    featured: false,
     relation: {
       es: "Tenía un cargo superior al mío, sin supervisarme directamente",
       en: "Was senior to me, without managing me directly",
@@ -327,6 +385,7 @@ export const recommendations: {
     role: "Sr. Manager, Brand Protection & Product Strategy",
     org: "Mercado Libre",
     lang: "es",
+    featured: true,
     relation: {
       es: "Tenía un cargo superior al mío, sin supervisarme directamente",
       en: "Was senior to me, without managing me directly",

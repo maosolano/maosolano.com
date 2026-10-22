@@ -39,6 +39,10 @@ Base palette: a blue-tinted `--slate-*` ramp (900, 850, 800, 700, 500, 300,
 - **Lime is a fill, never text and never a line.** On white it is 1.2:1. Put
   `--color-text` on top of it (13:1). For a line that must be seen — an
   underline, a quote rule, a card edge — use `--color-underline`.
+- **External links open in a new tab** (`target="_blank" rel="noopener noreferrer"`).
+  In templates use `{...linkAttrs(href)}` from `i18n/ui.ts`; Markdown/MDX links
+  get it from the rehype plugin in `astro.config.ts`. Internal links stay in the
+  same tab. Any new external link must follow this.
 - **Links** are `--color-text` with a `--underline-thickness` (3px)
   `--color-underline` underline. On hover the lime becomes the *background*.
 - **The active menu item** uses that same lime block.
