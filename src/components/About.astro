@@ -1,0 +1,303 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Carousel from "@/components/Carousel.astro";
+import Recommendation from "@/components/Recommendation.astro";
+import {
+  useTranslations,
+  profile,
+  bold,
+  experience,
+  howIWork,
+  exploring,
+  journey,
+  recommendations,
+  RECOMMENDATIONS_URL,
+  CV_PATH,
+  type Lang,
+} from "@/i18n/ui";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const featured = recommendations.filter((rec) => rec.featured);
+---
+
+<Layout pageKey="about" title={t("about.title")} description={t("about.description")} wide>
+  <div class="about">
+    <section class="block block--intro" aria-labelledby="about-heading">
+      <h1 id="about-heading">{t("about.title")}</h1>
+      <div class="block__body profile">
+        {profile[lang].map((paragraph) => <p set:html={bold(paragraph)} />)}
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="how-heading">
+      <h2 id="how-heading">{t("about.howIWork")}</h2>
+      <dl class="block__body work">
+        {howIWork[lang].map((item) => (
+          <div class="work__item">
+            <dt>{item.title}</dt>
+            <dd>{item.text}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <section class="block" aria-labelledby="exploring-heading">
+      <h2 id="exploring-heading">{t("about.exploring")}</h2>
+      <div class="block__body">
+        <p class="measure">{exploring[lang].intro}</p>
+        <ul class="bullets">
+          {exploring[lang].items.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="journey-heading">
+      <h2 id="journey-heading">{t("about.journey")}</h2>
+      <ol class="block__body journey">
+        {journey[lang].map((step) => (
+          <li>
+            <span class="journey__stage">{step.stage}</span>
+            <span class="journey__text">{step.text}</span>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="block" aria-labelledby="experience-heading">
+      <h2 id="experience-heading">{t("about.experience")}</h2>
+      <ul class="block__body cv">
+        {experience[lang].map((job) => (
+          <li>
+            <span class="cv__role">{job.role}</span>{job.org && <span class="cv__org">, {job.org}</span>}
+            <span class="cv__dates">{job.dates}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="block" aria-labelledby="recs-heading">
+      <h2 id="recs-heading">{t("about.recommendations")}</h2>
+      <div class="block__body recs">
+        <p class="measure">{t("about.recommendations.intro")}</p>
+        <Carousel
+          label={t("about.recommendations")}
+          prevLabel={t("about.recommendations.prev")}
+          nextLabel={t("about.recommendations.next")}
+        >
+          {featured.map((rec) => (
+            <Recommendation
+              quote={rec.quote[lang]}
+              name={rec.name}
+              role={rec.role}
+              org={rec.org}
+              relation={rec.relation[lang]}
+              original={rec.lang === lang ? undefined : { lang: rec.lang, quote: rec.quote[rec.lang] }}
+              originalLabel={t("about.recommendations.translated")}
+            />
+          ))}
+        </Carousel>
+        <p class="recs-link"><a href={RECOMMENDATIONS_URL}>{t("about.recommendations.linkedin")}</a></p>
+      </div>
+    </section>
+
+    <p class="cv-link"><a href={CV_PATH[lang]} download>{t("about.cv")}</a></p>
+  </div>
+</Layout>
+
+<style>
+  .about {
+    max-width: 72rem;
+  }
+
+  .block {
+    margin-top: var(--space-7);
+  }
+
+  .block--intro {
+    margin-top: 0;
+  }
+
+  .block__body {
+    margin-top: var(--space-4);
+  }
+
+  .block--intro .block__body {
+    margin-top: var(--space-5);
+  }
+
+  .measure {
+    max-width: 62ch;
+  }
+
+  .profile {
+    max-width: 62ch;
+  }
+
+  .profile p + p {
+    margin-top: var(--space-4);
+  }
+
+  .cv,
+  .journey {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0;
+  }
+
+  .cv li {
+    padding: var(--space-3) 0;
+    border-bottom: var(--border-width) solid var(--color-border-subtle);
+  }
+
+  .cv__role {
+    font-weight: var(--weight-medium);
+  }
+
+  .cv__dates {
+    display: block;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .bullets {
+    margin: var(--space-4) 0 0;
+    padding-left: var(--space-5);
+  }
+
+  .bullets li {
+    padding: var(--space-1) 0;
+  }
+
+  /* How I work: term and line, one row each. */
+  .work {
+    margin-bottom: 0;
+  }
+
+  .work__item {
+    display: grid;
+    grid-template-columns: 14rem 1fr;
+    gap: var(--space-2) var(--space-5);
+    padding: var(--space-3) 0;
+    border-bottom: var(--border-width) solid var(--color-border-subtle);
+  }
+
+  .work dt {
+    font-weight: var(--weight-medium);
+  }
+
+  .work dd {
+    margin: 0;
+    max-width: 62ch;
+  }
+
+  /* Journey: a numbered list on a rule, so the order reads without colour. */
+  .journey {
+    counter-reset: step;
+    border-left: var(--border-width) solid var(--color-underline);
+  }
+
+  .journey li {
+    counter-increment: step;
+    position: relative;
+    padding: var(--space-3) 0 var(--space-3) var(--space-5);
+  }
+
+  .journey li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: var(--space-3);
+    transform: translateX(-50%);
+    display: grid;
+    place-items: center;
+    width: var(--space-5);
+    height: var(--space-5);
+    background-color: var(--color-accent);
+    border: var(--border-width) solid var(--color-underline);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+  }
+
+  .journey__stage {
+    display: block;
+    font-weight: var(--weight-medium);
+  }
+
+  .journey__text {
+    display: block;
+    color: var(--color-text-muted);
+    max-width: 62ch;
+  }
+
+  .recs > :global(.carousel) {
+    margin-top: var(--space-4);
+  }
+
+  .recs-link {
+    margin-top: var(--space-4);
+  }
+
+  .cv-link {
+    margin-top: var(--space-7);
+  }
+
+  /* Desktop: the heading sits in its own column and each section reads as a
+     row, so the text keeps a short measure without a bare right half. */
+  @media (min-width: 900px) {
+    .block {
+      display: grid;
+      grid-template-columns: 12rem minmax(0, 1fr);
+      column-gap: var(--space-7);
+      align-items: start;
+      padding-top: var(--space-6);
+      border-top: var(--border-width) solid var(--color-border);
+    }
+
+    .block--intro {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .block h2 {
+      font-size: var(--text-lg);
+      line-height: var(--leading-title);
+    }
+
+    .block__body,
+    .block--intro .block__body {
+      margin-top: 0;
+    }
+
+    .block--intro h1 {
+      margin: 0;
+    }
+
+    /* Recommendations: all four in a grid instead of a scroller. */
+    .recs :global(.carousel__track) {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-4);
+      overflow: visible;
+      padding-bottom: 0;
+    }
+
+    .recs :global(.carousel__track > *) {
+      flex: none;
+    }
+
+    :global(html.js) .recs :global(.carousel__controls) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 899px) {
+    .work__item {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
