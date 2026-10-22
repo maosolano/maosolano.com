@@ -86,12 +86,10 @@ export const ui = {
     "about.description":
       "Diseñador generalista entre UX, narrativa y tecnología. Experiencia en redacción para UX en banca y ecommerce, y hoy en construcción de prototipos con IA.",
     "about.experience": "Experiencia",
-    "about.strengths": "Fortalezas",
     "about.howIWork": "Cómo trabajo",
     "about.exploring": "Qué estoy explorando",
     "about.journey": "Mi recorrido",
-    "about.recommendations.intro": "Dos recomendaciones de LinkedIn sobre el criterio analítico y la dirección creativa.",
-    "about.ai": "Experimentando con IA",
+    "about.recommendations.intro": "Recomendaciones de LinkedIn de quienes trabajaron conmigo.",
     "about.cv": "Descargar CV (PDF)",
     "about.recommendations": "Recomendaciones",
     "about.recommendations.translated": "Traducido del inglés. Ver el original",
@@ -148,14 +146,12 @@ export const ui = {
 
     "about.title": "About",
     "about.description":
-      "Generalist designer with experience in UX writing across banking, ecommerce, and digital products.",
+      "Generalist UX designer between UX, storytelling, and technology. UX writing experience in banking and ecommerce, now building prototypes with AI.",
     "about.experience": "Experience",
-    "about.strengths": "Strengths",
     "about.howIWork": "How I work",
     "about.exploring": "What I'm exploring",
     "about.journey": "My journey",
-    "about.recommendations.intro": "Two LinkedIn recommendations on analytical thinking and creative direction.",
-    "about.ai": "Experimenting with AI",
+    "about.recommendations.intro": "LinkedIn recommendations from people I've worked with.",
     "about.cv": "Download CV (PDF)",
     "about.recommendations": "Recommendations",
     "about.recommendations.translated": "Translated from Spanish. See the original",
@@ -197,17 +193,26 @@ export const intro = {
   ],
 } as const;
 
+/** Turns **bold** marks in our own copy into <strong>, for `set:html`. */
+export function bold(text: string): string {
+  return text.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+}
+
 /** The profile, as paragraphs. Taken from the CV. The home shows the first. */
 export const profile = {
   es: [
-    "Soy un diseñador generalista que trabaja en la intersección entre UX, narrativa y tecnología.",
-    "Mi carrera pasa por el diseño visual, el diseño web, la transcreación y el diseño de producto digital, incluida la redacción para UX en banca y ecommerce. En Mercado Libre y Scotiabank aprendí a convertir procesos complejos en experiencias más claras, a colaborar con equipos multidisciplinarios y a establecer principios de diseño que ayudan a que los productos se mantengan consistentes.",
-    "Hoy amplío esa experiencia con IA generativa. Uso herramientas como Claude y Claude Code para explorar soluciones, construir prototipos funcionales y documentar las reglas y los sistemas que conectan las decisiones de diseño con la implementación.",
-    "Me interesa reducir la distancia entre entender un problema, diseñar una solución y hacerla funcionar. No se trata solo de construir más rápido, sino de usar la tecnología para explorar mejores alternativas y crear productos útiles con intención.",
+    "Soy un **diseñador UX generalista** que trabaja en la intersección entre UX, narrativa y tecnología.",
+    "Mi carrera pasa por el diseño visual, el diseño web, la transcreación y el diseño de producto digital, incluida la redacción para UX en banca y ecommerce.",
+    "En Mercado Libre y Scotiabank aprendí a **convertir procesos complejos en experiencias más claras**, a colaborar con equipos multidisciplinarios y a establecer principios de diseño que ayudan a que los productos se mantengan consistentes.",
+    "Hoy amplío esa experiencia con **IA generativa**. Uso herramientas como Claude y Claude Code para **explorar soluciones, construir prototipos funcionales y documentar las reglas y los sistemas** que conectan las decisiones de diseño con la implementación.",
+    "Me interesa **reducir la distancia entre entender un problema, diseñar una solución y hacerla funcionar**. No se trata solo de construir más rápido, sino de usar la tecnología para explorar mejores alternativas y crear productos útiles con intención.",
   ],
   en: [
-    "I'm a generalist designer with experience in UX writing across banking, ecommerce, and digital products.",
-    "I've worked turning complex processes into clear experiences for millions of users, collaborating with design, product, research, and engineering teams.",
+    "I'm a **generalist UX designer** working at the intersection of UX, storytelling, and technology.",
+    "My career spans visual design, web design, transcreation, and digital product design, including UX Writing in banking and ecommerce.",
+    "At Mercado Libre and Scotiabank, I learned to **turn complex processes into clearer experiences**, collaborate with multidisciplinary teams, and establish design principles that help products remain consistent.",
+    "Today, I'm expanding that experience through **generative AI**. I use tools such as Claude and Claude Code to **explore solutions, build functional prototypes, and document the rules and systems** that connect design decisions to implementation.",
+    "I'm interested in **reducing the distance between understanding a problem, designing a solution, and making it work**. Not simply building faster, but using technology to explore better alternatives and create useful products with intention.",
   ],
 } as const;
 
@@ -229,27 +234,6 @@ export const experience = {
   ],
 } as const;
 
-export const strengths = {
-  es: [
-    "UX Content Design",
-    "Storytelling y narrativa para producto",
-    "Diseño de experiencias",
-    "Investigación y validación",
-    "Colaboración con stakeholders",
-    "IA aplicada al diseño y contenidos",
-    "Sistemas de diseño y documentación",
-  ],
-  en: [
-    "UX Content Design",
-    "Storytelling and product narrative",
-    "Experience design",
-    "Research and validation",
-    "Stakeholder collaboration",
-    "AI applied to design and content",
-    "Design systems and documentation",
-  ],
-} as const;
-
 /** About, block A. A short term and one line on what it means in practice. */
 export const howIWork = {
   es: [
@@ -258,6 +242,13 @@ export const howIWork = {
     { title: "Pensamiento sistémico", text: "Crear reglas, componentes y documentación que ayuden a que los productos se mantengan consistentes." },
     { title: "Construcción asistida por IA", text: "Pasar de briefs y decisiones de diseño a prototipos funcionales con ayuda de la IA." },
     { title: "Experimentación", text: "Explorar alternativas, documentar lo que aprendo y mejorar a partir de la evidencia." },
+  ],
+  en: [
+    { title: "Product thinking", text: "Understand the problem before defining the solution." },
+    { title: "User-centered design", text: "Turn complex processes into clear, understandable experiences." },
+    { title: "Systems thinking", text: "Create rules, components, and documentation that help products remain consistent." },
+    { title: "AI-assisted building", text: "Move from briefs and design decisions to functional prototypes with the help of AI." },
+    { title: "Experimentation", text: "Explore alternatives, document what I learn, and improve through evidence." },
   ],
 } as const;
 
@@ -274,6 +265,17 @@ export const exploring = {
       "Flujos de diseño a código y componentes reutilizables",
     ],
   },
+  en: {
+    intro:
+      "This is what I'm learning and practicing right now. I don't present it as mastery, but as the direction I'm growing in, toward Design Engineering.",
+    items: [
+      "AI-assisted product development",
+      "Design systems and design tokens",
+      "Functional prototyping with Claude Code",
+      "Frontend fundamentals, accessibility, and interface validation",
+      "Design-to-code workflows and reusable components",
+    ],
+  },
 } as const;
 
 /** About, block C. Stages in order; no dates here, the dated jobs are under Experience. */
@@ -285,22 +287,12 @@ export const journey = {
     { stage: "UX Writing", text: "Convertir procesos complejos en lenguaje claro, en banca y ecommerce." },
     { stage: "Diseño de producto y construcción con IA", text: "Conectar el problema, el diseño y un prototipo funcional." },
   ],
-} as const;
-
-export const aiPractice = {
-  es: [
-    "Claude para exploración y validación de conceptos",
-    "Diseño asistido por IA",
-    "Documentación de sistemas de diseño para implementación con IA",
-    "Prototipado rápido",
-    "Investigación y síntesis asistida por LLMs",
-  ],
   en: [
-    "Claude for concept exploration and validation",
-    "AI-assisted design",
-    "Design system documentation for AI implementation",
-    "Rapid prototyping",
-    "LLM-assisted research and synthesis",
+    { stage: "Visual design", text: "Communicating with form, color, and composition." },
+    { stage: "Web design", text: "Bringing those ideas to pages and to the logic of navigation." },
+    { stage: "Transcreation and content", text: "Adapting ideas across languages without losing their intent." },
+    { stage: "UX Writing", text: "Turning complex processes into clear language, in banking and ecommerce." },
+    { stage: "Product design and AI-assisted building", text: "Connecting the problem, the design, and a functional prototype." },
   ],
 } as const;
 
@@ -347,7 +339,7 @@ export const recommendations: {
     role: "Software Architect",
     org: "Publicis Groupe",
     lang: "en",
-    featured: false,
+    featured: true,
     relation: {
       es: "Trabajamos en el mismo equipo",
       en: "Worked on the same team",
@@ -366,7 +358,7 @@ export const recommendations: {
     role: "Design Engineer",
     org: null,
     lang: "en",
-    featured: false,
+    featured: true,
     relation: {
       es: "Tenía un cargo superior al mío, sin supervisarme directamente",
       en: "Was senior to me, without managing me directly",

@@ -8,6 +8,7 @@ import {
   routes,
   intro,
   profile,
+  bold,
   EMAIL,
   LINKEDIN,
   CV_PATH,
@@ -67,7 +68,7 @@ const closing = rest.pop();
 
 <section class="block block--text" aria-labelledby="about-heading">
   <h2 id="about-heading">{t("about.title")}</h2>
-  <p>{profile[lang][0]}</p>
+  <p set:html={bold(profile[lang][0])} />
   <p><a href={routes[lang].about}>{t("home.aboutMore")}</a></p>
 </section>
 

@@ -5,6 +5,7 @@ import Recommendation from "@/components/Recommendation.astro";
 import {
   useTranslations,
   profile,
+  bold,
   experience,
   howIWork,
   exploring,
@@ -24,7 +25,7 @@ const featured = recommendations.filter((rec) => rec.featured);
   <h1>{t("about.title")}</h1>
 
   <div class="profile">
-    {profile[lang].map((paragraph) => <p>{paragraph}</p>)}
+    {profile[lang].map((paragraph) => <p set:html={bold(paragraph)} />)}
   </div>
 
   <h2 class="section">{t("about.howIWork")}</h2>
@@ -41,7 +42,7 @@ const featured = recommendations.filter((rec) => rec.featured);
   <div class="profile">
     <p>{exploring[lang].intro}</p>
   </div>
-  <ul class="plain">
+  <ul class="bullets">
     {exploring[lang].items.map((item) => <li>{item}</li>)}
   </ul>
 
@@ -105,7 +106,6 @@ const featured = recommendations.filter((rec) => rec.featured);
   }
 
   .cv,
-  .plain,
   .journey {
     list-style: none;
     padding: 0;
@@ -127,8 +127,13 @@ const featured = recommendations.filter((rec) => rec.featured);
     color: var(--color-text-muted);
   }
 
-  .plain li {
-    padding: var(--space-2) 0;
+  .bullets {
+    margin: var(--space-4) 0 0;
+    padding-left: var(--space-5);
+  }
+
+  .bullets li {
+    padding: var(--space-1) 0;
   }
 
   /* How I work: term and line, one row each; stacked on mobile. */
