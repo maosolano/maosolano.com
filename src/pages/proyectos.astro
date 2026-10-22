@@ -1,7 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import ProjectCard from "@/components/ProjectCard.astro";
-import { getCollection, render } from "astro:content";
+import { getCollection } from "astro:content";
 import { projectPath, projectSlug, useTranslations } from "@/i18n/ui";
 
 const lang = "es" as const;
@@ -10,17 +10,13 @@ const t = useTranslations(lang);
 const entries = (await getCollection("projects", ({ id }) => id.startsWith("es/"))).sort(
   (a, b) => a.data.order - b.data.order
 );
-
-const projects = await Promise.all(
-  entries.map(async (entry) => ({ entry, Content: (await render(entry)).Content }))
-);
 ---
 
 <Layout pageKey="projects" title={t("projects.title")} description={t("projects.description")}>
   <h1>{t("projects.title")}</h1>
 
-  <div class="list">
-    {projects.map(({ entry, Content }) => (
+  <div class="grid">
+    {entries.map((entry) => (
       <ProjectCard
         title={entry.data.title}
         url={entry.data.url}
@@ -28,17 +24,26 @@ const projects = await Promise.all(
         image={entry.data.image}
         imageAlt={t("projects.imageAlt")}
         visitLabel={t("projects.visit")}
-        visitHref={projectPath(lang, projectSlug(entry.id))}
-        layout="stacked"
+        subtitle={entry.data.subtitle}
+        layout="tile"
       >
-        <Content />
+        <p>{entry.data.summary}</p>
       </ProjectCard>
     ))}
   </div>
 </Layout>
 
 <style>
-  .list {
+  .grid {
+    display: grid;
+    gap: var(--space-5);
+    grid-template-columns: 1fr;
     margin-top: var(--space-7);
+  }
+
+  @media (min-width: 800px) {
+    .grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
   }
 </style>

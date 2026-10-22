@@ -1,0 +1,121 @@
+---
+/**
+ * A simple scheme: boxes joined by arrows. Reads left to right on desktop and
+ * top to bottom on mobile. `tone="muted"` draws a box as "what was there before".
+ */
+interface Item {
+  title: string;
+  text?: string;
+  tone?: "muted" | "accent";
+}
+
+interface Props {
+  items: Item[];
+  label: string;
+}
+
+const { items, label } = Astro.props;
+// More than three boxes do not fit side by side in the reading column.
+const stacked = items.length > 3;
+---
+
+<ol class:list={["esquema", { "esquema--stacked": stacked }]} aria-label={label}>
+  {items.map((item) => (
+    <li class:list={["esquema__box", item.tone && `esquema__box--${item.tone}`]}>
+      <strong>{item.title}</strong>
+      {item.text && <span>{item.text}</span>}
+    </li>
+  ))}
+</ol>
+
+<style>
+  .esquema {
+    display: grid;
+    gap: var(--space-5);
+    list-style: none;
+    padding-left: 0 !important; /* beats the prose list indent */
+  }
+
+  .esquema__box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-surface);
+    border: var(--border-width) solid var(--color-border);
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+  }
+
+  .esquema__box strong {
+    font-size: var(--text-base);
+    color: var(--color-heading);
+  }
+
+  /* What was there before: no fill, dashed edge. */
+  .esquema__box--muted {
+    background: var(--color-bg);
+    border-style: dashed;
+    color: var(--color-text-muted);
+  }
+
+  .esquema__box--accent {
+    background: var(--color-accent);
+    border-color: var(--color-underline);
+  }
+
+  .esquema__box--accent strong {
+    color: var(--color-text);
+  }
+
+  /* The arrow to the next box. */
+  .esquema__box:not(:last-child)::after {
+    content: "↓";
+    position: absolute;
+    left: var(--space-4);
+    bottom: calc(var(--space-5) * -1 + 1px);
+    height: var(--space-5);
+    line-height: var(--space-5);
+    font-weight: var(--weight-bold);
+  }
+
+  @media (min-width: 800px) {
+    .esquema:not(.esquema--stacked) {
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+    }
+  }
+
+  /* Four or five boxes only fit in a row on a wide desktop column. */
+  @media (min-width: 1000px) {
+    .esquema {
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+    }
+  }
+
+  @media (min-width: 800px) {
+    .esquema:not(.esquema--stacked) .esquema__box:not(:last-child)::after {
+      content: "→";
+      left: auto;
+      right: calc(var(--space-5) * -1 + 1px);
+      bottom: auto;
+      top: var(--space-3);
+      width: var(--space-5);
+      text-align: center;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .esquema--stacked .esquema__box:not(:last-child)::after {
+      content: "→";
+      left: auto;
+      right: calc(var(--space-5) * -1 + 1px);
+      bottom: auto;
+      top: var(--space-3);
+      width: var(--space-5);
+      text-align: center;
+    }
+  }
+</style>

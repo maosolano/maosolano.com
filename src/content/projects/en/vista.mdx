@@ -1,0 +1,128 @@
+---
+title: VISTA
+url: https://bitagreen-vista-prototype.vercel.app
+image: ../../../assets/projects/vista.png
+subtitle: From concept to an AI-assisted design system
+summary: VISTA started as documentation, sketches, and presentations. I turned it into a navigable geospatial prototype and a system of rules, tokens, and components that guides Claude's implementation.
+order: 2
+---
+
+import Seccion from "@/components/proyecto/Seccion.astro";
+import Esquema from "@/components/proyecto/Esquema.astro";
+import Pantallas from "@/components/proyecto/Pantallas.astro";
+import Cifras from "@/components/proyecto/Cifras.astro";
+import Enlaces from "@/components/proyecto/Enlaces.astro";
+
+VISTA is a [BitaGreen](https://bitagreen.io) platform for caring for urban trees, built for green-space managers, arborists, and urban planners. I designed and built a geospatial prototype with real satellite imagery for its first pilot, in Amsterdam, and a system of rules so Claude could implement it consistently.
+
+**My role:** UX consultant with AI · **Period:** August 10 to 24, 2026 · **Client:** Vista / BitaGreen · **Status:** prototype with 2 of 3 modules working.
+
+<Seccion id="problem" title="Problem" lead="The vision existed in documents, but not in a screen anyone could test.">
+
+When I arrived, VISTA lived only in PDFs, sketches, and presentations. Between spotting a tree at risk and sending a crew there is a slow, manual review that requires GIS skills. Four obstacles stood between the vision and a screen:
+
+- **Vision and execution were separate.** Ideas lost their intent on the way to the screen.
+- **No design system.** Every screen started from scratch: slow, and unlike the others.
+- **No decision log.** The same questions were debated twice.
+- **A linear process.** It took weeks before anything could be tested.
+
+<Esquema
+  label="From documents to a screen"
+  items={[
+    { title: "Today", text: "PDFs, sketches, and workshop notes.", tone: "muted" },
+    { title: "Missing", text: "A navigable product and rules that keep it coherent." },
+    { title: "Risk", text: "That design intent gets lost during implementation.", tone: "accent" },
+  ]}
+/>
+
+</Seccion>
+
+<Seccion id="what-i-did" title="What did I do?" lead="A prototype with 2 of 3 modules working, at a public URL.">
+
+The core is the **Alert → Task** journey in the Maintain module: a weather alert arrives, the arborist decides whether to act and, if so, the task is assigned without leaving the tool. Deciding not to act is recorded too.
+
+<Esquema
+  label="The Alert to Task journey"
+  items={[
+    { title: "1 · The alert arrives", text: "In the side panel and on the district, on the map." },
+    { title: "2 · Review and decide", text: "Impact, and the cost of acting versus doing nothing. Create a task or “Not now”." },
+    { title: "3 · Create the task", text: "Title, priority, assignee, and due date, without leaving Maintain." },
+    { title: "4 · Task Board and win", text: "The task appears highlighted; completing it adds protected value." },
+  ]}
+/>
+
+<Pantallas
+  kind="wide"
+  items={[
+    { src: "/casos/vista/img/monitor.jpg", alt: "Monitor module: satellite map of Amsterdam with districts colored by canopy health and a table of the most affected districts", tag: "Monitor", caption: "The city's health on a real map: Sentinel-2 vegetation index per district.", marks: [{ x: 372, y: 235, w: 1040, h: 434, label: "Map by district" }, { x: 372, y: 717, w: 1040, h: 155, label: "Most affected districts" }] },
+    { src: "/casos/vista/img/maintain.jpg", alt: "Maintain module with two weather alerts in the side panel, heat in Centrum and wind in West, also marked on the map", tag: "1 · Alert", caption: "Two weather alerts, in the panel and on the map.", marks: [{ x: 28, y: 390, w: 328, h: 126, label: "Alerts panel" }, { x: 389, y: 252, w: 158, h: 62, label: "Centrum, on the map" }, { x: 705, y: 252, w: 158, h: 62, label: "West, on the map" }] },
+    { src: "/casos/vista/img/alert-expanded.jpg", alt: "Heat stress alert in Centrum: 19 trees at risk, act now 1,400 euros versus do nothing 4,800 euros, buttons Create task and Not now", tag: "2 · Decide", caption: "19 trees at risk and the case for acting: €1,400 now versus €4,800 if nothing is done.", marks: [{ x: 41, y: 464, w: 302, h: 126, label: "Impact: 19 trees, €1,400 vs €4,800" }, { x: 41, y: 629, w: 302, h: 40, label: "Create task or Not now" }] },
+    { src: "/casos/vista/img/taskform.jpg", alt: "Create task form with title, priority, assignee, due date, and notes", tag: "3 · Task", caption: "Each field shows its hint only while you are in it.", marks: [{ x: 516, y: 192, w: 408, h: 516, label: "Create task dialog, on top of the same screen" }] },
+    { src: "/casos/vista/img/dismiss.jpg", alt: "Dismiss alert dialog with the reason written in", tag: "Branch · Not now", caption: "Dismissing requires a reason: not acting is also a decision.", marks: [{ x: 516, y: 318, w: 408, h: 264, label: "Reason for dismissing" }, { x: 191, y: 629, w: 152, h: 40, label: "Not now button" }] },
+    { src: "/casos/vista/img/task-created.jpg", alt: "Task Board with the new task highlighted in green and the label Just created", tag: "4 · Task Board", caption: "“Just created,” with no confirmation dialog to close.", marks: [{ x: 376, y: 767, w: 1032, h: 101, label: "New row, “Just created,” on the board" }] },
+    { src: "/casos/vista/img/wins.jpg", alt: "Wins bar open with 2,100 euros of protected value and the task marked as done on the board", tag: "5 · Win", caption: "Once completed, its value is added to the protected value the whole team sees.", marks: [{ x: 0, y: 177, w: 1440, h: 88, label: "Value protected: €2,100" }, { x: 376, y: 826, w: 1032, h: 44, label: "Task marked Done" }] },
+  ]}
+/>
+
+The third module, Planning, is not built. The map uses real imagery, but the alerts are demo data: there are no client sensors or tree inventory.
+
+</Seccion>
+
+<Seccion id="ai" title="How did I use AI?" lead="Before asking Claude for screens, I wrote the rules it had to follow, and added checks to verify them.">
+
+<Esquema
+  label="From design intent to verification"
+  items={[
+    { title: "Rules", text: "tokens.json, SYSTEM.md, and a sheet per component.", tone: "muted" },
+    { title: "Claude Code", text: "Generates each screen by reading those rules." },
+    { title: "Components", text: "33 reusable ones; anything new is flagged, not slipped in." },
+    { title: "Verification", text: "Storybook and checks compare the system with the code.", tone: "accent" },
+  ]}
+/>
+
+- **What I defined:** the tokens, the design rules, the component sheets, and a review checklist Claude runs before handing anything over. Every decision is logged with its reason (41 in total).
+- **What Claude did:** Claude Code (with Sonnet 5) built the screens and components; Opus 5 helped me with strategy, the handoff plan, and the proposal. Figma is connected to Claude through its MCP server.
+- **What Storybook verifies:** it generates the component gallery from the code and compares the system's colors with the ones the app actually uses. It currently reports 29 in sync, 0 misaligned, and 1 unused. It does not measure whether the design is good, only whether the code matches the rules.
+
+<Pantallas
+  kind="wide"
+  items={[
+    { src: "/casos/vista/img/storybook-tokens.jpg", alt: "Storybook page comparing each system color with what the code delivers: 29 in sync, 0 misaligned, 1 unused", tag: "Evidence", caption: "Storybook compares the system's tokens with the colors the app uses." },
+  ]}
+/>
+
+That check has already paid off: the rules said 16 px between cards and the code used 12 px. It is what justified adding Storybook and the automated checks.
+
+</Seccion>
+
+<Seccion id="results" title="What were the results?" lead="A navigable prototype and a documented workflow; not yet tested with arborists.">
+
+<Cifras
+  items={[
+    { value: "2 / 3", label: "modules working in two weeks (Monitor and Maintain)" },
+    { value: "33", label: "reusable components, 22 with a usage sheet" },
+    { value: "41", label: "decisions logged with their reasons" },
+    { value: "7", label: "checks in the handoff plan for the development team" },
+  ]}
+/>
+
+It also left a documented workflow connecting design, code, and quality assurance, and two deliverables for the client: a handoff plan for their development team and a collaboration proposal.
+
+**What I still don't know.** The goal of turning an alert into an assigned task in under 3 minutes has not been measured, because I have not tested the prototype with real arborists. Nor do I know whether this workflow works the same on other products: I have applied it only to VISTA. The client wants to continue, but it depends on them securing a budget.
+
+</Seccion>
+
+<Seccion id="links" title="Links" lead="What you can open and try.">
+
+<Enlaces
+  items={[
+    { name: "Live prototype", what: "The Maintain module on the Amsterdam map. The Guided tour button walks through the Alert → Task flow in 6 steps.", href: "https://bitagreen-vista-prototype.vercel.app/maintain", label: "bitagreen-vista-prototype.vercel.app" },
+    { name: "Storybook", what: "The component catalog and the token comparison against the code.", href: "https://vista-storybook.vercel.app", label: "vista-storybook.vercel.app" },
+    { name: "Figma file", what: "The design system: variables and components.", href: "https://www.figma.com/design/wA3c7CXq7guyKlTIjXnaez/BitaGreen---Vista---Design-System", label: "BitaGreen · Vista · Design System" },
+    { name: "The Handoff Contract", what: "The handoff plan for the development team: where each source of truth lives, and 7 checks.", href: "https://claude.ai/artifact/C5hEg6sJiyV1msKb4ddiT8", label: "Artifact on Claude · Aug 22" },
+    { name: "The VISTA Pipeline", what: "The full process: from notes and sketches to Figma, Claude, Git, and the prototype.", href: "https://claude.ai/artifact/4gmch1kGMRYcCYdVk8WBxy", label: "Artifact on Claude · Aug 21" },
+    { name: "Extended case study", what: "Decisions, guided tour, and what I would do differently.", href: "https://claude.ai/artifact/GvLcvC3c2KiTvpTAJbkv71", label: "Artifact on Claude" },
+  ]}
+/>
+
+</Seccion>

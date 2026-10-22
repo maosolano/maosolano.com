@@ -1,0 +1,53 @@
+---
+/** Things a visitor can open, each with what they will find there. */
+interface Props {
+  items: { name: string; what: string; href: string; label: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<ul class="enlaces">
+  {items.map((item) => (
+    <li>
+      <a href={item.href} target="_blank" rel="noopener noreferrer">{item.name}</a>
+      <p>{item.what}</p>
+      <span>{item.label}</span>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .enlaces {
+    list-style: none;
+    padding-left: 0 !important; /* beats the prose list indent */
+  }
+
+  li {
+    padding: var(--space-4) 0;
+    border-top: var(--border-width) solid var(--color-border-subtle);
+  }
+
+  @media (min-width: 1000px) {
+    .enlaces {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: var(--space-7);
+    }
+  }
+
+  a {
+    font-weight: var(--weight-bold);
+  }
+
+  li p {
+    margin-top: var(--space-1);
+    font-size: var(--text-sm);
+  }
+
+  span {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    overflow-wrap: anywhere;
+  }
+</style>

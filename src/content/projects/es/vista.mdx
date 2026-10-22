@@ -1,0 +1,128 @@
+---
+title: VISTA
+url: https://bitagreen-vista-prototype.vercel.app
+image: ../../../assets/projects/vista.png
+subtitle: Del concepto a un sistema de diseño asistido por IA
+summary: VISTA empezó como documentación, bocetos y presentaciones. La convertí en un prototipo geoespacial navegable y en un sistema de reglas, tokens y componentes que guía la implementación con Claude.
+order: 2
+---
+
+import Seccion from "@/components/proyecto/Seccion.astro";
+import Esquema from "@/components/proyecto/Esquema.astro";
+import Pantallas from "@/components/proyecto/Pantallas.astro";
+import Cifras from "@/components/proyecto/Cifras.astro";
+import Enlaces from "@/components/proyecto/Enlaces.astro";
+
+VISTA es una plataforma de [BitaGreen](https://bitagreen.io) para cuidar el arbolado urbano, pensada para gestores de espacios verdes, arboristas y urbanistas. Diseñé y construí un prototipo geoespacial con imágenes satelitales reales para su primer piloto, en Ámsterdam, y un sistema de reglas para que Claude lo implementara de forma consistente.
+
+**Mi rol:** consultor UX con IA · **Periodo:** 10 al 24 de agosto de 2026 · **Cliente:** Vista / BitaGreen · **Estado:** prototipo con 2 de 3 módulos funcionando.
+
+<Seccion id="problema" title="Problema" lead="La visión existía en documentos, pero no en una pantalla que se pudiera probar.">
+
+Cuando llegué, VISTA solo vivía en PDFs, bocetos y presentaciones. Entre detectar un árbol en riesgo y enviar un equipo hay una revisión manual y lenta que exige saber GIS. Para llegar a una pantalla había cuatro obstáculos:
+
+- **Visión y ejecución separadas.** Las ideas perdían su intención en el camino a la pantalla.
+- **Sin sistema de diseño.** Cada pantalla empezaba de cero: lenta y distinta a las demás.
+- **Sin registro de decisiones.** Las mismas preguntas se discutían dos veces.
+- **Un proceso en fila.** Pasaban semanas antes de poder probar algo.
+
+<Esquema
+  label="De documentos a una pantalla"
+  items={[
+    { title: "Hoy", text: "PDFs, bocetos y notas de taller.", tone: "muted" },
+    { title: "Falta", text: "Un producto navegable y reglas que lo mantengan coherente." },
+    { title: "Riesgo", text: "Que la intención de diseño se pierda al implementarla.", tone: "accent" },
+  ]}
+/>
+
+</Seccion>
+
+<Seccion id="que-hice" title="¿Qué hice?" lead="Un prototipo con 2 de los 3 módulos funcionando, en una URL pública.">
+
+El centro es el recorrido **Alerta → Tarea** del módulo Maintain: una alerta del clima llega, el arborista decide si actuar y, si lo hace, la tarea queda asignada sin salir de la herramienta. Decidir no actuar también queda registrado.
+
+<Esquema
+  label="El recorrido Alerta a Tarea"
+  items={[
+    { title: "1 · Llega la alerta", text: "En el panel y sobre el distrito, en el mapa." },
+    { title: "2 · Revisa y decide", text: "Impacto, costo de actuar frente a no hacerlo. Crear tarea o “Ahora no”." },
+    { title: "3 · Crea la tarea", text: "Título, prioridad, responsable y plazo, sin salir de Maintain." },
+    { title: "4 · Tablero y logro", text: "La tarea aparece resaltada; al completarla suma valor protegido." },
+  ]}
+/>
+
+<Pantallas
+  kind="wide"
+  items={[
+    { src: "/casos/vista/img/monitor.jpg", alt: "Módulo Monitor: mapa satelital de Ámsterdam con distritos coloreados por salud del dosel y tabla de distritos más afectados", tag: "Monitor", caption: "La salud de la ciudad sobre un mapa real: índice de vegetación de Sentinel-2 por distrito.", marks: [{ x: 372, y: 235, w: 1040, h: 434, label: "Mapa por distrito" }, { x: 372, y: 717, w: 1040, h: 155, label: "Distritos más afectados" }] },
+    { src: "/casos/vista/img/maintain.jpg", alt: "Módulo Maintain con dos alertas del clima en el panel lateral, calor en Centrum y viento en West, marcadas también sobre el mapa", tag: "1 · Alerta", caption: "Dos alertas del clima, en el panel y en el mapa.", marks: [{ x: 28, y: 390, w: 328, h: 126, label: "Panel de alertas" }, { x: 389, y: 252, w: 158, h: 62, label: "Centrum, en el mapa" }, { x: 705, y: 252, w: 158, h: 62, label: "West, en el mapa" }] },
+    { src: "/casos/vista/img/alert-expanded.jpg", alt: "Alerta de estrés por calor en Centrum: 19 árboles en riesgo, actuar ahora 1.400 euros frente a no hacer nada 4.800 euros, botones Crear tarea y Ahora no", tag: "2 · Decide", caption: "19 árboles en riesgo y el argumento: 1.400 € ahora contra 4.800 € si no se hace nada.", marks: [{ x: 41, y: 464, w: 302, h: 126, label: "Impacto: 19 árboles, 1.400 € frente a 4.800 €" }, { x: 41, y: 629, w: 302, h: 40, label: "Crear tarea o Ahora no" }] },
+    { src: "/casos/vista/img/taskform.jpg", alt: "Formulario Crear tarea con título, prioridad, responsable, fecha límite y notas", tag: "3 · Tarea", caption: "Cada campo muestra su ayuda solo cuando está activo.", marks: [{ x: 516, y: 192, w: 408, h: 516, label: "Ventana Crear tarea, sobre la misma pantalla" }] },
+    { src: "/casos/vista/img/dismiss.jpg", alt: "Ventana Descartar alerta con el motivo escrito", tag: "Rama · Ahora no", caption: "Descartar exige un motivo: no actuar también es una decisión.", marks: [{ x: 516, y: 318, w: 408, h: 264, label: "Motivo del descarte" }, { x: 191, y: 629, w: 152, h: 40, label: "Botón Ahora no" }] },
+    { src: "/casos/vista/img/task-created.jpg", alt: "Tablero de tareas con la nueva tarea resaltada en verde y la etiqueta Recién creada", tag: "4 · Tablero", caption: "“Recién creada”, sin ventana de confirmación que cerrar.", marks: [{ x: 376, y: 767, w: 1032, h: 101, label: "Fila nueva, “Recién creada”, en el tablero" }] },
+    { src: "/casos/vista/img/wins.jpg", alt: "Barra de logros abierta con valor protegido de 2.100 euros y la tarea marcada como hecha en el tablero", tag: "5 · Logro", caption: "Al completarla, su valor se suma al valor protegido que ve todo el equipo.", marks: [{ x: 0, y: 177, w: 1440, h: 88, label: "Valor protegido: 2.100 €" }, { x: 376, y: 826, w: 1032, h: 44, label: "Tarea en estado Hecha" }] },
+  ]}
+/>
+
+El tercer módulo, Planning, no está construido. El mapa usa imágenes reales, pero las alertas son de demostración: no hay sensores ni inventario de árboles del cliente.
+
+</Seccion>
+
+<Seccion id="ia" title="¿Cómo usé la IA?" lead="Antes de pedirle pantallas a Claude, escribí las reglas que debía seguir, y le puse controles para verificarlas.">
+
+<Esquema
+  label="De la intención de diseño a la verificación"
+  items={[
+    { title: "Reglas", text: "tokens.json, SYSTEM.md y una ficha por componente.", tone: "muted" },
+    { title: "Claude Code", text: "Genera cada pantalla leyendo esas reglas." },
+    { title: "Componentes", text: "33 reutilizables; lo nuevo se señala, no se cuela." },
+    { title: "Verificación", text: "Storybook y controles comparan el sistema con el código.", tone: "accent" },
+  ]}
+/>
+
+- **Qué definí yo:** los tokens, las reglas de diseño, las fichas de componentes y una lista de revisión que Claude corre antes de entregar. Cada decisión queda registrada con su porqué (41 en total).
+- **Qué hizo Claude:** Claude Code (con Sonnet 5) construyó las pantallas y los componentes; Opus 5 me ayudó con la estrategia, el plan de entrega y la propuesta. Figma está conectado a Claude por su servidor MCP.
+- **Qué verifica Storybook:** genera la galería de componentes desde el código y compara los colores del sistema con los que la app realmente usa. Hoy reporta 29 sincronizados, 0 desalineados y 1 sin usar. No mide si el diseño es bueno, solo si el código coincide con las reglas.
+
+<Pantallas
+  kind="wide"
+  items={[
+    { src: "/casos/vista/img/storybook-tokens.jpg", alt: "Página de Storybook que compara cada color del sistema con lo que el código entrega: 29 sincronizados, 0 desalineados, 1 sin usar", tag: "Evidencia", caption: "Storybook compara los tokens del sistema con los colores que usa la app." },
+  ]}
+/>
+
+Esa revisión ya sirvió: las reglas decían 16 px entre tarjetas y el código usaba 12 px. Fue lo que justificó agregar Storybook y los controles automáticos.
+
+</Seccion>
+
+<Seccion id="resultados" title="¿Qué resultados tuve?" lead="Un prototipo navegable y un flujo documentado; sin pruebas con arboristas todavía.">
+
+<Cifras
+  items={[
+    { value: "2 / 3", label: "módulos funcionando en dos semanas (Monitor y Maintain)" },
+    { value: "33", label: "componentes reutilizables, 22 con ficha de uso" },
+    { value: "41", label: "decisiones registradas con su porqué" },
+    { value: "7", label: "controles en el plan de entrega al equipo de desarrollo" },
+  ]}
+/>
+
+Quedó además un flujo documentado que conecta diseño, código y control de calidad, y dos entregables para el cliente: un plan de entrega para su equipo de desarrollo y una propuesta de colaboración.
+
+**Lo que todavía no sé.** La meta de que una alerta se vuelva una tarea asignada en menos de 3 minutos no se ha medido, porque no he probado el prototipo con arboristas reales. Tampoco sé si este flujo funciona igual en otros productos: lo he aplicado solo a VISTA. El cliente quiere seguir, pero depende de que consiga presupuesto.
+
+</Seccion>
+
+<Seccion id="enlaces" title="Enlaces" lead="Lo que puedes abrir y probar.">
+
+<Enlaces
+  items={[
+    { name: "Prototipo en vivo", what: "El módulo Maintain sobre el mapa de Ámsterdam. El botón Guided tour recorre el flujo Alerta → Tarea en 6 pasos.", href: "https://bitagreen-vista-prototype.vercel.app/maintain", label: "bitagreen-vista-prototype.vercel.app" },
+    { name: "Storybook", what: "El catálogo de componentes y la comparación de tokens contra el código.", href: "https://vista-storybook.vercel.app", label: "vista-storybook.vercel.app" },
+    { name: "Archivo de Figma", what: "El sistema de diseño: variables y componentes.", href: "https://www.figma.com/design/wA3c7CXq7guyKlTIjXnaez/BitaGreen---Vista---Design-System", label: "BitaGreen · Vista · Design System" },
+    { name: "The Handoff Contract", what: "El plan de entrega al equipo de desarrollo: dónde vive cada verdad y 7 controles.", href: "https://claude.ai/artifact/C5hEg6sJiyV1msKb4ddiT8", label: "Artifact en Claude · 22 ago" },
+    { name: "The VISTA Pipeline", what: "El proceso completo: de notas y bocetos a Figma, Claude, Git y el prototipo.", href: "https://claude.ai/artifact/4gmch1kGMRYcCYdVk8WBxy", label: "Artifact en Claude · 21 ago" },
+    { name: "Versión extensa del caso", what: "Decisiones, recorrido guiado y lo que haría diferente.", href: "https://claude.ai/artifact/GvLcvC3c2KiTvpTAJbkv71", label: "Artifact en Claude" },
+  ]}
+/>
+
+</Seccion>

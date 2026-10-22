@@ -1,0 +1,50 @@
+---
+/** Verified figures. Each one says what it counts; nothing here is a user-research result. */
+interface Props {
+  items: { value: string; label: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<dl class="cifras">
+  {items.map((item) => (
+    <div>
+      <dt>{item.value}</dt>
+      <dd>{item.label}</dd>
+    </div>
+  ))}
+</dl>
+
+<style>
+  .cifras {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cifras div {
+    padding: var(--space-3) var(--space-4);
+    border: var(--border-width) solid var(--color-border);
+  }
+
+  dt {
+    font-size: var(--text-xl);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-tight);
+    color: var(--color-heading);
+  }
+
+  dd {
+    margin: var(--space-1) 0 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-snug);
+    color: var(--color-text-muted);
+  }
+
+  @media (min-width: 800px) {
+    .cifras {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>

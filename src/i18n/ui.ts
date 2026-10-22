@@ -71,6 +71,8 @@ export const ui = {
     "projects.description":
       "Proyectos de UX, contenido y sistemas de diseño: The Bike Memory Project, Matcha y VISTA.",
     "projects.visit": "Conocer detalles",
+    "projects.explore": "Explorar prototipo",
+    "projects.path": "Ruta de navegación",
     "projects.imageAlt": "Captura de pantalla del proyecto",
     "projects.back": "Volver a Proyectos",
 
@@ -129,6 +131,8 @@ export const ui = {
     "projects.description":
       "Projects in UX, content, and design systems: The Bike Memory Project, Matcha, and VISTA.",
     "projects.visit": "See details",
+    "projects.explore": "Explore prototype",
+    "projects.path": "Breadcrumb",
     "projects.imageAlt": "Project screenshot",
     "projects.back": "Back to Projects",
 

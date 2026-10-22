@@ -14,11 +14,13 @@ interface Props {
 const { entry, lang } = Astro.props;
 const t = useTranslations(lang);
 const { Content } = await render(entry);
-const { title, url, image, summary } = entry.data;
+const { title, url, image, summary, exploreLabel } = entry.data;
 const slug = projectSlug(entry.id);
 // getEntry would warn for every project without a case study.
 const hasCase = (await getCollection("casos", (e) => e.id === entry.id && showCase(e))).length > 0;
-const caseStudy = hasCase ? casePath(lang, slug) : undefined;
+// Temporarily off while the project page structure is reviewed.
+const EMBED_CASE = false;
+const caseStudy = hasCase && EMBED_CASE ? casePath(lang, slug) : undefined;
 ---
 
 <Layout
@@ -26,11 +28,22 @@ const caseStudy = hasCase ? casePath(lang, slug) : undefined;
   title={title}
   description={summary}
   alternates={{ es: projectPath("es", slug), en: projectPath("en", slug) }}
-  wide={Boolean(caseStudy)}
+  wide
 >
   <article class="project">
+    <header class="project__head">
+      <nav class="project__path" aria-label={t("projects.path")}>
+        <a href={routes[lang].projects}>{t("projects.title")}</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{title}</span>
+      </nav>
+      <div class="project__bar">
+        <h1>{title}</h1>
+        <a class="btn" href={url}>{exploreLabel ?? t("projects.explore")}</a>
+      </div>
+    </header>
+
     <div class="project__intro">
-      <h1>{title}</h1>
 
       {image && (
         <Image
@@ -45,8 +58,6 @@ const caseStudy = hasCase ? casePath(lang, slug) : undefined;
       <Prose>
         <Content />
       </Prose>
-
-      <p class="project__visit"><a href={url}>{t("projects.visit")}</a></p>
     </div>
 
     {caseStudy && (
@@ -57,16 +68,81 @@ const caseStudy = hasCase ? casePath(lang, slug) : undefined;
         loading="lazy"
       ></iframe>
     )}
-
-    <p class="project__back"><a href={routes[lang].projects}>{t("projects.back")}</a></p>
   </article>
 </Layout>
 
 <style>
   /* With a case study the page goes wide; the text keeps the reading width. */
-  .project__intro,
-  .project__back {
-    max-width: var(--content-max);
+  /* Wide enough for the schemes and screenshots to breathe on desktop, while
+     running text keeps its reading width (see Seccion and .project__intro). */
+  .project {
+    max-width: 1280px;
+  }
+
+  /* The MDX holds the sections, so the prose wrapper stays full width and
+     only running text is capped. */
+  .project :global(.prose) {
+    max-width: none;
+  }
+
+  .project :global(.prose) > :global(p) {
+    max-width: 68ch;
+  }
+
+  /* Stays under the site bar while the page scrolls. `top` is set from the
+     bar's real height by the script below; 64px is the no-JS fallback. */
+  .project__head {
+    position: sticky;
+    top: var(--bar-height, 64px);
+    z-index: 50;
+    padding: var(--space-3) 0;
+    background-color: var(--color-bg);
+    border-bottom: var(--border-width) solid var(--color-border);
+  }
+
+  .project__path {
+    display: flex;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .project__path a {
+    color: var(--color-text);
+  }
+
+  .project__bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+
+  .project__bar h1 {
+    font-size: var(--text-xl);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    padding: var(--space-2) var(--space-5);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-base);
+    text-decoration: none;
+    background-color: var(--color-accent);
+    border: var(--border-width) solid var(--color-text);
+    border-radius: var(--radius);
+  }
+
+  .btn:hover {
+    background-color: var(--color-accent-strong);
+  }
+
+  .project__intro {
+    margin-top: var(--space-6);
   }
 
   .project__image {
@@ -76,12 +152,17 @@ const caseStudy = hasCase ? casePath(lang, slug) : undefined;
     border: var(--border-width) solid var(--color-border);
   }
 
-  .project :global(.prose) {
-    margin-top: var(--space-6);
+  @media (min-width: 1000px) {
+    /* The hero image sits beside the intro text; each section clears it. */
+    .project__image {
+      float: right;
+      width: 36%;
+      margin: 0 0 var(--space-6) var(--space-7);
+    }
   }
 
-  .project__visit {
-    font-size: var(--text-sm);
+  .project :global(.prose) {
+    margin-top: var(--space-6);
   }
 
   /* The case study is its own page and keeps its own look, so it is framed,
@@ -104,20 +185,17 @@ const caseStudy = hasCase ? casePath(lang, slug) : undefined;
     }
   }
 
-  .project__back {
-    margin-top: var(--space-7);
-    padding-top: var(--space-5);
-    border-top: var(--border-width) solid var(--color-border);
-    font-size: var(--text-sm);
-  }
-
-  .project__case + .project__back {
-    border-top: 0;
-    padding-top: 0;
-  }
 </style>
 
 <script>
+  // Keep the sticky head flush under the site bar, whatever its height.
+  const bar = document.querySelector<HTMLElement>(".bar");
+  if (bar) {
+    const sync = () => document.documentElement.style.setProperty("--bar-height", `${bar.offsetHeight}px`);
+    sync();
+    new ResizeObserver(sync).observe(bar);
+  }
+
   // Same origin, so the frame can be sized to its document: one scroll for
   // the whole page, and the case study's in-page links scroll this window.
   for (const frame of document.querySelectorAll<HTMLIFrameElement>(".project__case")) {

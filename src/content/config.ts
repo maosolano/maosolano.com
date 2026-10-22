@@ -6,7 +6,7 @@ import { glob } from "astro/loaders";
  * Pages filter on that prefix to get one language.
  */
 const projects = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/projects" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -15,6 +15,8 @@ const projects = defineCollection({
       // Discipline line shown under the title on the project cards.
       subtitle: z.string(),
       summary: z.string(),
+      // Text of the button that opens `url`. Defaults to "Explore prototype".
+      exploreLabel: z.string().optional(),
       order: z.number(),
     }),
 });
