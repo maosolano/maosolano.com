@@ -218,6 +218,20 @@ export const profile = {
   ],
 } as const;
 
+/** The home's About section: two paragraphs of the profile and a shorter take on the AI one. */
+export const profileShort = {
+  es: [
+    profile.es[0],
+    profile.es[2],
+    "Hoy amplío esa experiencia con **IA generativa**: uso Claude y Claude Code para **explorar soluciones, construir prototipos funcionales y documentar las reglas y los sistemas** que conectan el diseño con la implementación.",
+  ],
+  en: [
+    profile.en[0],
+    profile.en[2],
+    "Today, I'm expanding that experience through **generative AI**: I use Claude and Claude Code to **explore solutions, build functional prototypes, and document the rules and systems** that connect design to implementation.",
+  ],
+} as const;
+
 /** Role, org and dates. Company and product names stay unchanged. */
 export const experience = {
   es: [
