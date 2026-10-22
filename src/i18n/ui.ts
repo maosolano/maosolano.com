@@ -79,6 +79,7 @@ export const ui = {
     "projects.visit": "Conocer detalles",
     "projects.explore": "Explorar prototipo",
     "projects.path": "Ruta de navegación",
+    "projects.sections": "Secciones del proyecto",
     "projects.imageAlt": "Captura de pantalla del proyecto",
     "projects.back": "Volver a Proyectos",
 
@@ -141,6 +142,7 @@ export const ui = {
     "projects.visit": "See details",
     "projects.explore": "Explore prototype",
     "projects.path": "Breadcrumb",
+    "projects.sections": "Project sections",
     "projects.imageAlt": "Project screenshot",
     "projects.back": "Back to Projects",
 
