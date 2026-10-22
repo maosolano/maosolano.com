@@ -12,7 +12,7 @@ const entries = (await getCollection("projects", ({ id }) => id.startsWith("en/"
 );
 ---
 
-<Layout pageKey="projects" title={t("projects.title")} description={t("projects.description")}>
+<Layout pageKey="projects" title={t("projects.title")} description={t("projects.description")} wide>
   <h1>{t("projects.title")}</h1>
 
   <div class="grid">
@@ -34,7 +34,9 @@ const entries = (await getCollection("projects", ({ id }) => id.startsWith("en/"
 </Layout>
 
 <style>
+  /* Wide layout: the cards use the desktop width instead of the 720px text column. */
   .grid {
+    max-width: 1280px;
     display: grid;
     gap: var(--space-5);
     grid-template-columns: 1fr;

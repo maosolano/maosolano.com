@@ -8,10 +8,12 @@ import {
   routes,
   intro,
   profile,
+  bold,
   EMAIL,
   LINKEDIN,
   CV_PATH,
   type Lang,
+  linkAttrs,
 } from "@/i18n/ui";
 
 interface Props {
@@ -66,7 +68,7 @@ const closing = rest.pop();
 
 <section class="block block--text" aria-labelledby="about-heading">
   <h2 id="about-heading">{t("about.title")}</h2>
-  <p>{profile[lang][0]}</p>
+  <p set:html={bold(profile[lang][0])} />
   <p><a href={routes[lang].about}>{t("home.aboutMore")}</a></p>
 </section>
 
@@ -74,8 +76,8 @@ const closing = rest.pop();
   <h2 id="contact-heading">{t("contact.title")}</h2>
   <ul class="links">
     <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
-    <li><a href={LINKEDIN}>LinkedIn</a></li>
-    <li><a href={CV_PATH[lang]}>{t("about.cv")}</a></li>
+    <li><a href={LINKEDIN} {...linkAttrs(LINKEDIN)}>LinkedIn</a></li>
+    <li><a href={CV_PATH[lang]} {...linkAttrs(CV_PATH[lang])}>{t("about.cv")}</a></li>
   </ul>
 </section>
 

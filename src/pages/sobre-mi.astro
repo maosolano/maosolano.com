@@ -5,24 +5,56 @@ import Recommendation from "@/components/Recommendation.astro";
 import {
   useTranslations,
   profile,
+  bold,
   experience,
-  strengths,
-  aiPractice,
+  howIWork,
+  exploring,
+  journey,
   recommendations,
   RECOMMENDATIONS_URL,
   CV_PATH,
+  linkAttrs,
 } from "@/i18n/ui";
 
 const lang = "es" as const;
 const t = useTranslations(lang);
+const featured = recommendations.filter((rec) => rec.featured);
 ---
 
 <Layout pageKey="about" title={t("about.title")} description={t("about.description")}>
   <h1>{t("about.title")}</h1>
 
   <div class="profile">
-    {profile[lang].map((paragraph) => <p>{paragraph}</p>)}
+    {profile[lang].map((paragraph) => <p set:html={bold(paragraph)} />)}
   </div>
+
+  <h2 class="section">{t("about.howIWork")}</h2>
+  <dl class="work">
+    {howIWork[lang].map((item) => (
+      <div class="work__item">
+        <dt>{item.title}</dt>
+        <dd>{item.text}</dd>
+      </div>
+    ))}
+  </dl>
+
+  <h2 class="section">{t("about.exploring")}</h2>
+  <div class="profile">
+    <p>{exploring[lang].intro}</p>
+  </div>
+  <ul class="bullets">
+    {exploring[lang].items.map((item) => <li>{item}</li>)}
+  </ul>
+
+  <h2 class="section">{t("about.journey")}</h2>
+  <ol class="journey">
+    {journey[lang].map((step) => (
+      <li>
+        <span class="journey__stage">{step.stage}</span>
+        <span class="journey__text">{step.text}</span>
+      </li>
+    ))}
+  </ol>
 
   <h2 class="section">{t("about.experience")}</h2>
   <ul class="cv">
@@ -34,23 +66,14 @@ const t = useTranslations(lang);
     ))}
   </ul>
 
-  <h2 class="section">{t("about.strengths")}</h2>
-  <ul class="strengths">
-    {strengths[lang].map((item) => <li>{item}</li>)}
-  </ul>
-
-  <h2 class="section">{t("about.ai")}</h2>
-  <ul class="strengths">
-    {aiPractice[lang].map((item) => <li>{item}</li>)}
-  </ul>
-
   <h2 class="section">{t("about.recommendations")}</h2>
+  <p class="recs-intro">{t("about.recommendations.intro")}</p>
   <Carousel
     label={t("about.recommendations")}
     prevLabel={t("about.recommendations.prev")}
     nextLabel={t("about.recommendations.next")}
   >
-    {recommendations.map((rec) => (
+    {featured.map((rec) => (
       <Recommendation
         quote={rec.quote[lang]}
         name={rec.name}
@@ -62,9 +85,9 @@ const t = useTranslations(lang);
       />
     ))}
   </Carousel>
-  <p class="recs-link"><a href={RECOMMENDATIONS_URL}>{t("about.recommendations.linkedin")}</a></p>
+  <p class="recs-link"><a href={RECOMMENDATIONS_URL} {...linkAttrs(RECOMMENDATIONS_URL)}>{t("about.recommendations.linkedin")}</a></p>
 
-  <p class="cv-link"><a href={CV_PATH[lang]} download>{t("about.cv")}</a></p>
+  <p class="cv-link"><a href={CV_PATH[lang]} {...linkAttrs(CV_PATH[lang])} download>{t("about.cv")}</a></p>
 </Layout>
 
 <style>
@@ -83,7 +106,7 @@ const t = useTranslations(lang);
   }
 
   .cv,
-  .strengths {
+  .journey {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -92,10 +115,6 @@ const t = useTranslations(lang);
   .cv li {
     padding: var(--space-3) 0;
     border-bottom: var(--border-width) solid var(--color-border-subtle);
-  }
-
-  .cv li + li {
-    margin-top: 0;
   }
 
   .cv__role {
@@ -108,8 +127,79 @@ const t = useTranslations(lang);
     color: var(--color-text-muted);
   }
 
-  .strengths li {
-    padding: var(--space-2) 0;
+  .bullets {
+    margin: var(--space-4) 0 0;
+    padding-left: var(--space-5);
+  }
+
+  .bullets li {
+    padding: var(--space-1) 0;
+  }
+
+  /* How I work: term and line, one row each; stacked on mobile. */
+  .work {
+    margin: 0;
+  }
+
+  .work__item {
+    display: grid;
+    grid-template-columns: 14rem 1fr;
+    gap: var(--space-2) var(--space-5);
+    padding: var(--space-3) 0;
+    border-bottom: var(--border-width) solid var(--color-border-subtle);
+  }
+
+  .work dt {
+    font-weight: var(--weight-medium);
+  }
+
+  .work dd {
+    margin: 0;
+    max-width: 62ch;
+  }
+
+  /* Journey: a numbered list on a rule, so the order reads without colour. */
+  .journey {
+    counter-reset: step;
+    border-left: var(--border-width) solid var(--color-underline);
+  }
+
+  .journey li {
+    counter-increment: step;
+    position: relative;
+    padding: var(--space-3) 0 var(--space-3) var(--space-5);
+  }
+
+  .journey li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: var(--space-3);
+    transform: translateX(-50%);
+    display: grid;
+    place-items: center;
+    width: var(--space-5);
+    height: var(--space-5);
+    background-color: var(--color-accent);
+    border: var(--border-width) solid var(--color-underline);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+  }
+
+  .journey__stage {
+    display: block;
+    font-weight: var(--weight-medium);
+  }
+
+  .journey__text {
+    display: block;
+    color: var(--color-text-muted);
+    max-width: 62ch;
+  }
+
+  .recs-intro {
+    max-width: 62ch;
+    margin-bottom: var(--space-4);
   }
 
   .recs-link {
@@ -118,5 +208,11 @@ const t = useTranslations(lang);
 
   .cv-link {
     margin-top: var(--space-7);
+  }
+
+  @media (max-width: 799px) {
+    .work__item {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
