@@ -1,0 +1,152 @@
+---
+/** Screenshots with a caption each. `kind="phone"` frames portrait captures. */
+interface Item {
+  src: string;
+  alt: string;
+  tag?: string;
+  caption: string;
+  /** Highlighted areas in the screenshot's own pixels (`width`×`height` below). */
+  marks?: { x: number; y: number; w: number; h: number; label: string }[];
+}
+
+interface Props {
+  items: Item[];
+  kind?: "phone" | "wide";
+  /** Pixel space the `marks` are measured in. Desktop captures are 1440×900. */
+  width?: number;
+  height?: number;
+}
+
+const { items, kind = "phone", width = 1440, height = 900 } = Astro.props;
+const pct = (value: number, total: number) => `${(value / total) * 100}%`;
+---
+
+<div class:list={["pantallas", `pantallas--${kind}`]} style={`--n:${items.length}`}>
+  {items.map((item) => (
+    <figure>
+      {item.tag && <span class="pantallas__tag">{item.tag}</span>}
+      <div class="pantallas__frame">
+        <img src={item.src} alt={item.alt} loading="lazy" />
+        {item.marks?.map((mark, i) => (
+          <span
+            class="pantallas__mark"
+            style={`left:${pct(mark.x, width)};top:${pct(mark.y, height)};width:${pct(mark.w, width)};height:${pct(mark.h, height)}`}
+            aria-hidden="true"
+          >
+            <b>{i + 1}</b>
+          </span>
+        ))}
+      </div>
+      <figcaption>
+        {item.caption}
+        {item.marks && (
+          <ol class="pantallas__legend">
+            {item.marks.map((mark) => <li>{mark.label}</li>)}
+          </ol>
+        )}
+      </figcaption>
+    </figure>
+  ))}
+</div>
+
+<style>
+  .pantallas {
+    display: grid;
+    gap: var(--space-5);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pantallas--wide {
+    grid-template-columns: 1fr;
+  }
+
+  figure {
+    margin: 0;
+    min-width: 0;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: var(--border-width) solid var(--color-border);
+  }
+
+  .pantallas__frame {
+    position: relative;
+  }
+
+  /* An ink border with a lime halo reads on both the map and the white panels. */
+  .pantallas__mark {
+    position: absolute;
+    border: 2px solid var(--color-text);
+    outline: 3px solid var(--color-accent);
+  }
+
+  .pantallas__mark b {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    min-width: 1.4em;
+    padding: 0 var(--space-1);
+    transform: translateY(-100%);
+    background: var(--color-accent);
+    border: 2px solid var(--color-text);
+    font-size: var(--text-xs);
+    line-height: 1.4;
+    text-align: center;
+    color: var(--color-text);
+  }
+
+  .pantallas__legend {
+    list-style: none;
+    margin-top: var(--space-1);
+    padding-left: 0 !important; /* beats the prose list indent */
+    counter-reset: mark;
+    font-size: var(--text-xs);
+  }
+
+  .pantallas__legend li {
+    counter-increment: mark;
+  }
+
+  .pantallas__legend li::before {
+    content: counter(mark) " · ";
+    font-weight: var(--weight-bold);
+    color: var(--color-text);
+  }
+
+  .pantallas--phone img {
+    aspect-ratio: 390 / 844;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  figcaption {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    line-height: var(--leading-sm);
+    color: var(--color-text-muted);
+  }
+
+  .pantallas__tag {
+    display: inline-block;
+    margin-bottom: var(--space-2);
+    padding: 0 var(--space-2);
+    background: var(--color-accent);
+    font-size: var(--text-xs);
+    font-weight: var(--weight-medium);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+  }
+
+  @media (min-width: 800px) {
+    .pantallas--phone {
+      grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+    }
+
+    .pantallas--wide {
+      grid-template-columns: repeat(min(var(--n), 2), minmax(0, 1fr));
+    }
+  }
+</style>

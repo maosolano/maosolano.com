@@ -1,0 +1,137 @@
+---
+title: The Bike Memory Project
+url: https://www.bicis.maosolano.com
+image: ../../../assets/projects/bike.png
+subtitle: De una colección de dibujos a un archivo digital colaborativo
+summary: Una colección de dibujos de bicicletas hechos de memoria se convirtió en un archivo público y un proyecto colaborativo, con 387 dibujos publicados.
+exploreLabel: Explorar el archivo
+order: 3
+---
+
+import Seccion from "@/components/proyecto/Seccion.astro";
+import Esquema from "@/components/proyecto/Esquema.astro";
+import Pantallas from "@/components/proyecto/Pantallas.astro";
+import Cifras from "@/components/proyecto/Cifras.astro";
+import Enlaces from "@/components/proyecto/Enlaces.astro";
+
+Desde 2020 le pido a la gente que dibuje una bicicleta de memoria, sin mirarla: amigos, desconocidos en la calle, bares, talleres y galerías. Casi 400 personas aceptaron. Casi ninguna bici funcionaría en la vida real, y ahí está la gracia: cada dibujo es un recuerdo y una conversación. Convertí ese cuaderno en un archivo público y en un proyecto al que cualquiera puede sumarse.
+
+**Mi rol:** autor, diseñador y AI builder · **Periodo:** junio a octubre de 2026 (el grueso, del 20 de septiembre al 1 de octubre) · **Estado:** en producción.
+
+<Seccion id="problema" title="Problema" lead="Casi 400 dibujos que nadie podía ver, y que no eran solo míos.">
+
+Todo vivía en cuadernos, y para mostrarlo había cuatro problemas:
+
+- **Nadie podía verlos.** Una sola copia en papel, sin respaldo.
+- **Escaneos de página completa.** Espiral, bordes y blanco dejaban la bici diminuta.
+- **Sin datos.** Quién, dónde y cuándo había que reconstruirlo de memoria.
+- **Sin permisos.** Son obras de otras personas, a veces firmadas, sin consentimiento.
+
+Era también un experimento: ¿qué puede construir una sola persona con IA, sin equipo de desarrollo, en pocas semanas?
+
+<Esquema
+  label="De los cuadernos a un archivo público"
+  items={[
+    { title: "Hoy", text: "Cuadernos en un cajón, en una sola copia.", tone: "muted" },
+    { title: "Falta", text: "Un muro para ver, buscar tu bici y sumar una nueva." },
+    { title: "Condición", text: "Sin poner en riesgo a quienes dibujaron.", tone: "accent" },
+  ]}
+/>
+
+</Seccion>
+
+<Seccion id="que-hice" title="¿Qué hice?" lead="Un producto de punta a punta: un archivo público, una forma de contribuir y herramientas privadas para curarlo.">
+
+Diseñé y construí las tres partes, y cómo se conectan.
+
+<Esquema
+  label="Las tres partes del producto"
+  items={[
+    { title: "Archivo público", text: "Un muro con buscador y una página por cada bici." },
+    { title: "Contribución", text: "Dibuja la tuya en el navegador y envíala con permiso explícito." },
+    { title: "Curaduría privada", text: "Fichas, auditoría de cada dibujo y cola de moderación." },
+  ]}
+/>
+
+<Pantallas
+  kind="wide"
+  items={[
+    { src: "/casos/bike-memory/img/hero.jpg", alt: "Portada del sitio: fondo negro y el titular Un cuaderno, un rapidógrafo, una excusa para hablar con desconocidos, con el contador 387 bicicletas", tag: "Portada", caption: "La historia en una frase, y el contador de bicis." },
+    { src: "/casos/bike-memory/img/wall.jpg", alt: "El muro: cuadrícula de dibujos de bicicletas a tinta sobre papel, un buscador arriba y una celda naranja con el texto Una historia", tag: "Archivo público", caption: "El muro: 387 bicis y un buscador por número, nombre, lugar o año." },
+    { src: "/casos/bike-memory/img/drawing.jpg", alt: "Página de la Bike - 018 con la vista de hoja, los botones Dibuja la tuya, Compartir y WhatsApp, y el enlace Cuéntanos sobre esta bici", tag: "Una bici", caption: "Una página por bici, con botones para compartir y un formulario para contar una anécdota." },
+    { src: "/casos/bike-memory/img/draw.jpg", alt: "Página Dibuja la tuya: el titular Sin ciclista y sin ver referencias; solo una bici, como la recuerdes, y el lienzo en blanco", tag: "Contribución", caption: "Un lienzo y una instrucción. Descargas tu dibujo o lo envías, con permiso explícito." },
+  ]}
+/>
+
+### Del cuaderno a la pantalla
+
+Las imágenes pasan por un script de recorte que quita el espiral y los bordes y comprime: de 72 MB a 12 MB. En 29 bicis el recorte cortaba la firma o el contexto, y ahí hice a mano una “vista de hoja”.
+
+<Pantallas
+  items={[
+    { src: "/casos/bike-memory/img/018-scan.jpg", alt: "Escaneo original de la Bike - 018: página de cuaderno con el espiral arriba y una bici pequeña en la esquina inferior derecha", tag: "Escaneo", caption: "La página completa, con espiral." },
+    { src: "/casos/bike-memory/img/018-crop.jpg", alt: "La misma bici recortada al borde de la tinta", tag: "Recorte", caption: "Es la imagen del muro." },
+    { src: "/casos/bike-memory/img/018-detail.jpg", alt: "Vista de hoja de la Bike - 018: la bici con el espacio en blanco real de la página, sin la marca del espiral", tag: "Vista de hoja", caption: "Para la página de la bici." },
+  ]}
+/>
+
+La curaduría es privada, así que no la muestro: se entra con contraseña, permite editar fichas con “Guardar y siguiente”, auditar la anatomía de cada dibujo (marco, cadena, manubrio y pedales) y revisar los envíos en una cola de moderación.
+
+**Decisiones de producto que cuidan a quienes dibujaron:**
+
+- **Un muro fijo.** Barajar las bicis causaba un error de carga, y así cada bici siempre está en el mismo lugar.
+- **Dos permisos por separado.** Al enviar un dibujo se pide permiso para mostrarlo y, aparte, para mostrar el nombre. Si lo rechazo, se borra.
+- **Nombres sin permiso, ocultos pero buscables.** Si buscas tu nombre, recibes el número de tu bici, nunca el nombre. Aplica a 247 bicis.
+- **Sin cookies, analítica ni publicidad.**
+
+</Seccion>
+
+<Seccion id="ia" title="¿Cómo usé la IA?" lead="La IA aceleró la construcción. Las decisiones, el criterio y las preguntas legales fueron mías.">
+
+<Esquema
+  label="Del diseño al sitio publicado"
+  items={[
+    { title: "Reglas del juego", text: "Criterio, colores, tipografías, alcance y pendientes.", tone: "muted" },
+    { title: "Claude Design", text: "La propuesta visual y las pantallas de auditoría." },
+    { title: "Claude Code", text: "El código y los documentos del proyecto." },
+    { title: "Revisión mía", text: "Seguridad, contraseñas y preguntas legales.", tone: "accent" },
+  ]}
+/>
+
+- **Antes de pedir pantallas** escribí las reglas que Claude lee al empezar cada sesión, como “si hay dos opciones razonables, elige la más simple”. Así cada sesión arrancaba con la misma memoria.
+- **Claude Design** produjo la propuesta visual; **Claude Code** escribió el código. Ninguno de los dos entregó el producto solo: yo dirigí cada pantalla y cada decisión.
+- **La IA propone, yo decido.** Contraseñas, seguridad y preguntas legales las resolví yo.
+- **Un experimento que dejé en pausa:** probé que Claude Haiku etiquetara los dibujos por nivel de detalle y marcó el 83% como “muy detallada”. La IA puede proponer etiquetas, pero una persona tiene que revisarlas.
+
+</Seccion>
+
+<Seccion id="resultados" title="¿Qué resultados tuve?" lead="Un archivo funcionando y listo para crecer; lo que depende de los permisos sigue abierto.">
+
+<Cifras
+  items={[
+    { value: "387", label: "dibujos en línea, antes guardados solo en papel" },
+    { value: "12 MB", label: "de imágenes, frente a 72 MB de los escaneos" },
+    { value: "201", label: "fichas cargadas desde una hoja de cálculo" },
+    { value: "6 días", label: "de trabajo para casi todo el sitio" },
+  ]}
+/>
+
+Hoy las 387 bicis están en un enlace que se abre también en el teléfono, y cualquiera puede buscar la suya o enviar una nueva.
+
+**Lo que todavía no está resuelto.** Construir fue lo rápido; lo lento fue lo que la IA no resuelve: de quién son los dibujos, qué se puede publicar y quién decide. Hay un inventario de datos y 12 preguntas pendientes para un abogado. Hasta tener esas respuestas, la tienda y los usos nuevos esperan, y falta pedir a quienes dibujaron sus permisos por separado.
+
+</Seccion>
+
+<Seccion id="enlaces" title="Enlaces" lead="Lo que puedes abrir y probar.">
+
+<Enlaces
+  items={[
+    { name: "El muro", what: "El archivo público: 387 bicis con buscador.", href: "https://www.bicis.maosolano.com", label: "bicis.maosolano.com" },
+    { name: "Una bici", what: "La página de la Bike - 018, con su vista de hoja y el formulario de anécdotas.", href: "https://www.bicis.maosolano.com/drawing/018", label: "bicis.maosolano.com/drawing/018" },
+    { name: "Dibuja la tuya", what: "El lienzo para dibujar una bici de memoria y enviarla a la colección.", href: "https://www.bicis.maosolano.com/draw", label: "bicis.maosolano.com/draw" },
+    { name: "Plan de rediseño", what: "Del prototipo con bicis de relleno al sitio con el nuevo diseño.", href: "https://claude.ai/artifact/8thpT6V4wQN2Bcs7b6WA3G", label: "Artifact en Claude · 18 sep" },
+    { name: "Versión extensa del caso", what: "Proceso, decisiones y lo que haría diferente.", href: "https://claude.ai/artifact/HCus3ytZfaCzQU82mn9dEg", label: "Artifact en Claude" },
+  ]}
+/>
+
+</Seccion>

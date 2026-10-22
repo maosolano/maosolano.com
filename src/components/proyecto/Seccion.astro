@@ -1,0 +1,33 @@
+---
+/** One section of a project page: numbered heading, one-line question, then its content. */
+interface Props {
+  id: string;
+  title: string;
+  lead?: string;
+}
+
+const { id, title, lead } = Astro.props;
+---
+
+<section class="seccion" aria-labelledby={id}>
+  <h2 id={id}>{title}</h2>
+  {lead && <p class="seccion__lead">{lead}</p>}
+  <slot />
+</section>
+
+<style>
+  .seccion {
+    margin-top: var(--space-8);
+    padding-top: var(--space-5);
+    border-top: var(--border-width) solid var(--color-border);
+  }
+
+  .seccion > :global(* + *) {
+    margin-top: var(--space-5);
+  }
+
+  .seccion__lead {
+    font-size: var(--text-lg);
+    line-height: var(--leading-snug);
+  }
+</style>

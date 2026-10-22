@@ -1,0 +1,123 @@
+---
+title: Matcha
+url: https://matcha-prototipo.vercel.app/prototipo
+image: ../../../assets/projects/matcha.png
+subtitle: De un problema de decisión a un prototipo funcional asistido por IA
+summary: ¿Cómo ayudar a las personas a comparar opciones de vivienda sin sumar complejidad a una búsqueda que ya abruma? Construí un prototipo funcional para averiguarlo.
+order: 1
+---
+
+import Seccion from "@/components/proyecto/Seccion.astro";
+import Esquema from "@/components/proyecto/Esquema.astro";
+import Pantallas from "@/components/proyecto/Pantallas.astro";
+import Cifras from "@/components/proyecto/Cifras.astro";
+import Enlaces from "@/components/proyecto/Enlaces.astro";
+
+Matcha es un producto de Lucho Molina para buscar arriendo en Bogotá: guarda los anuncios, pregunta qué le importa a cada persona y le da a cada opción un porcentaje de *match*. Rediseñé su flujo central, **agregar → priorizar → comparar**, y lo construí como prototipo para celular.
+
+**Mi rol:** diseño UX con IA · **Periodo:** brief desde el 24 de julio; prototipo del 12 al 18 de septiembre de 2026 · **Estado:** prototipo, sin pruebas con usuarios todavía.
+
+<Seccion id="problema" title="Problema" lead="Buscar arriendo ya abruma. Comparar no debería sumar más confusión.">
+
+Los anuncios viven en links por WhatsApp, pestañas abiertas y notas sueltas. Matcha ya organizaba eso, pero su corazón, el flujo de decisión, tenía tres riesgos:
+
+- **Sin personas reales.** Perfiles y recorridos eran hipótesis que nadie había probado.
+- **Un número puede engañar.** Si falta un dato, el match baja, y “todavía no sabemos” se lee como “mal apartamento”.
+- **Priorizar era hacer cuentas.** Repartir 100 puntos distrae de lo que de verdad importa.
+
+<Esquema
+  label="Del caos a un riesgo concreto"
+  items={[
+    { title: "Hoy", text: "Links por WhatsApp, pestañas abiertas y notas perdidas.", tone: "muted" },
+    { title: "Falta", text: "Una forma honesta de comparar opciones." },
+    { title: "Riesgo", text: "Un porcentaje que castiga en silencio lo que no sabe.", tone: "accent" },
+  ]}
+/>
+
+</Seccion>
+
+<Seccion id="que-hice" title="¿Qué hice?" lead="Un prototipo funcional del flujo completo, con anuncios reales.">
+
+Pegas el link de un anuncio y Matcha lee costo, área y barrio. Después dices qué te importa y ves el orden. Las capturas usan el escenario de ejemplo: 6 opciones en Bogotá.
+
+<Esquema
+  label="El flujo en tres pasos"
+  items={[
+    { title: "1 · Agregar", text: "Pegas el link; lo que falta se pregunta, no se inventa." },
+    { title: "2 · Priorizar", text: "Una palabra por criterio, con su influencia en vivo." },
+    { title: "3 · Comparar", text: "Un orden que se explica, y dice qué dato falta." },
+  ]}
+/>
+
+<Pantallas
+  items={[
+    { src: "/casos/matcha/img/inicio.jpg", alt: "Paso 1: campo para pegar el link del anuncio y lista de opciones; Cedritos muestra costo sin dato", tag: "Agregar", caption: "Lee el anuncio. El costo que falta aparece como “sin dato”." },
+    { src: "/casos/matcha/img/prioridades.jpg", alt: "Paso 2: cada criterio con la escala Baja, Media, Alta, Innegociable y su porcentaje de influencia", tag: "Priorizar", caption: "Baja, Media, Alta o Innegociable; arriba, cuánto pesa cada criterio." },
+    { src: "/casos/matcha/img/comparacion.jpg", alt: "Paso 3: comparación con Chapinero Alto en 90% de match, 5 de 5 datos y un resumen de dónde suma y dónde cede", tag: "Comparar", caption: "El 90% no califica el apartamento: mide qué tanto encaja contigo." },
+    { src: "/casos/matcha/img/detalle.jpg", alt: "Detalle de Apartamento en Cedritos: 43% de match, falta 1 de 5 datos, costo sin dato porque falta la administración", tag: "Detalle", caption: "43% con “falta 1 de 5 datos”: el dato se completa ahí mismo." },
+  ]}
+/>
+
+### Dos decisiones que cambiaron la pantalla
+
+<Pantallas
+  items={[
+    { src: "/casos/matcha/img/puntos.jpg", alt: "Versión anterior: Reparte 100 puntos, con contador, barras y botones de más y menos", tag: "Antes", caption: "Repartir 100 puntos: 2.092 px de alto y cuentas que hacer." },
+    { src: "/casos/matcha/img/prioridades.jpg", alt: "Versión nueva: escala de palabras por criterio con su influencia en vivo", tag: "Después", caption: "Una palabra por criterio: 1.364 px, 35% más corta, con el mismo cálculo." },
+  ]}
+/>
+
+- **Datos que faltan.** Un dato ausente suma cero y la pantalla lo declara (“sin dato”) en lugar de esconderlo. Una opción incompleta baja, y eso es justo lo que quiero observar en las sesiones.
+- **Primero las opciones.** Con sus apartamentos enfrente, la gente no inventa los pesos.
+
+</Seccion>
+
+<Seccion id="ia" title="¿Cómo usé la IA?" lead="Claude aceleró la exploración y la implementación; las reglas y los criterios los puse yo.">
+
+<Esquema
+  label="De mis reglas al prototipo"
+  items={[
+    { title: "Brief vivo", text: "Valores, recorridos y registro de decisiones con su porqué.", tone: "muted" },
+    { title: "Handoff", text: "Flujo, modelo de match, textos y criterios de aceptación." },
+    { title: "Claude Design", text: "4 exploraciones interactivas de cómo repartir prioridades." },
+    { title: "Claude Code", text: "El prototipo, con 24 componentes y un sistema de diseño propio." },
+    { title: "Pruebas", text: "16 pruebas automáticas del modelo de match.", tone: "accent" },
+  ]}
+/>
+
+- **Claude** me ayudó con el brief, el handoff y el plan de investigación.
+- **Claude Design** produjo las cuatro exploraciones (sliders, fichas, barra y gráfico circular) como artefactos que probé con la mano. Ninguna ganó: elegí una escala de palabras.
+- **Claude Code**, con Claude Opus 5, escribió el código a partir del handoff y firma cada commit como coautor. Las decisiones de producto y los criterios de aceptación los definí yo antes de implementar.
+
+Las pruebas automáticas verifican el modelo de match, no la usabilidad.
+
+</Seccion>
+
+<Seccion id="resultados" title="¿Qué resultados tuve?" lead="Lo construido está medido; lo que depende de las personas todavía no.">
+
+<Cifras
+  items={[
+    { value: "5 días", label: "del handoff al prototipo publicado, en 17 commits" },
+    { value: "24", label: "componentes, documentados en su propio sistema de diseño" },
+    { value: "16", label: "pruebas automáticas del modelo de match" },
+    { value: "7", label: "preguntas en el plan de investigación, listas para sesiones" },
+  ]}
+/>
+
+También mejoró el producto principal: 26 de 55 links de la app no se veían como links en el celular, y ahora hay un componente con subrayado visible, que es regla del sistema.
+
+**Lo que todavía no sé.** Las sesiones con 6 a 8 personas que buscan arriendo no se han hecho. No sé si un 43% por falta de datos se lee como “mal apartamento”, ni si la gente confía en el match. Ese es el siguiente paso.
+
+</Seccion>
+
+<Seccion id="enlaces" title="Enlaces" lead="Lo que puedes abrir y probar.">
+
+<Enlaces
+  items={[
+    { name: "Prototipo en vivo", what: "El flujo completo: agregar, priorizar y comparar, con el escenario de ejemplo.", href: "https://matcha-prototipo.vercel.app/prototipo", label: "matcha-prototipo.vercel.app/prototipo" },
+    { name: "Cuatro maneras de repartir prioridades", what: "Las exploraciones interactivas hechas con Claude Design.", href: "https://claude.ai/artifact/NHTjZQ8nrxbSuuMyijdvna", label: "Artifact interactivo · 15 sep" },
+    { name: "Versión extensa del caso", what: "Decisiones, proceso día a día y lo que haría diferente.", href: "https://claude.ai/artifact/BG74SvV3654WkoZz7Rxu2Q", label: "Artifact en Claude" },
+  ]}
+/>
+
+</Seccion>
