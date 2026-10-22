@@ -9,8 +9,8 @@ interface Props {
 const { id, title, lead } = Astro.props;
 ---
 
-<section class="seccion" aria-labelledby={id}>
-  <h2 id={id}>{title}</h2>
+<section class="seccion" id={id} aria-labelledby={`${id}-titulo`}>
+  <h2 id={`${id}-titulo`}>{title}</h2>
   {lead && <p class="seccion__lead">{lead}</p>}
   <slot />
 </section>
@@ -18,8 +18,10 @@ const { id, title, lead } = Astro.props;
 <style>
   .seccion {
     clear: both;
-    margin-top: var(--space-8);
+    margin-top: var(--space-9);
     padding-top: var(--space-5);
+    /* Anchors land below the site bar and the sticky project head. */
+    scroll-margin-top: calc(var(--bar-height, 64px) + var(--head-height, 120px) + var(--space-4));
     border-top: var(--border-width) solid var(--color-border);
   }
 

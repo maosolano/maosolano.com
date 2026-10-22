@@ -41,6 +41,8 @@ const caseStudy = hasCase && EMBED_CASE ? casePath(lang, slug) : undefined;
         <h1>{title}</h1>
         <a class="btn" href={url} {...linkAttrs(url)}>{exploreLabel ?? t("projects.explore")}</a>
       </div>
+      <!-- Filled from the page's sections by the script below. -->
+      <nav class="project__tabs" aria-label={t("projects.sections")} hidden></nav>
     </header>
 
     <div class="project__intro">
@@ -120,6 +122,37 @@ const caseStudy = hasCase && EMBED_CASE ? casePath(lang, slug) : undefined;
     margin-top: var(--space-2);
   }
 
+  .project__tabs {
+    display: flex;
+    gap: var(--space-1);
+    margin: var(--space-2) 0 calc(var(--space-3) * -1);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .project__tabs[hidden] {
+    display: none;
+  }
+
+  .project__tabs :global(a) {
+    flex: none;
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    text-decoration: none;
+    border-bottom: var(--underline-thickness) solid transparent;
+  }
+
+  .project__tabs :global(a):hover {
+    background-color: var(--color-accent);
+  }
+
+  .project__tabs :global(a)[aria-current="true"] {
+    background-color: var(--color-accent);
+    border-bottom-color: var(--color-underline);
+    font-weight: var(--weight-medium);
+  }
+
   .project__bar h1 {
     font-size: var(--text-xl);
   }
@@ -188,6 +221,45 @@ const caseStudy = hasCase && EMBED_CASE ? casePath(lang, slug) : undefined;
 </style>
 
 <script>
+  // Section tabs: built from the page's own sections, so the MDX stays the
+  // single source. The current section follows the scroll.
+  const head = document.querySelector<HTMLElement>(".project__head");
+  const tabs = document.querySelector<HTMLElement>(".project__tabs");
+  const sections = [...document.querySelectorAll<HTMLElement>(".seccion")];
+  if (head && tabs && sections.length > 1) {
+    const links = sections.map((section) => {
+      const heading = section.querySelector("h2");
+      const link = document.createElement("a");
+      link.href = `#${section.id}`;
+      link.textContent = heading?.textContent ?? "";
+      tabs.append(link);
+      return link;
+    });
+    tabs.hidden = false;
+
+    const syncHead = () => document.documentElement.style.setProperty("--head-height", `${head.offsetHeight}px`);
+    syncHead();
+    new ResizeObserver(syncHead).observe(head);
+
+    const mark = () => {
+      // The last section whose top has passed the line under the sticky head.
+      const line = (head.getBoundingClientRect().bottom || 0) + 24;
+      let current = 0;
+      sections.forEach((section, i) => {
+        if (section.getBoundingClientRect().top <= line) current = i;
+      });
+      // The last section may never reach the line: at the page bottom it is the current one.
+      if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) current = sections.length - 1;
+      links.forEach((link, i) => {
+        if (i === current) link.setAttribute("aria-current", "true");
+        else link.removeAttribute("aria-current");
+      });
+      links[current].scrollIntoView({ block: "nearest", inline: "nearest" });
+    };
+    addEventListener("scroll", mark, { passive: true });
+    mark();
+  }
+
   // Keep the sticky head flush under the site bar, whatever its height.
   const bar = document.querySelector<HTMLElement>(".bar");
   if (bar) {
