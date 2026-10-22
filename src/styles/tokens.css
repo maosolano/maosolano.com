@@ -37,6 +37,7 @@
   --color-border-subtle: var(--slate-100);
   --color-text: var(--slate-900);
   --color-text-muted: var(--slate-500);
+  --color-text-soft: var(--slate-700);
   --color-heading: var(--slate-800);
   --color-underline: var(--slate-900);
   --color-accent: var(--lime-500);

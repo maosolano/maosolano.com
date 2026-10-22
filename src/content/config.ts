@@ -12,6 +12,8 @@ const projects = defineCollection({
       title: z.string(),
       url: z.string().url(),
       image: image().optional(),
+      // Discipline line shown under the title on the project cards.
+      subtitle: z.string(),
       summary: z.string(),
       order: z.number(),
     }),

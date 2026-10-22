@@ -2,7 +2,8 @@
 title: Matcha
 url: https://matcha-prototipo.vercel.app/prototipo
 image: ../../../assets/projects/matcha.png
-summary: Rediseño del flujo principal para buscar, comparar y elegir vivienda.
+subtitle: Rediseño de producto y prototipado con IA
+summary: Transformé el flujo principal de una herramienta para buscar y comparar vivienda en un prototipo funcional, con anuncios reales, un modelo de decisión documentado y un sistema de diseño propio.
 order: 1
 ---
 

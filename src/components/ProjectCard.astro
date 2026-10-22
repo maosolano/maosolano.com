@@ -3,6 +3,8 @@ import { Image } from "astro:assets";
 
 interface Props {
   title: string;
+  /** Discipline line under the title. Shown on the "tile" layout. */
+  subtitle?: string;
   url: string;
   /** Where the title links. Defaults to the live site (`url`). */
   href?: string;
@@ -21,7 +23,7 @@ interface Props {
   layout?: "split" | "stacked" | "tile";
 }
 
-const { title, url, href = url, image, imageAlt, visitLabel, visitHref = url, layout = "split" } = Astro.props;
+const { title, subtitle, url, href = url, image, imageAlt, visitLabel, visitHref = url, layout = "split" } = Astro.props;
 const stacked = layout === "stacked";
 const tile = layout === "tile";
 ---
@@ -43,6 +45,7 @@ const tile = layout === "tile";
     </div>
     <div class="tile__text">
       <h3 class="card__title"><a href={href} class="tile__link">{title}</a></h3>
+      {subtitle && <p class="tile__subtitle">{subtitle}</p>}
       <slot />
       <p class="tile__visit">{visitLabel} →</p>
     </div>
@@ -183,6 +186,7 @@ const tile = layout === "tile";
 
   .tile__text :global(p) {
     font-size: var(--text-sm);
+    color: var(--color-text-soft);
   }
 
   .card--tile .card__title {
@@ -202,6 +206,22 @@ const tile = layout === "tile";
 
   .tile__link:hover {
     background-color: transparent;
+  }
+
+  .tile__text .tile__subtitle {
+    padding-left: var(--space-3);
+    border-left: 4px solid var(--color-accent);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-snug);
+    color: var(--color-text);
+  }
+
+  .card--tile:hover .tile__text :global(p) {
+    color: var(--color-text);
+  }
+
+  .card--tile:hover .tile__subtitle {
+    border-left-color: var(--color-text);
   }
 
   .tile__visit {

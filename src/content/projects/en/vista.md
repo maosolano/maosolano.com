@@ -2,7 +2,8 @@
 title: VISTA
 url: https://bitagreen-vista-prototype.vercel.app
 image: ../../../assets/projects/vista.png
-summary: Proof of concept for a geospatial web app to manage urban green spaces.
+subtitle: AI-assisted design engineering
+summary: I turned scattered documentation into a functional geospatial prototype. I used Claude to design and build the experience, and developed rules, components, and controls to keep the system consistent.
 order: 2
 ---
 

@@ -2,7 +2,8 @@
 title: Matcha
 url: https://matcha-prototipo.vercel.app/prototipo
 image: ../../../assets/projects/matcha.png
-summary: A redesign of the core flow for searching, comparing, and choosing a home.
+subtitle: Product redesign and AI prototyping
+summary: I turned the core flow of a tool for searching and comparing homes into a functional prototype, with real listings, a documented decision model, and a design system of its own.
 order: 1
 ---
 

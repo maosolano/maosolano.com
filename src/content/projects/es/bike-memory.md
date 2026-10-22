@@ -2,7 +2,8 @@
 title: The Bike Memory Project
 url: https://www.bicis.maosolano.com
 image: ../../../assets/projects/bike.png
-summary: Un archivo colaborativo de bicicletas dibujadas de memoria.
+subtitle: Diseño de producto, desarrollo asistido por IA y experimentación
+summary: Convertí una colección de dibujos de bicicletas en un archivo digital colaborativo, con herramientas de participación, publicación y curaduría.
 order: 3
 ---
 
