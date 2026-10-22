@@ -7,7 +7,7 @@ import {
   useTranslations,
   routes,
   intro,
-  profile,
+  profileShort,
   bold,
   EMAIL,
   LINKEDIN,
@@ -68,7 +68,7 @@ const closing = rest.pop();
 
 <section class="block block--text" aria-labelledby="about-heading">
   <h2 id="about-heading">{t("about.title")}</h2>
-  <p set:html={bold(profile[lang][0])} />
+  {profileShort[lang].map((paragraph) => <p set:html={bold(paragraph)} />)}
   <p><a href={routes[lang].about}>{t("home.aboutMore")}</a></p>
 </section>
 
