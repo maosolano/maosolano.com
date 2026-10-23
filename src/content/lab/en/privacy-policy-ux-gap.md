@@ -9,6 +9,10 @@ translationKey: privacy-policy-ux-gap
 
 I worked on the data policy of an energy company. For confidentiality I do not use its name or brand.
 
+![Desktop view of the redesigned policy, with a four-card summary and a side index](../../../assets/lab/politica-artefacto-desktop.png)
+
+*Desktop view of the redesigned policy. [See the artifact](https://claude.ai/artifact/AxkS2aZbZw1vuAmQTuF3YC).*
+
 ## 1. Problem
 
 User experience is also measured by the distance between how easy the product is to use and how hard its "corners" are to read.

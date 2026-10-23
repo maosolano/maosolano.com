@@ -9,6 +9,10 @@ translationKey: privacy-policy-ux-gap
 
 Trabajé con la política de datos de una empresa de energía. Por confidencialidad no uso su nombre ni su marca.
 
+![Vista de escritorio de la política rediseñada, con resumen en cuatro tarjetas e índice lateral](../../../assets/lab/politica-artefacto-desktop.png)
+
+*Vista de escritorio de la política rediseñada. [Ver el artefacto](https://claude.ai/artifact/AxkS2aZbZw1vuAmQTuF3YC).*
+
 ## 1. Problema
 
 La experiencia de usuario también se mide por la distancia entre lo fácil que es usar el producto y lo difícil que es leer sus «rincones».
