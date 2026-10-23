@@ -1,8 +1,16 @@
 ---
-title: A portfolio in two hours
+title: "A portfolio in (a bit more than) two hours"
 date: 2026-10-04
 summary: How I went from a pen sketch to a published site in one afternoon, working with Claude.
 draft: false
+updates:
+  - date: 2026-10-23
+    title: "Yesterday I rebuilt much of the site this post published."
+    items:
+      - "<b>New visual system:</b> Space Grotesk, a slate and lime palette, and a modular type scale."
+      - "<b>Menu in the header</b> and a rebuilt Home with intro, featured projects, About and Contact."
+      - "<b>Project pages in ES and EN</b> with Problem, What I did, AI, Results and Links, full width on desktop."
+      - "<b>About in rows</b> and an updated CV: the Spanish one revised, the English one rebuilt from it."
 translationKey: portfolio-in-two-hours
 ---
 

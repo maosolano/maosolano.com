@@ -1,11 +1,18 @@
 ---
 /**
  * Wraps rendered Markdown so long-form text keeps a comfortable
- * measure and consistent vertical rhythm.
+ * measure and consistent vertical rhythm. With `lead`, the first
+ * paragraph under each heading is set larger, so a section can be
+ * scanned by its opening sentences.
  */
+interface Props {
+  lead?: boolean;
+}
+
+const { lead = false } = Astro.props;
 ---
 
-<div class="prose">
+<div class:list={["prose", { lead }]}>
   <slot />
 </div>
 
@@ -26,6 +33,13 @@
     margin-top: var(--space-6);
   }
 
+  /* Opening sentence of each section. Skips paragraphs that only hold an image. */
+  .prose.lead :global(:is(h2, h3) + p:not(:has(> img:only-child))) {
+    margin-top: var(--space-3);
+    font-size: var(--text-lg);
+    line-height: var(--leading-snug);
+  }
+
   .prose :global(img) {
     width: 100%;
     border: var(--border-width) solid var(--color-border);
@@ -43,8 +57,34 @@
     font-weight: var(--weight-medium);
   }
 
+  /* Wide tables scroll inside their own box instead of the page. */
+  .prose :global(table) {
+    display: block;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+
+  .prose :global(th),
+  .prose :global(td) {
+    min-width: 9rem;
+    padding: var(--space-2) var(--space-3);
+    border-bottom: var(--border-width) solid var(--color-border-subtle);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .prose :global(th) {
+    font-weight: var(--weight-medium);
+    border-bottom-color: var(--color-border);
+  }
+
   .prose :global(ul),
   .prose :global(ol) {
     padding-left: var(--space-5);
+  }
+
+  .prose.lead :global(li + li) {
+    margin-top: var(--space-2);
   }
 </style>

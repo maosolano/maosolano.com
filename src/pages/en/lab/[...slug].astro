@@ -2,6 +2,7 @@
 import type { GetStaticPaths } from "astro";
 import Layout from "@/layouts/Layout.astro";
 import Prose from "@/components/Prose.astro";
+import LabUpdate from "@/components/LabUpdate.astro";
 import { getCollection, render } from "astro:content";
 import { useTranslations, formatDate, routes } from "@/i18n/ui";
 
@@ -51,7 +52,9 @@ const { Content } = await render(post);
       {formatDate(post.data.date, lang)}
     </time>
 
-    <Prose>
+    {post.data.updates.map((u) => <LabUpdate {...u} lang={lang} />)}
+
+    <Prose lead>
       <Content />
     </Prose>
 

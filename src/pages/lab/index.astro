@@ -8,7 +8,7 @@ const lang = "es" as const;
 const t = useTranslations(lang);
 
 const posts = (
-  await getCollection("lab", ({ id, data }) => id.startsWith("es/") && !data.draft)
+  await getCollection("lab", ({ id, data }) => id.startsWith("es/") && !data.draft && !data.unlisted)
 )
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .map((post) => ({

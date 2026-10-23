@@ -28,6 +28,15 @@ const lab = defineCollection({
     date: z.date(),
     summary: z.string(),
     draft: z.boolean().default(false),
+    // Built and reachable by its link, but left out of the list and of search engines.
+    unlisted: z.boolean().default(false),
+    // A short line shown above the post, e.g. that it is work in progress.
+    note: z.string().optional(),
+    // Dated summaries of what changed after the post was written, newest first.
+    // Items may carry inline tags (<b>, <code>).
+    updates: z
+      .array(z.object({ date: z.date(), title: z.string(), items: z.array(z.string()) }))
+      .default([]),
     // Links a post to its counterpart in the other language, for hreflang.
     translationKey: z.string().optional(),
   }),
