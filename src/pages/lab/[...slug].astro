@@ -2,6 +2,7 @@
 import type { GetStaticPaths } from "astro";
 import Layout from "@/layouts/Layout.astro";
 import Prose from "@/components/Prose.astro";
+import LabUpdate from "@/components/LabUpdate.astro";
 import { getCollection, render } from "astro:content";
 import { useTranslations, formatDate, routes } from "@/i18n/ui";
 
@@ -44,6 +45,7 @@ const { Content } = await render(post);
   title={post.data.title}
   description={post.data.summary}
   alternates={alternates}
+  noindex={post.data.unlisted}
 >
   <article>
     <h1>{post.data.title}</h1>
@@ -51,7 +53,11 @@ const { Content } = await render(post);
       {formatDate(post.data.date, lang)}
     </time>
 
-    <Prose>
+    {post.data.note && <p class="note">{post.data.note}</p>}
+
+    {post.data.updates.map((u) => <LabUpdate {...u} lang={lang} />)}
+
+    <Prose lead>
       <Content />
     </Prose>
 
@@ -65,6 +71,14 @@ const { Content } = await render(post);
     margin-top: var(--space-3);
     font-size: var(--text-sm);
     color: var(--color-text-muted);
+  }
+
+  .note {
+    margin-top: var(--space-5);
+    padding: var(--space-3) var(--space-4);
+    border: var(--border-width) solid var(--color-border);
+    background-color: var(--color-surface);
+    font-size: var(--text-sm);
   }
 
   article :global(.prose) {

@@ -89,6 +89,8 @@ translationKey: my-entry      # same string in both files
 
 The post appears at `/lab/mi-entrada` and `/en/lab/my-entry`, newest first.
 
+Experiment posts follow the six-section structure in [`LAB.md`](LAB.md).
+
 ## Adding a project
 
 Create a file in `src/content/projects/es/` and one in

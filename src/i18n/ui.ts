@@ -102,6 +102,7 @@ export const ui = {
     "lab.description": "Notas y experimentos sobre diseño, contenido e inteligencia artificial.",
     "lab.empty": "Todavía no hay entradas publicadas.",
     "lab.back": "Volver al Lab",
+    "lab.update": "Actualización",
 
     "contact.title": "Contacto",
     "contact.description": "Escríbeme por correo o encuéntrame en LinkedIn.",
@@ -165,6 +166,7 @@ export const ui = {
     "lab.description": "Notes and experiments on design, content, and artificial intelligence.",
     "lab.empty": "No entries published yet.",
     "lab.back": "Back to Lab",
+    "lab.update": "Update",
 
     "contact.title": "Contact",
     "contact.description": "Reach me by email or find me on LinkedIn.",

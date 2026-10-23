@@ -1,8 +1,16 @@
 ---
-title: Un portafolio en dos horas
+title: "Un portafolio en (un poco más de) dos horas"
 date: 2026-10-04
 summary: Cómo pasé de un boceto a lápiz a un sitio publicado en una tarde, trabajando con Claude.
 draft: false
+updates:
+  - date: 2026-10-23
+    title: "Ayer rehice buena parte del sitio que se publicó en este post."
+    items:
+      - "<b>Nuevo sistema visual:</b> Space Grotesk, paleta pizarra y lima, y una escala tipográfica modular."
+      - "<b>Menú en el header</b> y Home rehecho con intro, proyectos destacados, Sobre mí y Contacto."
+      - "<b>Páginas de proyecto en ES y EN</b> con Problema, Qué hice, IA, Resultados y Enlaces, a ancho completo en escritorio."
+      - "<b>Sobre mí en filas</b> y CV actualizado: el español revisado y el inglés rehecho a partir de él."
 translationKey: portfolio-in-two-hours
 ---
 
